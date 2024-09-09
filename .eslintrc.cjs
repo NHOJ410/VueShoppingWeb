@@ -7,5 +7,9 @@ module.exports = {
   ],
   parserOptions: {
     ecmaVersion: 'latest'
+  },
+  // 重置ESLint組件名規則
+  reles : {
+    'vue/multi-word-component-names': 0
   }
 }

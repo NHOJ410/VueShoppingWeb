@@ -1,11 +1,9 @@
 <script setup>
 
-
-
 </script>
 
 <template>
-  <!-- 路由出口 -->
+  <div>我是首頁</div>
   <router-view></router-view>
 </template>
 

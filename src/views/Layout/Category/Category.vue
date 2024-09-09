@@ -1,12 +1,9 @@
 <script setup>
 
-
-
 </script>
 
 <template>
-  <!-- 路由出口 -->
-  <router-view></router-view>
+  <div>商品分類</div>
 </template>
 
 <style scoped>
