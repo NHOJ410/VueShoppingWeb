@@ -1,22 +1,13 @@
 <script setup>
 import { ref } from 'vue';
 // 導入api 
-import { getCategoryNavService } from '@/apis/layout'; // 獲取頭部導航條
+import { getCategoryNavService } from '@/apis/layout'; // 獲取頭部商品導航條
+// 導入 Pinia倉庫
+import { useCategoryStore } from '@/stores' // 導入商品分類倉庫
+const categoryStore = useCategoryStore() // 定義商品分類倉庫
 
-// ------ 頭部導航條部分 ----------
-
-// 存儲頭部導航條數據
-const categoryNav = ref([]) 
-
-// 獲取頭部導航條 
-const getCategory = async () => {
-  const result = await getCategoryNavService()
-  categoryNav.value = result.data.result
-}
-getCategory()
 
 </script>
-
 <template>
   <header class='app-header'>
     <div class="container">
@@ -25,7 +16,7 @@ getCategory()
       </h1>
       <!-- 頭部商品列表區域 -->
       <ul class="app-header-nav">
-        <li class="home" v-for="item in categoryNav" :key="item.id">
+        <li class="home" v-for="item in categoryStore.categoryNav" :key="item.id">
           <RouterLink to="/">{{ item.name }}</RouterLink>
         </li>
       </ul>
