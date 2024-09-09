@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <div></div>
+  <el-button type="primary">按鈕</el-button>
 </template>
 
 <style scoped>
