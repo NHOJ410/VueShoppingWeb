@@ -1,5 +1,20 @@
 <script setup>
-import { Search } from '@element-plus/icons-vue'
+import { ref } from 'vue';
+// 導入api 
+import { getCategoryNavService } from '@/apis/layout'; // 獲取頭部導航條
+
+// ------ 頭部導航條部分 ----------
+
+// 存儲頭部導航條數據
+const categoryNav = ref([]) 
+
+// 獲取頭部導航條 
+const getCategory = async () => {
+  const result = await getCategoryNavService()
+  categoryNav.value = result.data.result
+}
+getCategory()
+
 </script>
 
 <template>
@@ -8,13 +23,11 @@ import { Search } from '@element-plus/icons-vue'
       <h1 class="logo">
         <RouterLink to="/">小兔仙</RouterLink>
       </h1>
+      <!-- 頭部商品列表區域 -->
       <ul class="app-header-nav">
-        <li class="home">
-          <RouterLink to="/">首頁</RouterLink>
+        <li class="home" v-for="item in categoryNav" :key="item.id">
+          <RouterLink to="/">{{ item.name }}</RouterLink>
         </li>
-        <li> <RouterLink to="/">居家</RouterLink> </li>
-        <li> <RouterLink to="/">美食</RouterLink> </li>
-        <li> <RouterLink to="/">服飾</RouterLink> </li>
       </ul>
       <div class="search">
         <i class="iconfont icon-search"></i>
