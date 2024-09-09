@@ -1,10 +1,8 @@
-import './assets/main.css'
-
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
-
 import App from './App.vue'
 import router from './router'
+import '@/styles/common.scss' // css重置樣式
 
 const app = createApp(App)
 
