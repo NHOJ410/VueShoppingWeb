@@ -45,7 +45,7 @@ const categoryStore = useCategoryStore() // 定義商品分類倉庫
   background: rgba(0, 0, 0, 0.8);
   position: relative;
   z-index: 99;
-  
+  border-radius: 10px;
   // 左側商品列表
   .menu {
     li {

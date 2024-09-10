@@ -20,4 +20,10 @@ import HomeProduct from '@/views/Layout/Home/components/HomeProduct.vue'
   <HomeHot></HomeHot>
   <!-- 產品列表區域 -->
   <HomeProduct></HomeProduct>
+  
+
+
 </template>
+
+<style lang="scss" scoped>
+</style>

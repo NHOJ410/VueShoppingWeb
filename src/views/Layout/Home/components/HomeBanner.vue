@@ -39,11 +39,13 @@ onMounted(() => {
   left: 0;
   top: 0;
   z-index: 98;
+  border-radius: 10px;
   
   // 輪播圖裡面的圖片大小
   img {
     width: 100%;
     height: 500px;
+    border-radius: 10px;
   }
   
   // 加大輪播圖的箭頭樣式
