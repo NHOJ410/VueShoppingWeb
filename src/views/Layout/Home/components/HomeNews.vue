@@ -9,7 +9,7 @@ const newsList = ref([]) // 存儲新鮮好物數據
 
 // 定義方法 獲取數據
 const getNewsList = async () => {
-  const result = await getNewsService(12)
+  const result = await getNewsService(8)
   newsList.value = result.data.result
 }
 
@@ -57,8 +57,8 @@ getNewsList()
       height: 306px;
     }
     p {
-      font-size: 22px;
-      padding-top: 12px;
+      font-size: 18px;
+      padding: 12px;
       text-align: center;
       text-overflow: ellipsis;
       overflow: hidden;
