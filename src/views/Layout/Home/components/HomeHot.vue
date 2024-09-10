@@ -13,6 +13,7 @@ const getHotList = async () => {
   hotList.value = result.data.result
 }
 
+
 // 調用方法 獲取新鮮好物數據
 getHotList()
 
@@ -24,7 +25,7 @@ getHotList()
       <ul class="goods-list">
         <li v-for="item in hotList" :key="item.id">
           <RouterLink to="/">
-            <img :src="item.picture" alt="" />
+            <img  alt="" v-lazyLoading="item.picture"/>
             <p class="title">{{ item.title }}</p>
             <p class="alt">{{ item.alt }}</p>
           </RouterLink>
