@@ -1,4 +1,9 @@
 <script setup>
+// 導入 Pinia倉庫
+import { useCategoryStore } from '@/stores'
+
+const categoryStore = useCategoryStore() // 定義商品分類倉庫
+
 
 </script>
 
@@ -6,22 +11,22 @@
   <div class="home-category">
     <!-- 左側商品列表主體 -->
     <ul class="menu">
-      <li v-for="item in 9" :key="item">
-        <RouterLink to="/">居家</RouterLink>
-        <RouterLink v-for="i in 2" :key="i" to="/">居家好物</RouterLink>
+      <li v-for="item in categoryStore.categoryNav" :key="item.id">
+        <RouterLink to="/">{{ item.name }}</RouterLink>
+        <RouterLink v-for="i in item.children.slice(0,2)" :key="i.id" to="/">{{ i.name }}</RouterLink>
         <!-- 經過時觸發彈層效果 -->
         <div class="layer">
           <h4>分類推薦 <small>根據你的購買或瀏覽紀錄推薦商品</small></h4>
           <ul>
-            <li v-for="i in 5" :key="i">
+            <li v-for="i in item.goods" :key="i.id">
               <RouterLink to="/">
-                <img alt="" />
+                <img alt="" :src="i.picture"/>
                 <div class="info">
                   <p class="name ellipsis-2">
-                    男士外套
+                    {{ i.name }}
                   </p>
-                  <p class="desc ellipsis">男士外套 , 冬季必選</p>
-                  <p class="price"><i>$</i>200.00</p>
+                  <p class="desc ellipsis">{{ i.desc }}</p>
+                  <p class="price"><i>$</i>{{ i.price }}</p>
                 </div>
               </RouterLink>
             </li>
