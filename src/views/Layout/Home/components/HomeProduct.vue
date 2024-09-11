@@ -1,7 +1,8 @@
 <script setup>
 import { ref } from 'vue'
 // 引入組件
-import HomePanel from './HomePanel.vue'
+import HomePanel from './HomePanel.vue' // 標題組件
+import GoodsItem from '@/views/Layout/Home/components/GoodsItem.vue' // 產品列表組件
 // 引入 api
 import { getProductService } from '@/apis/home'// 獲取產品列表數據
 
@@ -32,14 +33,9 @@ getProductList()
         <!-- 右側商品列表 -->
         <ul class="goods-list">
           <li v-for="good in item.goods" :key="good.id">
-            <RouterLink to="/" class="goods-item">
-              <img v-lazyLoading="good.picture" alt="" />
-              <p class="name ellipsis">{{ good.name }}</p>
-              <p class="desc ellipsis">{{ good.desc }}</p>
-              <p class="price">${{ good.price }}</p>
-            </RouterLink>
+            <GoodsItem :good="good"></GoodsItem>
           </li>
-        </ul>
+         </ul>
       </div>
     </HomePanel>
   </div>
@@ -110,8 +106,10 @@ getProductList()
         }
       }
     }
-    // 右側商品列表
-    .goods-list {
+  }
+
+  // 右側商品列表
+  .goods-list {
       width: 990px;
       display: flex;
       justify-content: space-between;
@@ -132,42 +130,5 @@ getProductList()
         }
       }
     }
-
-    .goods-item {
-      display: block;
-      width: 220px;
-      padding: 20px 30px;
-      text-align: center;
-      transition: all .5s;
-
-      &:hover {
-        transform: translate3d(0, -3px, 0);
-        box-shadow: 0 3px 8px rgb(0 0 0 / 20%);
-      }
-
-      img {
-        width: 160px;
-        height: 160px;
-      }
-
-      p {
-        padding-top: 10px;
-      }
-
-      .name {
-        font-size: 16px;
-      }
-
-      .desc {
-        color: #999;
-        height: 29px;
-      }
-
-      .price {
-        color: $priceColor;
-        font-size: 20px;
-      }
-    }
-  }
 }
 </style>
