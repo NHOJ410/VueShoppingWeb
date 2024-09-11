@@ -55,6 +55,7 @@ const categoryStore = useCategoryStore() // 定義商品分類倉庫
 
       &:hover {
         background: $xtxColor;
+        border-radius: 4px;
       }
 
       a {
@@ -98,12 +99,16 @@ const categoryStore = useCategoryStore() // 定義商品分類倉庫
             margin-right: 15px;
             margin-bottom: 15px;
             border: 1px solid #eee;
-            border-radius: 4px;
+            border-radius: 8px;
             background: #fff;
 
             &:nth-child(3n) {
               margin-right: 0;
             }
+
+            &:hover {
+                background: #c0fff0;
+              }
 
             a {
               display: flex;
@@ -111,10 +116,7 @@ const categoryStore = useCategoryStore() // 定義商品分類倉庫
               height: 100%;
               align-items: center;
               padding: 10px;
-
-              &:hover {
-                background: #e3f9f4;
-              }
+              overflow: hidden;           
 
               img {
                 width: 95px;
@@ -127,8 +129,10 @@ const categoryStore = useCategoryStore() // 定義商品分類倉庫
                 overflow: hidden;
 
                 .name {
-                  font-size: 16px;
+                  font-size: 14px;
                   color: #666;
+                  overflow: hidden;
+                  font-weight: 700;
                 }
 
                 .desc {
@@ -136,7 +140,7 @@ const categoryStore = useCategoryStore() // 定義商品分類倉庫
                 }
 
                 .price {
-                  font-size: 22px;
+                  font-size: 18px;
                   color: $priceColor;
 
                   i {

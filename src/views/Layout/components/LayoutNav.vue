@@ -70,11 +70,12 @@ const categoryStore = useCategoryStore() // 定義商品分類倉庫
         font-size: 16px;
         line-height: 32px;
         height: 32px;
-        display: inline-block;
+        display: inline-block;        
   
         &:hover {
           color: $xtxColor;
           border-bottom: 1px solid $xtxColor;
+          transition: 0.5s;
         }
       }
   

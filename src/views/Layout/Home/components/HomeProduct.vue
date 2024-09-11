@@ -1,12 +1,173 @@
 <script setup>
 import { ref } from 'vue'
+// 引入組件
+import HomePanel from './HomePanel.vue'
+// 引入 api
+import { getProductService } from '@/apis/home'// 獲取產品列表數據
 
+// ---------- 發送請求獲取產品列表數據 ----------
+const productList = ref([]) // 產品列表數據
+const getProductList = async () => {
+  const res = await getProductService()
+  productList.value = res.data.result
+}
+getProductList()
+
+ 
 </script>
 
 <template>
-  <div>產品列表</div>
+  <div class="home-product">
+    <!-- 頂部標題 -->
+    <HomePanel :title="item.name" v-for="item in productList" :key="item.id">
+      <!-- 左側大圖片 -->
+      <div class="box">
+        <RouterLink class="cover" to="/">
+          <img v-lazyLoading="item.picture" alt="" />
+          <strong class="label">
+            <span>{{ item.name }}館</span>
+            <span>{{ item.saleInfo }}</span>
+          </strong>
+        </RouterLink>
+        <!-- 右側商品列表 -->
+        <ul class="goods-list">
+          <li v-for="good in item.goods" :key="good.id">
+            <RouterLink to="/" class="goods-item">
+              <img v-lazyLoading="good.picture" alt="" />
+              <p class="name ellipsis">{{ good.name }}</p>
+              <p class="desc ellipsis">{{ good.desc }}</p>
+              <p class="price">${{ good.price }}</p>
+            </RouterLink>
+          </li>
+        </ul>
+      </div>
+    </HomePanel>
+  </div>
 </template>
 
-<style lang="scss" scoped>
+<style scoped lang='scss'>
+.home-product {
+  background: #fff;
+  margin-top: 10px;
+  .sub {
+    margin-bottom: 2px;
 
+    a {
+      padding: 2px 12px;
+      font-size: 16px;
+      border-radius: 4px;
+
+      &:hover {
+        background: $xtxColor;
+        color: #fff;
+      }
+
+      &:last-child {
+        margin-right: 80px;
+      }
+    }
+  }
+  // 左側大圖片
+  .box {
+    display: flex;
+
+    .cover {
+      width: 240px;
+      height: 610px;
+      margin-right: 10px;
+      position: relative;
+
+      img {
+        width: 100%;
+        height: 100%;
+      }
+
+      .label {
+        width: 100%;
+        height: 66px;
+        display: flex;
+        font-size: 18px;
+        color: #fff;
+        line-height: 66px;
+        font-weight: 700;
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translate3d(0, -50%, 0);
+
+        span {
+          text-align: center;
+
+          &:first-child {
+            width: 76px;
+            background: rgba(0, 0, 0, 0.9);
+          }
+
+          &:last-child {
+            flex: 1;
+            background: rgba(0, 0, 0, 0.7);
+          }
+        }
+      }
+    }
+    // 右側商品列表
+    .goods-list {
+      width: 990px;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+
+      li {
+        width: 240px;
+        height: 300px;
+        margin-right: 10px;
+        margin-bottom: 10px;
+
+        &:nth-last-child(-n + 4) {
+          margin-bottom: 0;
+        }
+
+        &:nth-child(4n) {
+          margin-right: 0;
+        }
+      }
+    }
+
+    .goods-item {
+      display: block;
+      width: 220px;
+      padding: 20px 30px;
+      text-align: center;
+      transition: all .5s;
+
+      &:hover {
+        transform: translate3d(0, -3px, 0);
+        box-shadow: 0 3px 8px rgb(0 0 0 / 20%);
+      }
+
+      img {
+        width: 160px;
+        height: 160px;
+      }
+
+      p {
+        padding-top: 10px;
+      }
+
+      .name {
+        font-size: 16px;
+      }
+
+      .desc {
+        color: #999;
+        height: 29px;
+      }
+
+      .price {
+        color: $priceColor;
+        font-size: 20px;
+      }
+    }
+  }
+}
 </style>

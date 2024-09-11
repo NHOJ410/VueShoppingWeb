@@ -26,3 +26,10 @@ export const getHotService = () => {
     url :'/home/hot'
   })
 }
+
+// 獲取Product商品列表
+export const getProductService = () => {
+  return http({
+    url: '/home/goods'
+  })
+}
