@@ -1,25 +1,34 @@
 <script setup>
-import { ref , onBeforeUpdate } from 'vue'
-import { useRoute } from 'vue-router' 
+import { ref,onMounted  } from "vue";
+import { useRoute } from "vue-router";
 // 導入api
-import { getCategoryService } from '@/apis/category.js'; // 獲取 一級分類數據接口
+import { getBannerService } from '@/apis/home'; // 導入輪播圖數據
+import { getCategoryService } from "@/apis/category.js"; // 獲取 一級分類數據接口
 // 獲取路由參數
-const route = useRoute()
+const route = useRoute();
 
-// ---------- 獲取一級分類列表數據 -----------
+// ---------- 獲取一級分類列表部分 -----------
 
-const categoryList = ref({}) // 存儲一級分類列表數據
+const categoryList = ref({}); // 存儲一級分類列表數據
 // 發送請求 獲取一級分類數據
 const getCategory = async () => {
-  const res = await getCategoryService(route.params.id)
-  categoryList.value = res.data.result
-  console.log(res);
-}
+  const res = await getCategoryService(route.params.id);
+  categoryList.value = res.data.result;
+};
 // 調用 獲取數據
-getCategory()
- 
+getCategory();
 
+// ---------- 輪播圖部分 -----------
+const bannerList = ref([])
+const getBanner = async () => {
+  const result = await getBannerService(2)
+  bannerList.value = result.data.result
+}
 
+// 由於需要操作 DOM 所以在 onMounted() 鉤子中調用接口 獲取數據
+onMounted(() => {
+  getBanner() // 獲取輪播圖數據
+})
 
 </script>
 
@@ -32,6 +41,20 @@ getCategory()
           <el-breadcrumb-item :to="{ path: '/' }">首頁</el-breadcrumb-item>
           <el-breadcrumb-item>{{ categoryList.name }}</el-breadcrumb-item>
         </el-breadcrumb>
+      </div>
+      <!-- 輪播圖區域 -->
+      <div class="home-banner">
+        <el-carousel height="440px">
+          <el-carousel-item
+            v-for="item in bannerList"
+            :key="item.id"
+            interval="5000"
+            motion-blur="true"
+          >
+            <!-- 輪播圖片區域 -->
+            <img :src="item.imgUrl" alt="" />
+          </el-carousel-item>
+        </el-carousel>
       </div>
     </div>
   </div>
@@ -47,7 +70,7 @@ getCategory()
     text-align: center;
     line-height: 100px;
   }
-  
+
   .sub-list {
     margin-top: 20px;
     background-color: #fff;
@@ -60,7 +83,6 @@ getCategory()
       li {
         width: 168px;
         height: 160px;
-
 
         a {
           text-align: center;
@@ -114,6 +136,26 @@ getCategory()
 
   .bread-container {
     padding: 25px 0;
+  }
+
+    // 輪播圖樣式
+    .home-banner {
+    width: 1240px;
+    height: 500px;
+    border-radius: 10px;
+    
+    // 輪播圖裡面的圖片大小
+    img {
+      width: 100%;
+      height: 440px;
+      border-radius: 10px;
+    }
+    
+    // 加大輪播圖的箭頭樣式
+    :deep(.el-carousel__arrow) {
+      font-size: 30px;
+      color: #ffffff;
+    }
   }
 }
 </style>
