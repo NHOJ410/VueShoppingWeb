@@ -26,7 +26,7 @@ const { y } = useScroll(window); // 獲取滾動位置
           <RouterLink to="/">首頁</RouterLink>
         </li>
         <li class="home" v-for="item in categoryStore.categoryNav" :key="item.id">
-          <RouterLink :to="`/category/${item.id}`">{{ item.name }}</RouterLink>
+          <RouterLink active-class="active" :to="`/category/${item.id}`">{{ item.name }}</RouterLink>
         </li>
       </ul>
 

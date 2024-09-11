@@ -12,8 +12,8 @@ const categoryStore = useCategoryStore() // 定義商品分類倉庫
     <!-- 左側商品列表主體 -->
     <ul class="menu">
       <li v-for="item in categoryStore.categoryNav" :key="item.id">
-        <RouterLink to="/">{{ item.name }}</RouterLink>
-        <RouterLink v-for="i in item.children.slice(0,2)" :key="i.id" to="/">{{ i.name }}</RouterLink>
+        <RouterLink to="/">{{ item.name }} </RouterLink>
+        <RouterLink v-for="i in item.children.slice(0,2)" :key="i.id" to="/">{{ i.name }} </RouterLink>
         <!-- 經過時觸發彈層效果 -->
         <div class="layer">
           <h4>分類推薦 <small>根據你的購買或瀏覽紀錄推薦商品</small></h4>
@@ -42,14 +42,14 @@ const categoryStore = useCategoryStore() // 定義商品分類倉庫
 .home-category {
   width: 250px;
   height: 500px;
-  background: rgba(0, 0, 0, 0.8);
+  background: rgba(173, 172, 172, 0.9);
   position: relative;
   z-index: 99;
   border-radius: 10px;
   // 左側商品列表
   .menu {
     li {
-      padding-left: 40px;
+      padding-left: 30px;
       height: 55px;
       line-height: 55px;
 
@@ -61,9 +61,11 @@ const categoryStore = useCategoryStore() // 定義商品分類倉庫
       a {
         margin-right: 4px;
         color: #fff;
+        font-weight: 550;
 
         &:first-child {
           font-size: 16px;
+          margin-right: 10px;
         }
       }
       

@@ -17,10 +17,10 @@ const categoryStore = useCategoryStore() // 定義商品分類倉庫
       <!-- 頭部商品列表區域 -->
       <ul class="app-header-nav"> 
         <li class="home">
-          <RouterLink to="/">首頁</RouterLink>
+          <RouterLink  to="/">首頁</RouterLink>
         </li>   
         <li class="home" v-for="item in categoryStore.categoryNav" :key="item.id">
-          <RouterLink :to="`/category/${item.id}`">{{ item.name }}</RouterLink>
+          <RouterLink active-class="active" :to="`/category/${item.id}`">{{ item.name }}</RouterLink>
         </li>
       </ul>
       <div class="search">
@@ -81,7 +81,8 @@ const categoryStore = useCategoryStore() // 定義商品分類倉庫
           transition: 0.5s;
         }
       }
-  
+      
+      // active激活時觸發的顏色
       .active {
         color: $xtxColor;
         border-bottom: 1px solid $xtxColor;

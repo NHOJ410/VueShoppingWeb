@@ -1,10 +1,12 @@
 <script setup>
-import { ref,onMounted  } from "vue";
+import { ref, onMounted } from "vue";
 import { useRoute } from "vue-router";
 // 導入api
-import { getBannerService } from '@/apis/home'; // 導入輪播圖數據
+import { getBannerService } from "@/apis/home"; // 導入輪播圖數據
 import { getCategoryService } from "@/apis/category.js"; // 獲取 一級分類數據接口
-// 獲取路由參數
+// 導入組件
+import GoodsItem from "@/views/Layout/Home/components/GoodsItem.vue"; // 商品組件
+// 獲取路由
 const route = useRoute();
 
 // ---------- 獲取一級分類列表部分 -----------
@@ -14,22 +16,22 @@ const categoryList = ref({}); // 存儲一級分類列表數據
 const getCategory = async () => {
   const res = await getCategoryService(route.params.id);
   categoryList.value = res.data.result;
+  console.log(categoryList.value);
 };
 // 調用 獲取數據
 getCategory();
 
 // ---------- 輪播圖部分 -----------
-const bannerList = ref([])
+const bannerList = ref([]);
 const getBanner = async () => {
-  const result = await getBannerService(2)
-  bannerList.value = result.data.result
-}
+  const result = await getBannerService(2);
+  bannerList.value = result.data.result;
+};
 
 // 由於需要操作 DOM 所以在 onMounted() 鉤子中調用接口 獲取數據
 onMounted(() => {
-  getBanner() // 獲取輪播圖數據
-})
-
+  getBanner(); // 獲取輪播圖數據
+});
 </script>
 
 <template>
@@ -51,17 +53,42 @@ onMounted(() => {
             interval="5000"
             motion-blur="true"
           >
-            <!-- 輪播圖片區域 -->
             <img :src="item.imgUrl" alt="" />
           </el-carousel-item>
         </el-carousel>
+      </div>
+
+      <!-- 主體內容部分 ( 商品列表 ) -->
+      <div class="sub-list">
+        <!-- 頂部大標題和商品分類導航 -->
+        <h3>全部分類</h3>
+        <ul>
+          <li v-for="all in categoryList.children" :key="all.id">
+            <RouterLink to="/">
+              <img v-lazyLoading="all.picture" />
+              <p>{{ all.name }}</p>
+            </RouterLink>
+          </li>
+        </ul>
+      </div>
+      
+      <!-- 底部商品部分 -->
+       <!-- 標題部分 -->
+      <div class="ref-goods" v-for="item in categoryList.children" :key="item.id" >
+        <div class="head">
+          <h3>- {{ item.name }}-</h3>
+        </div>
+        <!-- 商品列表部分 ( 調用 GoodsItem組件) -->
+        <div class="body">
+          <GoodsItem v-for="good in item.goods" :good="good" :key="good.id" />
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 
-<style scoped lang="scss">
+<style  lang="scss" scoped>
 .top-category {
   h3 {
     font-size: 28px;
@@ -71,6 +98,36 @@ onMounted(() => {
     line-height: 100px;
   }
 
+  // 面包屑導航樣式
+  .bread-container {
+    padding: 25px 0;
+    
+    .el-breadcrumb {
+      font-size: 15px;
+    }
+  }
+
+  // 輪播圖樣式
+  .home-banner {
+    width: 1240px;
+    height: 500px;
+    border-radius: 10px;
+
+    // 輪播圖裡面的圖片大小
+    img {
+      width: 100%;
+      height: 440px;
+      border-radius: 10px;
+    }
+
+    // 加大輪播圖的箭頭樣式
+    :deep(.el-carousel__arrow) {
+      font-size: 30px;
+      color: #ffffff;
+    }
+  }
+
+  // 頂部大標題和商品分類導航
   .sub-list {
     margin-top: 20px;
     background-color: #fff;
@@ -105,7 +162,8 @@ onMounted(() => {
       }
     }
   }
-
+  
+  // 底部商品分類中的標題部分
   .ref-goods {
     background-color: #fff;
     margin-top: 20px;
@@ -126,7 +184,8 @@ onMounted(() => {
         top: -20px;
       }
     }
-
+    
+    // 商品主體部分
     .body {
       display: flex;
       justify-content: space-around;
@@ -134,28 +193,7 @@ onMounted(() => {
     }
   }
 
-  .bread-container {
-    padding: 25px 0;
-  }
-
-    // 輪播圖樣式
-    .home-banner {
-    width: 1240px;
-    height: 500px;
-    border-radius: 10px;
-    
-    // 輪播圖裡面的圖片大小
-    img {
-      width: 100%;
-      height: 440px;
-      border-radius: 10px;
-    }
-    
-    // 加大輪播圖的箭頭樣式
-    :deep(.el-carousel__arrow) {
-      font-size: 30px;
-      color: #ffffff;
-    }
-  }
 }
+
+
 </style>

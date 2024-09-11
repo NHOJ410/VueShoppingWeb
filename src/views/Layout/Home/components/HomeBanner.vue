@@ -22,7 +22,6 @@ onMounted(() => {
   <div class="home-banner">
     <el-carousel height="500px">
       <el-carousel-item v-for="item in bannerList" :key="item.id" interval="5000" motion-blur="true">
-          <!-- 輪播圖片區域 -->
           <img :src="item.imgUrl" alt="">
       </el-carousel-item>
     </el-carousel>
