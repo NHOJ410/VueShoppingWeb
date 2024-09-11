@@ -1,11 +1,12 @@
 <script setup>
 import { ref, onMounted } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute , onBeforeRouteUpdate } from "vue-router";
 // 導入api
 import { getBannerService } from "@/apis/home"; // 導入輪播圖數據
 import { getCategoryService } from "@/apis/category.js"; // 獲取 一級分類數據接口
 // 導入組件
 import GoodsItem from "@/views/Layout/Home/components/GoodsItem.vue"; // 商品組件
+
 // 獲取路由
 const route = useRoute();
 
@@ -13,13 +14,15 @@ const route = useRoute();
 
 const categoryList = ref({}); // 存儲一級分類列表數據
 // 發送請求 獲取一級分類數據
-const getCategory = async () => {
-  const res = await getCategoryService(route.params.id);
+const getCategory = async ( id = route.params.id) => {
+  const res = await getCategoryService(id);
   categoryList.value = res.data.result;
-  console.log(categoryList.value);
 };
-// 調用 獲取數據
-getCategory();
+// 使用 onBeforeRouteUpdate 監聽路由參數變化時 所做出對應的行為(和watch很像)
+onBeforeRouteUpdate((to) => {
+  getCategory(to.params.id)
+
+})
 
 // ---------- 輪播圖部分 -----------
 const bannerList = ref([]);

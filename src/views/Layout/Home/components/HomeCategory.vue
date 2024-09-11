@@ -16,7 +16,7 @@ const categoryStore = useCategoryStore() // 定義商品分類倉庫
         <RouterLink v-for="i in item.children.slice(0,2)" :key="i.id" to="/">{{ i.name }} </RouterLink>
         <!-- 經過時觸發彈層效果 -->
         <div class="layer">
-          <h4>分類推薦 <small>根據你的購買或瀏覽紀錄推薦商品</small></h4>
+          <h4>分類推薦 <small>根據你的 購買/瀏覽紀錄 推薦商品</small></h4>
           <ul>
             <li v-for="i in item.goods" :key="i.id">
               <RouterLink to="/">
