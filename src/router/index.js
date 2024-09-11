@@ -13,7 +13,7 @@ const router = createRouter({
       // 二級路由
       children: [
         { path : '/home' , component: () => import('@/views/Layout/Home/Home.vue') }, // 首頁
-        { path : '/category' , component: () => import('@/views/Layout/Category/Category.vue')}, // 商品分類頁面
+        { path : '/category/:id' , component: () => import('@/views/Layout/Category/Category.vue')}, // 商品分類頁面
       ]
     }, // 首頁架子
     

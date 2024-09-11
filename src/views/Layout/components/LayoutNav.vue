@@ -15,9 +15,12 @@ const categoryStore = useCategoryStore() // 定義商品分類倉庫
         <RouterLink to="/">小兔仙</RouterLink>
       </h1>
       <!-- 頭部商品列表區域 -->
-      <ul class="app-header-nav">
+      <ul class="app-header-nav"> 
+        <li class="home">
+          <RouterLink to="/">首頁</RouterLink>
+        </li>   
         <li class="home" v-for="item in categoryStore.categoryNav" :key="item.id">
-          <RouterLink to="/">{{ item.name }}</RouterLink>
+          <RouterLink :to="`/category/${item.id}`">{{ item.name }}</RouterLink>
         </li>
       </ul>
       <div class="search">
