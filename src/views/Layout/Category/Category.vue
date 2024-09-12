@@ -3,7 +3,7 @@
 import GoodsItem from "@/views/Layout/Home/components/GoodsItem.vue"; // 商品組件
 // 導入封裝好的hooks
 import { useBanner } from "./composables/useBanner"; // 輪播圖業務邏輯
-import { useCategoryData } from '@/views/Layout/Category/composables/useCategory'
+import { useCategoryData } from '@/views/Layout/Category/composables/useCategory' // 獲取一級分類列表部分
 
 
 // ---------- 獲取一級分類列表部分 -----------
@@ -47,7 +47,7 @@ const { bannerList } = useBanner()
         <h3>全部分類</h3>
         <ul>
           <li v-for="all in categoryList.children" :key="all.id">
-            <RouterLink to="/">
+            <RouterLink :to="`/category/sub/${all.id}`">
               <img v-lazyLoading="all.picture" />
               <p>{{ all.name }}</p>
             </RouterLink>

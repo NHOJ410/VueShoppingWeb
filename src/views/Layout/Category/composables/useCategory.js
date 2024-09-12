@@ -17,6 +17,7 @@ export const useCategoryData = () => {
     const res = await getCategoryService(id);
     categoryList.value = res.data.result;
   };
+  getCategory()
 
   // 使用 onBeforeRouteUpdate 監聽路由參數變化時 所做出對應的行為(和watch很像)
   onBeforeRouteUpdate((to) => {
