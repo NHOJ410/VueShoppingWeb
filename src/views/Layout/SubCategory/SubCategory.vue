@@ -3,6 +3,9 @@ import { ref } from 'vue'
 import { useRoute } from 'vue-router'
 // 調用 api 
 import { getSubCategoryService } from '@/apis/subCategory' // 獲取二級分類數據
+import { getSubContent } from '@/apis/subCategory' // 獲取二級分類列表內容
+// 導入組件 
+import GoodsItem from '@/views/Layout/Home/components/GoodsItem.vue' // 產品列表組件
 
 // ------------ 獲取二級分類數據 -------------
 
@@ -18,10 +21,27 @@ const getSubCategoryList = async () => {
   subCategoryList.value = res.data.result// 存儲二級分類數據
   
 }
-
 // 發送請求 獲取數據
 getSubCategoryList()
 
+
+// ------------ 獲取二級分類列表內容數據 ------------- 
+
+const subCategoryContent = ref([]) // 存儲二級分類列表內容
+
+const contentData = ref({ // 用來傳遞參數
+  categoryId : route.params.id, // 二級分類 ID
+  page: 1, // 頁數
+  pageSize: 20, // 單頁多少條數據
+  sortField: 'publishTime' // 排序方式 ( 這裡默認是最新商品 )
+})
+
+const getSubCategoryContent = async () => {
+  const res = await getSubContent(contentData.value)
+  subCategoryContent.value = res.data.result.items
+}
+
+getSubCategoryContent()
 
 
 </script>
@@ -44,7 +64,8 @@ getSubCategoryList()
         <el-tab-pane label="評論最多" name="evaluateNum"></el-tab-pane>
       </el-tabs>
       <div class="body">
-         <!-- 商品列表-->
+         <!-- 二級分類列表內容-->
+        <GoodsItem v-for="good in subCategoryContent" :good="good" :key="good.id" />
       </div>
     </div>
   </div>
