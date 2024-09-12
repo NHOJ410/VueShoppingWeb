@@ -1,4 +1,27 @@
 <script setup>
+import { ref } from 'vue'
+import { useRoute } from 'vue-router'
+// 調用 api 
+import { getSubCategoryService } from '@/apis/subCategory' // 獲取二級分類數據
+
+// ------------ 獲取二級分類數據 -------------
+
+const route = useRoute()
+
+const subCategoryList = ref({}) // 存儲二級分類數據
+
+// 定義方法 獲取動態路由參數
+const getSubCategoryList = async () => {
+  
+  const res = await getSubCategoryService(route.params.id)
+
+  subCategoryList.value = res.data.result// 存儲二級分類數據
+  
+}
+
+// 發送請求 獲取數據
+getSubCategoryList()
+
 
 
 </script>
@@ -9,10 +32,9 @@
     <!-- 面包屑導航 -->
     <div class="bread-container">
       <el-breadcrumb separator=">">
-        <el-breadcrumb-item :to="{ path: '/' }">測試</el-breadcrumb-item>
-        <el-breadcrumb-item :to="{ path: '/' }">測試
-        </el-breadcrumb-item>
-        <el-breadcrumb-item>測試1</el-breadcrumb-item>
+        <el-breadcrumb-item :to="{ path: '/' }">首頁</el-breadcrumb-item>
+        <el-breadcrumb-item :to="{ path: `/category/${subCategoryList.parentId}` }">{{ subCategoryList.parentName }}</el-breadcrumb-item>
+        <el-breadcrumb-item>{{ subCategoryList.name }}</el-breadcrumb-item>
       </el-breadcrumb>
     </div>
     <div class="sub-container">
@@ -35,7 +57,9 @@
 // 麵包屑導航區域
 .bread-container {
   padding: 25px 0;
-  color: #666;
+  .el-breadcrumb {
+      font-size: 15px;
+    }
 }
 // 內容主體區域
 .sub-container {
