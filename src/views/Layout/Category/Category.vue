@@ -1,40 +1,19 @@
 <script setup>
-import { ref, onMounted } from "vue";
-import { useRoute , onBeforeRouteUpdate } from "vue-router";
-// 導入api
-import { getBannerService } from "@/apis/home"; // 導入輪播圖數據
-import { getCategoryService } from "@/apis/category.js"; // 獲取 一級分類數據接口
 // 導入組件
 import GoodsItem from "@/views/Layout/Home/components/GoodsItem.vue"; // 商品組件
+// 導入封裝好的hooks
+import { useBanner } from "./composables/useBanner"; // 輪播圖業務邏輯
+import { useCategoryData } from '@/views/Layout/Category/composables/useCategory'
 
-// 獲取路由
-const route = useRoute();
 
 // ---------- 獲取一級分類列表部分 -----------
-
-const categoryList = ref({}); // 存儲一級分類列表數據
-// 發送請求 獲取一級分類數據
-const getCategory = async ( id = route.params.id) => {
-  const res = await getCategoryService(id);
-  categoryList.value = res.data.result;
-};
-// 使用 onBeforeRouteUpdate 監聽路由參數變化時 所做出對應的行為(和watch很像)
-onBeforeRouteUpdate((to) => {
-  getCategory(to.params.id)
-
-})
+const { categoryList } = useCategoryData();
 
 // ---------- 輪播圖部分 -----------
-const bannerList = ref([]);
-const getBanner = async () => {
-  const result = await getBannerService(2);
-  bannerList.value = result.data.result;
-};
+const { bannerList } = useBanner()
 
-// 由於需要操作 DOM 所以在 onMounted() 鉤子中調用接口 獲取數據
-onMounted(() => {
-  getBanner(); // 獲取輪播圖數據
-});
+
+
 </script>
 
 <template>
@@ -53,8 +32,9 @@ onMounted(() => {
           <el-carousel-item
             v-for="item in bannerList"
             :key="item.id"
-            interval="5000"
+            interval="2000"
             motion-blur="true"
+            autoplay="true"
           >
             <img :src="item.imgUrl" alt="" />
           </el-carousel-item>

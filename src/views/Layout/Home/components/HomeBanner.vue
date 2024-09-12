@@ -21,7 +21,7 @@ onMounted(() => {
 <template>
   <div class="home-banner">
     <el-carousel height="500px">
-      <el-carousel-item v-for="item in bannerList" :key="item.id" interval="5000" motion-blur="true">
+      <el-carousel-item v-for="item in bannerList" :key="item.id" interval="2000" motion-blur="true">
           <img :src="item.imgUrl" alt="">
       </el-carousel-item>
     </el-carousel>
