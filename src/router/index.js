@@ -18,7 +18,11 @@ const router = createRouter({
       ]
     }, // 首頁架子
     
-  ]
+  ],
+  // 在路由跳轉時 , 始終從頂部開始
+  scrollBehavior() {
+    return { top: 0 }
+  }
 })
 
 export default router

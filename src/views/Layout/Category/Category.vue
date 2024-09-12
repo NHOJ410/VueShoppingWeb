@@ -59,7 +59,7 @@ const { bannerList } = useBanner()
        <!-- 標題部分 -->
       <div class="ref-goods" v-for="item in categoryList.children" :key="item.id" >
         <div class="head">
-          <h3>- {{ item.name }}-</h3>
+          <h3>- {{ item.name }} -</h3>
         </div>
         <!-- 商品列表部分 ( 調用 GoodsItem組件) -->
         <div class="body">

@@ -93,7 +93,7 @@ const getNewList = async () => {
         <el-tab-pane label="最高人氣" name="orderNum"></el-tab-pane>
         <el-tab-pane label="評論最多" name="evaluateNum"></el-tab-pane>
       </el-tabs>
-      <div class="body" v-infinite-scroll="getNewList" :infinite-scroll-disabled="onDisabled">
+      <div class="body" v-infinite-scroll="getNewList" :infinite-scroll-disabled="onDisabled" :infinite-scroll-delay="2000">
          <!-- 二級分類列表內容-->
         <GoodsItem v-for="good in subCategoryContent" :good="good" :key="good.id" />
       </div>
