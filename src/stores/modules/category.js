@@ -14,7 +14,7 @@ export const useCategoryStore = defineStore('category', () => {
  // 獲取頭部商品導航條 
  const getCategory = async () => {
    const result = await getCategoryNavService()
-   categoryNav.value = result.data.result
+   categoryNav.value = result.result
  }
 
 

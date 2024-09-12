@@ -10,7 +10,7 @@ const hotList = ref([]) // 存儲熱門品牌數據
 // 定義方法 獲取數據
 const getHotList = async () => {
   const result = await getHotService()
-  hotList.value = result.data.result
+  hotList.value = result.result
 }
 
 

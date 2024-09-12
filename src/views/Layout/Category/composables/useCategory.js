@@ -15,7 +15,7 @@ export const useCategoryData = () => {
   // 發送請求 獲取一級分類數據
   const getCategory = async ( id = route.params.id) => {
     const res = await getCategoryService(id)
-    categoryList.value = res.data.result
+    categoryList.value = res.result
   }
 
   onMounted(() => {

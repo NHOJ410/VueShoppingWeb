@@ -9,7 +9,7 @@ import { getBannerService } from "@/apis/home"; // 導入輪播圖數據
   const bannerList = ref([]);
   const getBanner = async () => {
     const result = await getBannerService(2);
-    bannerList.value = result.data.result;
+    bannerList.value = result.result;
   };
 
   // 由於需要操作 DOM 所以在 onMounted() 鉤子中調用接口 獲取數據

@@ -10,7 +10,7 @@ const newsList = ref([]) // 存儲新鮮好物數據
 // 定義方法 獲取數據
 const getNewsList = async () => {
   const result = await getNewsService(8)
-  newsList.value = result.data.result
+  newsList.value = result.result
 }
 
 // 調用方法 獲取新鮮好物數據

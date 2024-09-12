@@ -21,7 +21,9 @@ httpInstance.interceptors.request.use(function (config) {
 httpInstance.interceptors.response.use(function (response) {
   // 2xx 範圍內的狀態碼都會觸發該函數。
   // 對響應數據做點什麼
-  return response;
+  const result = response.data
+
+  return result;
 }, function (error) {
   // 超出 2xx 範圍的狀態碼都會觸發該函數。
   // 對響應錯誤做點什麼

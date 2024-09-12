@@ -18,7 +18,7 @@ const getSubCategoryList = async () => {
   
   const res = await getSubCategoryService(route.params.id)
 
-  subCategoryList.value = res.data.result// 存儲二級分類數據
+  subCategoryList.value = res.result// 存儲二級分類數據
   
 }
 // 發送請求 獲取數據
@@ -38,7 +38,7 @@ const contentData = ref({ // 用來傳遞參數
 
 const getSubCategoryContent = async () => {
   const res = await getSubContent(contentData.value)
-  subCategoryContent.value = res.data.result.items
+  subCategoryContent.value = res.result.items
 }
 
 getSubCategoryContent()

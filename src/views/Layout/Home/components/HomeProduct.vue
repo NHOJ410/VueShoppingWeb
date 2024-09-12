@@ -10,7 +10,7 @@ import { getProductService } from '@/apis/home'// 獲取產品列表數據
 const productList = ref([]) // 產品列表數據
 const getProductList = async () => {
   const res = await getProductService()
-  productList.value = res.data.result
+  productList.value = res.result
 }
 getProductList()
 
