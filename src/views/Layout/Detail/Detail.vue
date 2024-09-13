@@ -1,19 +1,36 @@
 <script setup>
+import { ref } from 'vue'
+import { useRoute } from 'vue-router'
+// 導入api 
+import { getDetailData } from '@/apis/detail'; // 獲取商品詳情資料
 
+// ------------ 獲取商品詳情資料 ---------------
+const route = useRoute() 
+const detailData = ref({}) // 存儲商品詳情數據
+// 發送請求 獲取商品詳情數據
+const getDetail = async () => {
+  const res = await getDetailData(route.params.id)
+  detailData.value = res.result
+}
+getDetail()
+
+ 
 
 </script>
 
 <template>
   <div class="xtx-goods-page">
-    <div class="container">
+    <!-- 版心設置 -->
+    <div class="container" v-if="detailData.id">
+      <!-- 上方麵包屑導航部分 -->
       <div class="bread-container">
         <el-breadcrumb separator=">">
           <el-breadcrumb-item :to="{ path: '/' }">首頁</el-breadcrumb-item>
-          <el-breadcrumb-item :to="{ path: '/' }">母嬰
+          <el-breadcrumb-item :to="{ path: `/category/${detailData.categories[1].id}` }">{{ detailData.categories[1].name }}
           </el-breadcrumb-item>
-          <el-breadcrumb-item :to="{ path: '/' }">跑步鞋
+          <el-breadcrumb-item :to="{ path: `/category/${detailData.categories[0].id}` }">{{ detailData.categories[0].name }}
           </el-breadcrumb-item>
-          <el-breadcrumb-item>抓絨保暖，毛毛蟲子兒童運動鞋</el-breadcrumb-item>
+          <el-breadcrumb-item>{{ detailData.name }}</el-breadcrumb-item>
         </el-breadcrumb>
       </div>
       <!-- 商品訊息 -->
@@ -23,37 +40,37 @@
             <div class="media">
               <!-- 圖片預覽區 -->
 
-              <!-- 統計數量 -->
+              <!-- 統計數據區域 -->
               <ul class="goods-sales">
                 <li>
                   <p>銷量人氣</p>
-                  <p> 100+ </p>
+                  <p> {{ detailData.collectCount }} </p>
                   <p><i class="iconfont icon-task-filling"></i>銷量人氣</p>
                 </li>
                 <li>
                   <p>商品評價</p>
-                  <p>200+</p>
+                  <p>{{ detailData.commentCount }}</p>
                   <p><i class="iconfont icon-comment-filling"></i>查看評價</p>
                 </li>
                 <li>
                   <p>收藏人氣</p>
-                  <p>300+</p>
+                  <p>{{ detailData.salesCount }}</p>
                   <p><i class="iconfont icon-favorite-filling"></i>收藏商品</p>
                 </li>
                 <li>
                   <p>品牌資訊</p>
-                  <p>400+</p>
+                  <p>{{  detailData.brand.name }}</p>
                   <p><i class="iconfont icon-dynamic-filling"></i>品牌主頁</p>
                 </li>
               </ul>
             </div>
             <div class="spec">
               <!-- 商品訊息區 -->
-              <p class="g-name"> 抓絨保暖，毛毛蟲兒童鞋 </p>
-              <p class="g-desc">好穿 </p>
+              <p class="g-name">{{  detailData.name }}</p>
+              <p class="g-desc">{{  detailData.desc }}</p>
               <p class="g-price">
-                <span>200</span>
-                <span> 100</span>
+                <span class="price">{{  detailData.price }}</span>
+                <span class="oldPrice">{{  detailData.oldPrice }}</span>
               </p>
               <div class="g-service">
                 <dl>
@@ -91,14 +108,15 @@
                   <a>商品詳情</a>
                 </nav>
                 <div class="goods-detail">
-                  <!-- 屬性 -->
+                  <!-- 規格區域 -->
                   <ul class="attrs">
-                    <li v-for="item in 3" :key="item.value">
-                      <span class="dt">白色</span>
-                      <span class="dd">純棉</span>
+                    <li v-for="item in detailData.details.properties" :key="item.value">
+                      <span class="dt">{{ item.name }}</span>
+                      <span class="dd">{{ item.value }}</span>
                     </li>
                   </ul>
                   <!-- 圖片 -->
+                   <img v-for="item in detailData.details.pictures" :key="item" v-lazyLoading="item" alt="">
 
                 </div>
               </div>
@@ -171,7 +189,8 @@
       padding-left: 10px;
     }
   }
-
+  
+  // 商品訊息區域
   .g-name {
     font-size: 22px;
   }
@@ -180,13 +199,13 @@
     color: #999;
     margin-top: 10px;
   }
-
+  
   .g-price {
     margin-top: 10px;
 
     span {
       &::before {
-        content: "¥";
+        content: "$";
         font-size: 14px;
       }
 
@@ -241,7 +260,8 @@
       }
     }
   }
-
+  
+  // 數據統計區域
   .goods-sales {
     display: flex;
     width: 400px;
@@ -316,6 +336,7 @@
   }
 }
 
+// 下方商品詳情區域
 .goods-detail {
   padding: 40px;
 
@@ -340,7 +361,8 @@
       }
     }
   }
-
+  
+  // 商品詳情圖片區域
   >img {
     width: 100%;
   }
