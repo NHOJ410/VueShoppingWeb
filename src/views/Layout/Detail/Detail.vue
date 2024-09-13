@@ -3,6 +3,8 @@ import { ref } from 'vue'
 import { useRoute } from 'vue-router'
 // 導入api 
 import { getDetailData } from '@/apis/detail'; // 獲取商品詳情資料
+// 導入組件
+import HotDetail from '@/views/Layout/Detail/components/HotDetail.vue' // 導入熱榜組件
 
 // ------------ 獲取商品詳情資料 ---------------
 const route = useRoute() 
@@ -91,7 +93,7 @@ getDetail()
 
               <!-- 數據組件 -->
 
-              <!-- 按鈕組建 -->
+              <!-- 按鈕組件 -->
               <div>
                 <el-button size="large" class="btn">
                   加入購物車
@@ -121,9 +123,12 @@ getDetail()
                 </div>
               </div>
             </div>
-            <!-- 24熱榜+專題推薦 -->
+            <!-- 24小時 + 週 熱榜商品推薦 -->
             <div class="goods-aside">
-
+              <!-- 24小時熱榜商品 -->
+              <HotDetail :hotType="1" :title="'24小時熱榜商品'"></HotDetail>
+              <!-- 周熱榜商品 -->
+              <HotDetail :hotType="2" :title="'本週熱榜商品'"></HotDetail>
             </div>
           </div>
         </div>
@@ -339,11 +344,12 @@ getDetail()
 // 下方商品詳情區域
 .goods-detail {
   padding: 40px;
-
+  // 規格區域
   .attrs {
     display: flex;
     flex-wrap: wrap;
     margin-bottom: 30px;
+    font-size: 16px;
 
     li {
       display: flex;
@@ -353,11 +359,13 @@ getDetail()
       .dt {
         width: 100px;
         color: #999;
+        font-weight: 650;
       }
 
       .dd {
         flex: 1;
         color: #666;
+        font-weight: 700;
       }
     }
   }
