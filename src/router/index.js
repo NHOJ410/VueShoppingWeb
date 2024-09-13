@@ -14,7 +14,8 @@ const router = createRouter({
       children: [
         { path : '/home' , component: () => import('@/views/Layout/Home/Home.vue') }, // 首頁
         { path : '/category/:id' , component: () => import('@/views/Layout/Category/Category.vue')}, // 商品分類頁面
-        { path : '/category/sub/:id' , component : () => import('@/views/Layout/SubCategory/SubCategory.vue') } // 二級分類頁面
+        { path : '/category/sub/:id' , component : () => import('@/views/Layout/SubCategory/SubCategory.vue') }, // 二級分類頁面
+        { path : '/detail/:id' , component : () => import('@/views/Layout/Detail/Detail.vue') } // 商品詳情頁面
       ]
     }, // 首頁架子
     
