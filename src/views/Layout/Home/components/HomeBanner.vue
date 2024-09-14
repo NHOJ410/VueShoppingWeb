@@ -16,6 +16,7 @@ onMounted(() => {
   getBanner() // 獲取輪播圖數據
 })
 
+
 </script>
 
 <template>
