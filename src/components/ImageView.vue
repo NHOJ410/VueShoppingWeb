@@ -3,14 +3,14 @@ import { ref , watch } from 'vue'
 // 導入 VueUse插件
 import { useMouseInElement } from '@vueuse/core' // 獲取鼠標相對位置函數
 
-// 圖片列表
-const imageList = [
-  "https://yanxuan-item.nosdn.127.net/d917c92e663c5ed0bb577c7ded73e4ec.png",
-  "https://yanxuan-item.nosdn.127.net/e801b9572f0b0c02a52952b01adab967.jpg",
-  "https://yanxuan-item.nosdn.127.net/b52c447ad472d51adbdde1a83f550ac2.jpg",
-  "https://yanxuan-item.nosdn.127.net/f93243224dc37674dfca5874fe089c60.jpg",
-  "https://yanxuan-item.nosdn.127.net/f881cfe7de9a576aaeea6ee0d1d24823.jpg"
-]
+// 通過 defineProps 來接收父組件傳遞過來的圖片列表數據來做渲染
+defineProps({
+  imageList : {
+    type : Array,
+    default : () => []  
+  }
+})
+
 
 // ----------- 小圖切換大圖效果 -----------
 const activeIndex = ref(0) //  和滑鼠移入事件所綁定的 index值

@@ -42,7 +42,7 @@ getDetail()
           <div class="goods-info">
             <div class="media">
               <!-- 圖片預覽區 -->
-              <ImageView></ImageView>
+              <ImageView :imageList="detailData.mainPictures"></ImageView>
 
               <!-- 統計數據區域 -->
               <ul class="goods-sales">
