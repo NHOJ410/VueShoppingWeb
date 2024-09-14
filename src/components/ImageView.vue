@@ -1,5 +1,7 @@
 <script setup>
-import { ref } from 'vue'
+import { ref , watch } from 'vue'
+// 導入 VueUse插件
+import { useMouseInElement } from '@vueuse/core' // 獲取鼠標相對位置函數
 
 // 圖片列表
 const imageList = [
@@ -19,19 +21,56 @@ const changeIndex = (index) => {
    
   //  將事件獲取到的 index 值 賦值給我們創建的 activeIndex
   activeIndex.value = index
-  
-
 }
+
+// ----------- 放大鏡效果 -----------
+
+const target = ref(null) // 獲取左側大圖 DOM 元素
+// 獲取鼠標相對位置
+const { elementX, elementY, isOutside } = useMouseInElement(target)
+
+// 有效範圍內的計算邏輯
+const left = ref(0) // 小滑塊橫向距離
+const top = ref(0)  // 小滑塊縱向距離
+
+// 使用 watch 來監聽元素移動時的計算結果
+watch([elementX , elementY , isOutside] , () => {
+  
+  if ( isOutside.value === false ) {
+   // 有效範圍內的計算邏輯 
+
+  // 橫向移動計算
+  if ( elementX.value > 100 && elementX.value < 300 ) {
+    left.value = elementX.value - 100
+  }
+  // 縱向移動計算
+  if ( elementY.value > 100 && elementY.value < 300 ) {
+    top.value = elementY.value - 100
+  }
+
+  // 邊界距離控制邏輯
+  // 橫向距離控制
+  if ( elementX.value > 300 )  left.value = 200 
+  if ( elementX.value < 100 )  left.value = 0
+
+  // 縱向距離控制
+  if ( elementY.value > 300 )  top.value = 200 
+  if ( elementY.value < 100 )  top.value = 0
+
+  }
+  
+})
 
 </script>
 
 <template>
+  {{ top }} {{ left }}
   <div class="goods-image">
     <!-- 左側大圖 -->
     <div class="middle" ref="target">
       <img :src="imageList[activeIndex]" alt="" />
       <!-- 放大鏡濛層 -->
-      <div class="layer" :style="{ left: `0px`, top: `0px` }"></div>
+      <div class="layer" :style="{ left: `${left}px`, top: `${top}px` }"></div>
     </div>
     <!-- 小圖列表 -->
     <ul class="small">
@@ -75,7 +114,8 @@ const changeIndex = (index) => {
     background-size: 800px 800px;
     background-color: #f8f8f8;
   }
-
+  
+  // 小滑塊樣式
   .layer {
     width: 200px;
     height: 200px;
@@ -95,7 +135,8 @@ const changeIndex = (index) => {
       margin-left: 12px;
       margin-bottom: 15px;
       cursor: pointer;
-
+      
+      // 圖片激活時的效果
       &:hover,
       &.active {
         border: 2px solid $xtxColor;
