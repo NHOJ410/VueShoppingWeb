@@ -1,4 +1,7 @@
 <script setup>
+import { useRouter } from 'vue-router' 
+
+const router = useRouter()
 
 
 </script>
@@ -7,7 +10,7 @@
   <nav class="app-topnav">
     <div class="container">
       <ul>
-        <template v-if="true">
+        <template v-if="false">
           <li><a href="javascript:;"><i class="iconfont icon-user"></i>John</a></li>
           <li><a href="javascript:;">我的訂單</a></li>
           <li><a href="javascript:;">會員中心</a></li>
@@ -20,7 +23,7 @@
           </li>
         </template>
         <template v-else>
-          <li><a href="javascript:;">請先登入</a></li>
+          <li><a href="javascript:;" @click="router.push('/login')">請先登入</a></li>
           <li><a href="javascript:;">幫助中心</a></li>
           <li><a href="javascript:;">關於我們</a></li>
         </template>
