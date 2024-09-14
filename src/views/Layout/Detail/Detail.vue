@@ -6,6 +6,7 @@ import { getDetailData } from '@/apis/detail'; // 獲取商品詳情資料
 // 導入組件
 import HotDetail from '@/views/Layout/Detail/components/HotDetail.vue' // 導入熱榜組件
 import ImageView from '@/components/ImageView.vue'; // 導入圖片列表放大鏡組件
+import SkuItem from '@/components/SkuItem/index.vue'
 
 // ------------ 獲取商品詳情資料 ---------------
 const route = useRoute() 
@@ -16,6 +17,13 @@ const getDetail = async () => {
   detailData.value = res.result
 }
 getDetail()
+
+// ---------- sku選擇規格 ----------------------
+
+// sku組件選擇結果
+const skuResult = (sku) => {
+  console.log(sku);
+}
 
  
 
@@ -92,6 +100,7 @@ getDetail()
                 </dl>
               </div>
               <!-- sku組件 -->
+              <SkuItem :goods="detailData" @change="skuResult"></SkuItem> 
 
               <!-- 數據組件 -->
 
