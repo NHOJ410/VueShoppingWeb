@@ -151,7 +151,7 @@ getDetail()
     .media {
       width: 580px;
       height: 600px;
-      padding: 30px 50px;
+      padding: 10px 50px;
     }
 
     .spec {

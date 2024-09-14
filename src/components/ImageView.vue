@@ -33,6 +33,9 @@ const { elementX, elementY, isOutside } = useMouseInElement(target)
 const left = ref(0) // 小滑塊橫向距離
 const top = ref(0)  // 小滑塊縱向距離
 
+const largeX = ref(0) // 大圖片橫向移動距離
+const largeY = ref(0) // 大圖片縱向移動距離
+
 // 使用 watch 來監聽元素移動時的計算結果
 watch([elementX , elementY , isOutside] , () => {
   
@@ -56,21 +59,24 @@ watch([elementX , elementY , isOutside] , () => {
   // 縱向距離控制
   if ( elementY.value > 300 )  top.value = 200 
   if ( elementY.value < 100 )  top.value = 0
-
   }
+
+  // 計算右側大圖片移動距離
+  largeX.value = -left.value * 2  // 大圖片橫向移動距離
+  largeY.value = -top.value * 2 // 大圖片縱向移動距離 
   
 })
 
 </script>
 
 <template>
-  {{ top }} {{ left }}
+  <h2>移動到圖片內部即可放大檢視商品</h2>
   <div class="goods-image">
     <!-- 左側大圖 -->
     <div class="middle" ref="target">
       <img :src="imageList[activeIndex]" alt="" />
       <!-- 放大鏡濛層 -->
-      <div class="layer" :style="{ left: `${left}px`, top: `${top}px` }"></div>
+      <div :class="{ layer : !isOutside }" :style="{ left: `${left}px`, top: `${top}px` }"></div>
     </div>
     <!-- 小圖列表 -->
     <ul class="small">
@@ -80,14 +86,16 @@ watch([elementX , elementY , isOutside] , () => {
     </ul>
     <!-- 放大鏡大圖 -->
     <div class="large" :style="[{
-        backgroundImage: `url(${imageList[0]})`,
-        backgroundPositionX: `0px`,
-        backgroundPositionY: `0px`,
-      }]" v-show="false"></div>
+        backgroundImage: `url(${imageList[activeIndex]})`,
+        backgroundPositionX: `${largeX}px`,
+        backgroundPositionY: `${largeY}px`,
+
+      }]" v-show="!isOutside"></div>
   </div>
 </template>
 
 <style scoped lang="scss">
+
 .goods-image {
   width: 480px;
   height: 400px;
@@ -104,7 +112,7 @@ watch([elementX , elementY , isOutside] , () => {
   .large {
     position: absolute;
     top: 0;
-    left: 412px;
+    left: 410px;
     width: 400px;
     height: 400px;
     z-index: 500;
