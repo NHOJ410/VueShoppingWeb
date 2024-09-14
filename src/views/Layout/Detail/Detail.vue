@@ -5,8 +5,6 @@ import { useRoute } from 'vue-router'
 import { getDetailData } from '@/apis/detail'; // 獲取商品詳情資料
 // 導入組件
 import HotDetail from '@/views/Layout/Detail/components/HotDetail.vue' // 導入熱榜組件
-import ImageView from '@/components/ImageView.vue'; // 導入圖片列表放大鏡組件
-import SkuItem from '@/components/SkuItem/index.vue'
 
 // ------------ 獲取商品詳情資料 ---------------
 const route = useRoute() 
