@@ -19,4 +19,7 @@ export const useUserInfoStore = defineStore('user', () => {
     userInfo,
     getUserInfo
   }
+},{
+  // 開啟持久化插件
+  persist: true
 })
