@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { ElMessage } from 'element-plus'
 
 const baseURL = 'http://pcapi-xiaotuxian-front-devtest.itheima.net'
 
@@ -17,16 +18,22 @@ httpInstance.interceptors.request.use(function (config) {
   return Promise.reject(error);
 });
 
+
+
 // 添加響應攔截器
 httpInstance.interceptors.response.use(function (response) {
   // 2xx 範圍內的狀態碼都會觸發該函數。
   // 對響應數據做點什麼
-  const result = response.data
+  
 
-  return result;
+  return response.data
+
 }, function (error) {
   // 超出 2xx 範圍的狀態碼都會觸發該函數。
   // 對響應錯誤做點什麼
+
+  ElMessage.error(error.response.data.message || '服務器錯誤!')
+
   return Promise.reject(error);
 });
 

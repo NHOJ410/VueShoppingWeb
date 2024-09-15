@@ -1,7 +1,13 @@
 <script setup>
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+// 導入api
+import { loginService } from '@/apis/login' // 登入接口
+
 
 // ------------- 登入表單 -------------
+
+const router = useRouter()
 
 // 登入表單-輸入框
 const loginForm = ref({
@@ -37,14 +43,20 @@ const loginRules = ref({
 const loginRef = ref(null)
 
 // 登入按鈕點擊事件
-
 const onLogin = async  () => {
 
   // 使用 async/await 進行一次性表單驗證
   await loginRef.value.validate()
   
-  // 只要沒有通過驗證 , 就不會執行下列操作
-  console.log('後續的登入操作');
+  // 調用登入接口 , 發起登入請求
+  await loginService(loginForm.value)
+  
+  // 彈出提示框 提示用戶登入成功
+  ElMessage.success('登入成功! 歡迎進入小兔仙商城')
+  
+  // 跳轉到首頁
+  router.replace('/home')
+  
 }
 
 </script>
@@ -338,4 +350,7 @@ const onLogin = async  () => {
   color: #fff;
   margin-top: 40px;
 }
+
+
+
 </style>
