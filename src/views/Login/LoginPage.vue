@@ -1,9 +1,10 @@
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-// 導入api
-import { loginService } from '@/apis/login' // 登入接口
+// 導入Pina倉庫
+import { useUserInfoStore } from '@/stores/index.js' // 導入登入用戶倉庫
 
+const userStore = useUserInfoStore() // 定義user倉庫
 
 // ------------- 登入表單 -------------
 
@@ -49,7 +50,7 @@ const onLogin = async  () => {
   await loginRef.value.validate()
   
   // 調用登入接口 , 發起登入請求
-  await loginService(loginForm.value)
+  await userStore.getUserInfo(loginForm.value)
   
   // 彈出提示框 提示用戶登入成功
   ElMessage.success('登入成功! 歡迎進入小兔仙商城')
