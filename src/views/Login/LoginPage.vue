@@ -1,15 +1,36 @@
 <script setup>
+import { ref } from 'vue'
+
+// ------------- 登入表單 -------------
+
+// 登入表單-輸入框
+const loginForm = ref({
+  account : '',
+  password:''
+})
+
+// 登入表單-驗證規則
+const loginRules = ref({
+  account : [
+    { required : true, message : '請輸入帳號 ! ', trigger : 'blur' }
+  ],
+  password:[
+    { required : true, message : '請輸入密碼 ! ', trigger : 'blur' },
+    { min : 6 , max : 14 , message : '請輸入6-14位數的密碼 ! ', trigger : 'blur' }
+  ],
+  
+})
 
 </script>
-
-
 <template>
   <div>
     <header class="login-header">
       <div class="container m-top-20">
+        <!-- 頂部logo -->
         <h1 class="logo">
           <RouterLink to="/">小兔鮮</RouterLink>
         </h1>
+        <!-- 進入網站首頁 -->
         <RouterLink class="entry" to="/">
           進入網站首頁
           <i class="iconfont icon-angle-right"></i>
@@ -22,28 +43,30 @@
         <nav>
           <a href="javascript:;">歡迎登入</a>
         </nav>
+        <!-- 登入表單輸入區域 -->
         <div class="account-box">
           <div class="form">
-            <el-form label-position="right" label-width="60px"
-              status-icon>
-              <el-form-item label="帳號">
-                <el-input/>
+            <el-form label-position="right" label-width="60px" status-icon :model="loginForm" :rules="loginRules">
+              <el-form-item label="帳號" prop="account">
+                <el-input v-model="loginForm.account" />
               </el-form-item>
-              <el-form-item label="密碼">
-                <el-input/>
+              <el-form-item label="密碼" prop="password">
+                <el-input v-model="loginForm.password" />
               </el-form-item>
+              <!-- 同意條款區域 -->
               <el-form-item label-width="22px">
                 <el-checkbox size="large">
                   我已同意 隱私條款和服務條款
                 </el-checkbox>
               </el-form-item>
+              <!-- 點擊登入按鈕 -->
               <el-button size="large" class="subBtn">點擊登入</el-button>
             </el-form>
           </div>
         </div>
       </div>
     </section>
-
+    <!-- 底部服務相關超連結 -->
     <footer class="login-footer">
       <div class="container">
         <p>
