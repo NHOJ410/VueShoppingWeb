@@ -6,7 +6,8 @@ import { ref } from 'vue'
 // 登入表單-輸入框
 const loginForm = ref({
   account : '',
-  password:''
+  password:'',
+  agree : false
 })
 
 // 登入表單-驗證規則
@@ -18,8 +19,33 @@ const loginRules = ref({
     { required : true, message : '請輸入密碼 ! ', trigger : 'blur' },
     { min : 6 , max : 14 , message : '請輸入6-14位數的密碼 ! ', trigger : 'blur' }
   ],
+  agree : [
+    { 
+      validator : (rule, value, callback) => {
+        if ( value ) { // 如果勾選同意條款
+          callback() // 通過驗證  
+        } else {
+          callback(new Error('請勾選同意條款 ! ')) // 未通過驗證, 提示用戶勾選同意條款
+        }
+      }
+    }
+  ]
   
 })
+
+// 獲取 登入表單實例對象
+const loginRef = ref(null)
+
+// 登入按鈕點擊事件
+
+const onLogin = async  () => {
+
+  // 使用 async/await 進行一次性表單驗證
+  await loginRef.value.validate()
+  
+  // 只要沒有通過驗證 , 就不會執行下列操作
+  console.log('後續的登入操作');
+}
 
 </script>
 <template>
@@ -46,7 +72,7 @@ const loginRules = ref({
         <!-- 登入表單輸入區域 -->
         <div class="account-box">
           <div class="form">
-            <el-form label-position="right" label-width="60px" status-icon :model="loginForm" :rules="loginRules">
+            <el-form label-position="right" label-width="60px" status-icon :model="loginForm" :rules="loginRules" ref="loginRef">
               <el-form-item label="帳號" prop="account">
                 <el-input v-model="loginForm.account" />
               </el-form-item>
@@ -54,13 +80,13 @@ const loginRules = ref({
                 <el-input v-model="loginForm.password" />
               </el-form-item>
               <!-- 同意條款區域 -->
-              <el-form-item label-width="22px">
-                <el-checkbox size="large">
+              <el-form-item label-width="22px" prop="agree">
+                <el-checkbox size="large" v-model="loginForm.agree">
                   我已同意 隱私條款和服務條款
                 </el-checkbox>
               </el-form-item>
               <!-- 點擊登入按鈕 -->
-              <el-button size="large" class="subBtn">點擊登入</el-button>
+              <el-button size="large" class="subBtn" @click="onLogin">點擊登入</el-button>
             </el-form>
           </div>
         </div>
@@ -136,7 +162,7 @@ const loginRules = ref({
   position: relative;
 
   .wrapper {
-    width: 380px;
+    width: 480px;
     background: #fff;
     position: absolute;
     left: 50%;
@@ -146,7 +172,7 @@ const loginRules = ref({
 
     nav {
       font-size: 14px;
-      height: 55px;
+      height: 100px;
       margin-bottom: 20px;
       border-bottom: 1px solid #f5f5f5;
       display: flex;
@@ -187,7 +213,7 @@ const loginRules = ref({
     }
   }
 }
-
+// 表單輸入區域
 .account-box {
   .toggle {
     padding: 15px 40px;
@@ -310,5 +336,6 @@ const loginRules = ref({
   background: $xtxColor;
   width: 100%;
   color: #fff;
+  margin-top: 40px;
 }
 </style>
