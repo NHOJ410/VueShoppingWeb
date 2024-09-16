@@ -1,4 +1,6 @@
 <script setup>
+// 導入組件
+import LayoutCart from './LayoutCart.vue'; // 頭部購物車組件
 
 // 導入 Pinia倉庫
 import { useCategoryStore } from '@/stores' // 導入商品分類倉庫
@@ -26,6 +28,7 @@ const categoryStore = useCategoryStore() // 定義商品分類倉庫
         <input type="text" placeholder="請輸入你想查詢的商品">
       </div>
       <!-- 頭部購物車區域 -->
+      <LayoutCart></LayoutCart>
       
     </div>
   </header>

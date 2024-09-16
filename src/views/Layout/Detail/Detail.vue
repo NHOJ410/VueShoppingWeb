@@ -283,8 +283,8 @@ const onAddCart = () => {
 
   .g-service {
     background: #f5f5f5;
-    width: 500px;
-    padding: 20px 10px 0 10px;
+    width: 600px;
+    padding: 20px 20px 0 40px;
     margin-top: 10px;
 
     dl {

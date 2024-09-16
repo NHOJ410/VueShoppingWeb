@@ -172,8 +172,9 @@ export default {
     align-items: center;
 
     dt {
-      width: 50px;
+      width: 120px;
       color: #999;
+      font-size: 16px;
     }
 
     dd {
