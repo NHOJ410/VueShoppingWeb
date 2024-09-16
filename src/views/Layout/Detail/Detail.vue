@@ -5,6 +5,10 @@ import { useRoute } from 'vue-router'
 import { getDetailData } from '@/apis/detail'; // 獲取商品詳情資料
 // 導入組件
 import HotDetail from '@/views/Layout/Detail/components/HotDetail.vue' // 導入熱榜組件
+// 導入Pinia倉庫
+import { useCartStore } from '@/stores' // 導入 本地購物車倉庫
+import { ElMessage } from 'element-plus';
+const cartStore = useCartStore()
 
 // ------------ 獲取商品詳情資料 ---------------
 const route = useRoute() 
@@ -18,11 +22,51 @@ getDetail()
 
 // ---------- sku選擇規格 ----------------------
 
+let skuObj = {} // sku選擇結果 , 加入購物車區域需要用到 所以設定成全局變量
+
 // sku組件選擇結果
 const skuResult = (sku) => {
-  console.log(sku);
+  skuObj = sku
 }
 
+// --------- 數字框組件數量處理 -------------------- 
+const count = ref(1) // 商品數量 (默認為1)
+
+// 數字框組件數量處理
+const changeCount = (count) => {
+  console.log(count);
+}
+
+// --------- 加入購物車按鈕 -------------------- 
+
+const onAddCart = () => {
+   
+  if ( skuObj.skuId) { //  如果用戶選擇完規格後點擊加入購物車按紐
+    
+    //  調用 cartStore倉庫的方法 , 將需要的商品相關資訊存入進去
+    cartStore.addCart(
+      {
+        id: detailData.value.id, // 商品ID
+        name: detailData.value.name, // 商品名稱
+        picture: detailData.value.mainPictures[0], // 圖片
+        price: detailData.value.price, // 最新價格
+        count: count.value, // 商品數量
+        skuId: skuObj.skuId, // skuId
+        attrsText: skuObj.specsText, // 商品規格文本
+        selected: true, // 商品是否選中
+      }
+    )
+    //  提示用戶加入購物車成功
+    ElMessage.success('添加購物車完成!')
+
+    // 讓數字框組件的數量回到 1 
+    count.value = 1
+
+  } else { // 如果用戶沒有選擇完成規格後就去點擊加入購物車按紐
+    // 提示用戶請選擇商品規格
+    ElMessage.warning('請選擇商品規格!')
+  }
+}
  
 
 </script>
@@ -100,11 +144,11 @@ const skuResult = (sku) => {
               <!-- sku組件 -->
               <SkuItem :goods="detailData" @change="skuResult"></SkuItem> 
 
-              <!-- 數據組件 -->
-
+              <!-- 數字輸入框組件 -->
+              <el-input-number v-model="count" :min="1" @change="changeCount" />
               <!-- 按鈕組件 -->
               <div>
-                <el-button size="large" class="btn">
+                <el-button size="large" class="btn" @click="onAddCart">
                   加入購物車
                 </el-button>
               </div>
