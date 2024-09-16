@@ -1,7 +1,5 @@
 <script setup>
-import { ref } from 'vue';
-// 導入api 
-import { getCategoryNavService } from '@/apis/layout'; // 獲取頭部商品導航條
+
 // 導入 Pinia倉庫
 import { useCategoryStore } from '@/stores' // 導入商品分類倉庫
 const categoryStore = useCategoryStore() // 定義商品分類倉庫

@@ -13,11 +13,17 @@ export const useUserInfoStore = defineStore('user', () => {
     const res =  await loginService(data)
     userInfo.value = res.result
   }
-  
+
+  // 清除用戶訊息 ( 登出功能 )
+  const clearUserInfo = () => {
+    userInfo.value = {}
+  }
+   
   // 最後要記得 return 出去
   return {
     userInfo,
-    getUserInfo
+    getUserInfo,
+    clearUserInfo
   }
 },{
   // 開啟持久化插件

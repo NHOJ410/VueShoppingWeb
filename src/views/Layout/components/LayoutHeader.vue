@@ -1,8 +1,24 @@
 <script setup>
-import { useRouter } from 'vue-router' 
+import { useRouter } from 'vue-router'
+import { storeToRefs } from 'pinia';
+import { useUserInfoStore } from '@/stores'; // 導入用戶數據倉庫
+
+const userStore = useUserInfoStore() // 定義user倉庫
+
+const {  userInfo } = storeToRefs(userStore) // 將 user倉庫想要用到的數據/方法 解構出來
+
 
 const router = useRouter()
 
+// 登出按鈕邏輯
+const onLoginOut = () => {
+  // 登出後 調用 user倉庫方法 , 清空用戶數據
+  userStore.clearUserInfo()
+  
+  // 跳轉到登入頁面
+  router.push('/login')
+}
+ 
 
 </script>
 
@@ -10,18 +26,21 @@ const router = useRouter()
   <nav class="app-topnav">
     <div class="container">
       <ul>
-        <template v-if="false">
+        <!-- 登入狀態 -->
+        <template v-if="userInfo.token">
           <li><a href="javascript:;"><i class="iconfont icon-user"></i>John</a></li>
           <li><a href="javascript:;">我的訂單</a></li>
           <li><a href="javascript:;">會員中心</a></li>
           <li>
-            <el-popconfirm title="確認退出嗎?" confirm-button-text="確認" cancel-button-text="取消">
+          <!-- 登出按鈕 -->
+            <el-popconfirm title="確認要登出嗎?" confirm-button-text="確認" cancel-button-text="取消" @confirm="onLoginOut">
               <template #reference>
-                <a href="javascript:;">退出登入</a>
+                <a href="javascript:;">登出</a>
               </template>
             </el-popconfirm>
           </li>
         </template>
+        <!-- 未登入狀態 -->
         <template v-else>
           <li><a href="javascript:;" @click="router.push('/login')">請先登入</a></li>
           <li><a href="javascript:;">幫助中心</a></li>
