@@ -1,8 +1,12 @@
 <script setup>
+// 導入 路由方法
+import { useRouter } from 'vue-router'
+const router = useRouter()
 // 導入 Pinia 倉庫
 import { useCartStore } from '@/stores/modules/cartStore' // 導入購物車倉庫
 
 const cartStore = useCartStore() // 定義購物車倉庫
+
 
 </script>
 
@@ -40,7 +44,7 @@ const cartStore = useCartStore() // 定義購物車倉庫
           <p>共 {{ cartStore.totalCount }} 件商品</p>
           <p>$ {{ cartStore.totalPrice.toFixed(0) }} </p>
         </div>
-        <el-button size="large" type="primary" >去購物車結算</el-button>
+        <el-button size="large" type="primary" @click="router.push('/cartList')">去購物車結算</el-button>
       </div>
     </div>
 </div>

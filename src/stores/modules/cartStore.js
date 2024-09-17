@@ -38,7 +38,6 @@ export const useCartStore = defineStore('cart', () => {
 
 
   // --------- 刪除購物車 ---------
-
   const deleteCart = (skuId) => {
     // 使用數組 filter() 方法 , 將購物車頁面點擊刪除的商品過濾掉 , 並重新賦值給 購物車列表 這樣就完成了刪除功能
     cartList.value = cartList.value.filter(item => item.skuId !== skuId)
