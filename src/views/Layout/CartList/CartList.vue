@@ -1,16 +1,26 @@
 <script setup>
+import { ref } from 'vue'
 // 導入 Pinia倉庫
 import { useCartStore } from '@/stores' // 導入購物車倉庫
 
 // 定義購物車倉庫
 const cartStore = useCartStore()
 
-// --------- 商品複選框的事件處理函數 -----------
+// --------- 商品選取框的事件處理函數 -----------
 
 const handleSelect = (item , checked) => {
    
   // 調用倉庫方法 , 修改 cartList 的選取狀態
   cartStore.isSelected(item.skuId , checked)
+}
+
+// --------- 全選框的事件處理函數 -----------
+
+const onCheckAll = (checked) => {
+  
+  // 調用倉庫方法 , 修改 cartList 的選取狀態 === 我們全選框的選取狀態
+  cartStore.checkAll(checked)
+
 }
 
 
@@ -24,7 +34,7 @@ const handleSelect = (item , checked) => {
           <thead>
             <tr>
               <th width="100">
-                <el-checkbox/>
+                <el-checkbox :model-value="cartStore.isAllChecked" @change="onCheckAll"/>
               </th>
               <th width="400">商品資訊</th>
               <th width="220">單價</th>

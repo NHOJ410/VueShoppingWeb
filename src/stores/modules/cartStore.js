@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia'
-import { ref } from 'vue'
-import { computed } from 'vue'
+import { ref , computed} from 'vue'
 
 
 // 購物車模塊
@@ -68,10 +67,27 @@ export const useCartStore = defineStore('cart', () => {
     // 修改他的選取狀態 === 我們回傳過來的 checked狀態就可以了
     selected.selected = checked
 
+  }
+
+  
+  // --------- 全選框部分 ----------
+  
+
+  // 當複選框全部勾上後 , 全選框自動打勾 
+  const isAllChecked = computed(() => {
+
+    // 使用 數組every來判斷是否所有的 小選框都選中了 返回一個布林值
+    return cartList.value.every(item => item.selected === true )
+  })
+
+  
+  // 全選框來控制小選框的選取狀態 
+
+  const checkAll = (checked) => {
+    
+    cartList.value.forEach(item => item.selected = checked)
 
   }
- 
-
 
 
 
@@ -81,7 +97,9 @@ export const useCartStore = defineStore('cart', () => {
     deleteCart,
     totalCount,
     totalPrice,
-    isSelected
+    isSelected,
+    isAllChecked,
+    checkAll
   }
 },
   // 持久化
