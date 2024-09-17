@@ -98,7 +98,7 @@ const onCheckAll = (checked) => {
           <!-- 計算 總數量 , 選中商品總數量 區域 -->
           共 {{ cartStore.totalCount }} 件商品，已選擇 {{ cartStore.selectCount }} 件，商品合計：
           <!-- 計算總價格區域 -->
-          <span class="red">$ {{ cartStore.selectPrice }} 元</span>
+          <span class="red">$ {{ cartStore.selectPrice.toFixed(0) }} 元</span>
         </div>
         <div class="total">
           <el-button size="large" type="primary" >下單結算</el-button>
