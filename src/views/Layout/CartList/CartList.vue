@@ -5,6 +5,14 @@ import { useCartStore } from '@/stores' // 導入購物車倉庫
 // 定義購物車倉庫
 const cartStore = useCartStore()
 
+// --------- 商品複選框的事件處理函數 -----------
+
+const handleSelect = (item , checked) => {
+   
+  // 調用倉庫方法 , 修改 cartList 的選取狀態
+  cartStore.isSelected(item.skuId , checked)
+}
+
 
 </script>
 
@@ -29,7 +37,8 @@ const cartStore = useCartStore()
           <tbody>
             <tr v-for="item in cartStore.cartList" :key="item.id">
               <td>
-                <el-checkbox />
+                <!-- 商品列表單選框 -->
+                <el-checkbox :model-value="item.selected" @change=" checked => handleSelect(item , checked )"/>
               </td>
               <td>
                 <div class="goods">
@@ -76,7 +85,7 @@ const cartStore = useCartStore()
       <!-- 操作欄 -->
       <div class="action" v-if="cartStore.cartList.length !== 0">
         <div class="batch">
-          共 {{ cartStore.totalCount }} 件商品，已選擇 2 件，商品合計：
+          共 {{ cartStore.totalCount }} 件商品，已選擇 測試 件，商品合計：
           <span class="red">$ 暫時還沒有</span>
         </div>
         <div class="total">

@@ -57,6 +57,20 @@ export const useCartStore = defineStore('cart', () => {
     return cartList.value.reduce((sum, item) => sum + (item.price * item.count), 0)
   })
 
+  
+  // --------- 修改選取框中的狀態 ----------
+
+  const isSelected = ( skuId , checked ) => {
+    
+    // 使用 find來查找我們在購物車頁面 點選的那一項商品
+    const selected = cartList.value.find(item => item.skuId === skuId)
+
+    // 修改他的選取狀態 === 我們回傳過來的 checked狀態就可以了
+    selected.selected = checked
+
+
+  }
+ 
 
 
 
@@ -66,7 +80,8 @@ export const useCartStore = defineStore('cart', () => {
     addCart,
     deleteCart,
     totalCount,
-    totalPrice
+    totalPrice,
+    isSelected
   }
 },
   // 持久化
