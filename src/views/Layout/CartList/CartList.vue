@@ -20,7 +20,6 @@ const onCheckAll = (checked) => {
   
   // 調用倉庫方法 , 修改 cartList 的選取狀態 === 我們全選框的選取狀態
   cartStore.checkAll(checked)
-
 }
 
 
@@ -61,10 +60,11 @@ const onCheckAll = (checked) => {
                 </div>
               </td>
               <td class="tc">
-                <p>$ {{ item.price }}</p>
+                <p>$ {{ item.price }} 元</p>
               </td>
               <td class="tc">
-                <el-input-number v-model="item.count" />
+                <!-- 數量加減組件 -->
+                <el-input-number v-model="item.count" min="1"/>
               </td>
               <td class="tc">
                 <p class="f16 red">${{ (item.price * item.count).toFixed(2) }}</p>
@@ -95,8 +95,10 @@ const onCheckAll = (checked) => {
       <!-- 操作欄 -->
       <div class="action" v-if="cartStore.cartList.length !== 0">
         <div class="batch">
-          共 {{ cartStore.totalCount }} 件商品，已選擇 測試 件，商品合計：
-          <span class="red">$ 暫時還沒有</span>
+          <!-- 計算 總數量 , 選中商品總數量 區域 -->
+          共 {{ cartStore.totalCount }} 件商品，已選擇 {{ cartStore.selectCount }} 件，商品合計：
+          <!-- 計算總價格區域 -->
+          <span class="red">$ {{ cartStore.selectPrice }} 元</span>
         </div>
         <div class="total">
           <el-button size="large" type="primary" >下單結算</el-button>

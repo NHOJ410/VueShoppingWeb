@@ -90,6 +90,29 @@ export const useCartStore = defineStore('cart', () => {
   }
 
 
+  // --------- 已選擇商品數量的總和 ------------
+  const selectCount = computed(() => {
+    
+    // 先用 filter() 將 選中的商品篩選出來
+    const isSelect = cartList.value.filter(item => item.selected === true)
+    
+    // 然後再利用 reduce() 方法 來對選中的商品裡面的數量來進行累加和 這樣就ok了
+    return isSelect.reduce((sum, item) => sum + item.count, 0)
+  })
+
+  
+  // --------- 已選擇商品數量的總價格 ------------
+
+  const selectPrice = computed(() => {
+    
+    // 先用 filter() 將 選中的商品篩選出來
+    const isSelect = cartList.value.filter(item => item.selected === true)
+
+    // 然後再利用 reduce() 方法 來對選中的商品裡面的價格來進行累加和 這樣就ok了
+    return isSelect.reduce( (sum , item ) => sum + ( item.count * item.price ) , 0)
+  })
+
+
 
   return {
     cartList,
@@ -99,7 +122,9 @@ export const useCartStore = defineStore('cart', () => {
     totalPrice,
     isSelected,
     isAllChecked,
-    checkAll
+    checkAll,
+    selectCount,
+    selectPrice
   }
 },
   // 持久化
