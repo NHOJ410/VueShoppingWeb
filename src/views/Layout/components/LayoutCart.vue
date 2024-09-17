@@ -15,21 +15,22 @@ const cartStore = useCartStore() // 定義購物車倉庫
     <!-- 購物車內容區 -->
     <div class="layer">
       <div class="list">
-        <div class="item" v-for="i in cartStore.cartList" :key="i">
+        <div class="item" v-for="item in cartStore.cartList" :key="item">
           <RouterLink to="">
-            <img :src="i.picture" alt="" />
+            <img :src="item.picture" alt="" />
             <div class="center">
               <p class="name ellipsis-2">
-                {{ i.name }}
+                {{ item.name }}
               </p>
-              <p class="attr ellipsis">{{ i.attrsText }}</p>
+              <p class="attr ellipsis">{{ item.attrsText }}</p>
             </div>
             <div class="right">
-              <p class="price">&yen;{{ i.price }}</p>
-              <p class="count">x{{ i.count }}</p>
+              <p class="price">${{ item.price }}</p>
+              <p class="count">x{{ item.count }}</p>
             </div>
           </RouterLink>
-          <i class="iconfont icon-close-new" @click="store.delCart(i.skuId)"></i>
+          <!-- 刪除按鈕 -->
+          <i class="iconfont icon-close-new" @click="cartStore.deleteCart(item.skuId)"></i>
         </div>
        
       </div>
@@ -174,10 +175,11 @@ const cartStore = useCartStore() // 定義購物車倉庫
       i {
         position: absolute;
         bottom: 38px;
-        right: 0;
+        right: 20px;
         opacity: 0;
         color: #666;
         transition: all 0.5s;
+        font-size: 25px;
       }
 
       &:hover {

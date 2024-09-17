@@ -5,11 +5,11 @@ import { ref } from 'vue'
 
 export const useCartStore = defineStore('cart', () => {
 
-  // 購物車列表
+  // --------- 購物車列表 ---------
   const cartList = ref([])
 
 
-  // 添加購物車 
+  // --------- 添加購物車 --------- 
   const addCart = (commodity) => {
 
     // 已添加過購物車 --> count + 1 
@@ -33,9 +33,23 @@ export const useCartStore = defineStore('cart', () => {
     }
 
   }
+  
+
+   // --------- 刪除購物車 ---------
+
+   const deleteCart = (skuId) => {
+    // 使用數組 filter() 方法 , 將購物車頁面點擊刪除的商品過濾掉 , 並重新賦值給 購物車列表 這樣就完成了刪除功能
+    cartList.value = cartList.value.filter( item => item.skuId !== skuId)
+  }
+
+
+
+
+
   return {
     cartList,
-    addCart
+    addCart,
+    deleteCart
   }
 },
 // 持久化
