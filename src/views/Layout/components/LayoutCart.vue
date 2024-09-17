@@ -35,10 +35,10 @@ const cartStore = useCartStore() // 定義購物車倉庫
        
       </div>
       <!-- 底部商品總計 -->
-      <div class="foot">
+      <div class="foot" v-if="cartStore.cartList.length !== 0">
         <div class="total">
-          <p>共 10 件商品</p>
-          <p>$ 100.00 </p>
+          <p>共 {{ cartStore.totalCount }} 件商品</p>
+          <p>$ {{ cartStore.totalPrice.toFixed(0) }} </p>
         </div>
         <el-button size="large" type="primary" >去購物車結算</el-button>
       </div>
