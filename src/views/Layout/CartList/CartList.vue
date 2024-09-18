@@ -23,6 +23,7 @@ const onCheckAll = (checked) => {
 }
 
 
+
 </script>
 
 <template>
@@ -67,7 +68,7 @@ const onCheckAll = (checked) => {
                 <el-input-number v-model="item.count" :min="1"/>
               </td>
               <td class="tc">
-                <p class="f16 red">${{ (item.price * item.count).toFixed(2) }}</p>
+                <p class="f16 red">${{ (item.price * item.count).toFixed(2) }} 元</p>
               </td>
               <td class="tc">
                 <p>
@@ -101,7 +102,7 @@ const onCheckAll = (checked) => {
           <span class="red">$ {{ cartStore.selectPrice.toFixed(0) }} 元</span>
         </div>
         <div class="total">
-          <el-button size="large" type="primary" >下單結算</el-button>
+          <el-button size="large" type="primary" @click="$router.push('/Settlement')">下單結算</el-button>
         </div>
       </div>
     </div>
