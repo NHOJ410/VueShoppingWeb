@@ -65,8 +65,7 @@ httpInstance.interceptors.response.use(function (response) {
         router.push('/login')
       })
       .catch(() => { // 停留在未登入狀態的邏輯
-      // 重新回到首頁
-      router.push('/')
+
     })
 
     return

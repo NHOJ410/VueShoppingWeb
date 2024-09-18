@@ -26,7 +26,7 @@ const onCheckAll = (checked) => {
 </script>
 
 <template>
-  <div class="xtx-cart-page">
+  <div class="cart-page">
     <div class="container m-top-20">
       <div class="cart">
         <table>
@@ -64,7 +64,7 @@ const onCheckAll = (checked) => {
               </td>
               <td class="tc">
                 <!-- 數量加減組件 -->
-                <el-input-number v-model="item.count" min="1"/>
+                <el-input-number v-model="item.count" :min="1"/>
               </td>
               <td class="tc">
                 <p class="f16 red">${{ (item.price * item.count).toFixed(2) }}</p>
@@ -110,7 +110,7 @@ const onCheckAll = (checked) => {
 
 
 <style scoped lang="scss">
-.xtx-cart-page {
+.cart-page {
   margin-top: 20px;
 
   .cart {
