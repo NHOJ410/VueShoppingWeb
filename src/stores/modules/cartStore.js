@@ -18,6 +18,18 @@ export const useCartStore = defineStore('cart', () => {
   // --------- 購物車列表 ---------
   const cartList = ref([])
 
+  // --------- (用戶已登入狀態) 獲取最新的購物車列表 ---------
+
+  const getLoginUserList = async () => {
+
+    // 使用 api 去獲取用戶購物車列表數據
+    const res = await getCartListService()
+
+    // 將我們獲取到的數據 重新賦值給 本地購物車列表
+    cartList.value = res.result
+
+  }
+
   // --------- 添加購物車 --------- 
   const addCart = async (commodity) => {
 
@@ -47,17 +59,10 @@ export const useCartStore = defineStore('cart', () => {
 
       // 使用 api 去加入購物車
       await addCartService(commodity.skuId, commodity.count)
-      // 使用 api 去獲取用戶購物車列表數據
-      const res = await getCartListService()
-
-      // 將我們獲取到的數據 重新賦值給 本地購物車列表
-      cartList.value = res.result
-
+      // 調用獲取最新的購物車列表
+      getLoginUserList()
     }
-    
-
   }
-
 
   // --------- 刪除購物車 ---------
   const deleteCart = async (skuId) => {
@@ -71,11 +76,9 @@ export const useCartStore = defineStore('cart', () => {
       
       // 調用接口去刪除已登入用戶的商品 ( 注意接口的要求是一個數組 )
       await deleteCartService([skuId])
-      // 重新獲取用戶購物車列表
-      const res = await getCartListService()
-
-      // 將我們獲取到的數據 重新賦值給 本地購物車列表
-      cartList.value = res.result
+      
+       // 調用獲取最新的購物車列表
+       getLoginUserList()
 
     }
     
