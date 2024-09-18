@@ -3,7 +3,7 @@ import { ref, computed } from 'vue'
 // 導入 倉庫
 import { useUserInfoStore } from '@/stores' // 導入 用戶數據倉庫
 // 導入api
-import { getCartListService, addCartService } from '@/apis/cart' // 獲取購物車列表 , 加入購物車 api
+import { getCartListService, addCartService , deleteCartService } from '@/apis/cart' // 獲取購物車列表 , 加入購物車 api
 
 
 // 購物車模塊
@@ -60,7 +60,7 @@ export const useCartStore = defineStore('cart', () => {
 
 
   // --------- 刪除購物車 ---------
-  const deleteCart = (skuId) => {
+  const deleteCart = async (skuId) => {
 
     if ( !token.value ) { // 如果用戶沒有登入 , 就走本地購物車
       
@@ -69,6 +69,14 @@ export const useCartStore = defineStore('cart', () => {
 
     } else { // 走到這裡代表用戶已經登入了
       
+      // 調用接口去刪除已登入用戶的商品 ( 注意接口的要求是一個數組 )
+      await deleteCartService([skuId])
+      // 重新獲取用戶購物車列表
+      const res = await getCartListService()
+
+      // 將我們獲取到的數據 重新賦值給 本地購物車列表
+      cartList.value = res.result
+
     }
     
   }

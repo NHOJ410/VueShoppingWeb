@@ -20,3 +20,13 @@ export const addCartService = (skuId , count) => {
   })
 }
 
+// 刪除購物車商品
+export const deleteCartService = ( ids ) => {
+  return http({
+    url:'/member/cart',
+    method:'delete',
+    data:{
+      ids
+    }
+  })
+}
