@@ -19,7 +19,6 @@ export const useCartStore = defineStore('cart', () => {
   const cartList = ref([])
 
   // --------- (用戶已登入狀態) 獲取最新的購物車列表 ---------
-
   const getLoginUserList = async () => {
 
     // 使用 api 去獲取用戶購物車列表數據
@@ -83,6 +82,16 @@ export const useCartStore = defineStore('cart', () => {
     }
     
   }
+
+  
+  // --------- 清空購物車列表 ( 用戶退出登入使用 ) ---------
+
+  const clearCartList = () => {
+
+    cartList.value = []
+
+  }
+
 
 
   // --------- 計算總數量 ----------
@@ -167,6 +176,8 @@ export const useCartStore = defineStore('cart', () => {
     checkAll,
     selectCount,
     selectPrice,
+    clearCartList,
+    getLoginUserList
   }
 },
   // 持久化

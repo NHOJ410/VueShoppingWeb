@@ -30,3 +30,12 @@ export const deleteCartService = ( ids ) => {
     }
   })
 }
+
+// 合併 本地購物車到後端購物車
+export const mergeCartService = ( data ) => {
+  return http({
+    url:'/member/cart/merge',
+    method:'post',
+    data
+  })
+}

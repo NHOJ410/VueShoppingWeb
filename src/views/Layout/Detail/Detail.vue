@@ -32,10 +32,7 @@ const skuResult = (sku) => {
 // --------- 數字框組件數量處理 -------------------- 
 const count = ref(1) // 商品數量 (默認為1)
 
-// 數字框組件數量處理
-const changeCount = (count) => {
-  console.log(count);
-}
+
 
 // --------- 加入購物車按鈕 -------------------- 
 
