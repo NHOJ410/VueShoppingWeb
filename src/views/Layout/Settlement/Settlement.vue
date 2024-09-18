@@ -8,6 +8,7 @@ import { getSettlementData } from '@/apis/settlement'; // 獲取訂單結算頁�
 
 const orderData = ref({})  // 訂單資料
 const defaultAddress = ref({})  // 默認地址資料 ( 呈現在頁面中的 )
+const addressList = ref([]) // 收貨地址列表
 
 // 調用接口 獲取數據
 
@@ -18,6 +19,8 @@ const getSettlement = async () => {
   orderData.value = res.result // 訂單資料
 
   defaultAddress.value = res.result.userAddresses.find( item => item.isDefault === 0 ) // 找到後端提供的默認地址資料來渲染頁面
+
+  addressList.value = res.result.userAddresses // 收貨地址列表
   
   
 }
@@ -25,6 +28,29 @@ const getSettlement = async () => {
 onMounted(() => {
   getSettlement()
 })
+
+// ---------- 切換收貨地址部分 -----------
+
+const toggleFlag = ref(false) // 控制切換地址的顯示隱藏變量
+
+const activeAddress = ref({}) // 用戶切換的的收貨地址
+
+// 切換收貨地址事件處理函數
+const switchAddress = ( item ) => {
+  
+  activeAddress.value = item // 存儲用戶切換的的收貨地址
+
+
+}
+
+// 確認切換收貨地址事件處理函數
+const onChangeAddress = () => {
+  // 將我們切換的收貨地址存儲到默認地址中
+  defaultAddress.value = activeAddress.value
+  // 關閉彈窗
+  toggleFlag.value = false
+}
+
 
 
 
@@ -45,7 +71,7 @@ onMounted(() => {
               <div class="none" v-if="!defaultAddress">您需要先添加收貨地址才可提交訂單。</div>
               <!-- 如果用戶有收貨地址的話 所顯示的區域 -->
               <ul v-else>
-                <li><span>收<i/>貨<i/>人：</span>{{ defaultAddress.receiver }}</li>
+                <li><span>收貨人：</span>{{ defaultAddress.receiver }}</li>
                 <li><span>聯繫方式：</span>{{ defaultAddress.contact }}</li>
                 <li><span>收貨地址：</span>{{ defaultAddress.fullLocation }} {{ defaultAddress.address }}</li>
               </ul>
@@ -138,7 +164,27 @@ onMounted(() => {
       </div>
     </div>
   </div>
-  <!-- 切換地址 -->
+  <!-- 切換收貨地址區域 -->
+    <el-dialog title="切換收貨地址" width="30%" center v-model="toggleFlag">
+    <div class="addressWrapper">
+      <div class="text item" :class="{ active : activeAddress.id === item.id }" v-for="item in addressList" :key="item.id" @click="switchAddress(item)">
+        <ul>
+          <li><span>收貨人：</span>{{ item.receiver }}</li>
+          <li><span>聯絡方式：</span>{{ item.contact }}</li>
+          <li><span>收貨地址：</span>{{ item.fullLocation + item.address }}</li>
+        </ul>
+      </div>
+    </div>
+    <template #footer>
+      <span class="dialog-footer">
+        <el-button type="primary" @click="onChangeAddress">確認更換</el-button>
+        <el-button @click="toggleFlag = false">取消</el-button>
+      </span>
+    </template>
+  </el-dialog>
+
+
+
   <!-- 添加地址 -->
 
 </template>
