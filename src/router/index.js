@@ -17,7 +17,8 @@ const router = createRouter({
         { path : '/category/sub/:id' , component : () => import('@/views/Layout/SubCategory/SubCategory.vue') }, // 二級分類頁面
         { path : '/detail/:id' , component : () => import('@/views/Layout/Detail/Detail.vue') }, // 商品詳情頁面
         { path : '/cartList' , component : () => import ('@/views/Layout/CartList/CartList.vue')}, // 購物車列表頁面
-        { path : '/settlement' , component : () => import ('@/views/Layout/Settlement/Settlement.vue') } // 結算頁面
+        { path : '/settlement' , component : () => import ('@/views/Layout/Settlement/Settlement.vue') }, // 結算頁面
+        { path : '/pay' , component : () => import ('@/views/Layout/Pay/pay.vue') } // 支付頁面
       ]
     }, // 首頁架子
     

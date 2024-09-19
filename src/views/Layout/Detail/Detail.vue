@@ -141,7 +141,7 @@ const onAddCart = () => {
               <SkuItem :goods="detailData" @change="skuResult"></SkuItem> 
 
               <!-- 數字輸入框組件 -->
-              <el-input-number v-model="count" :min="1" @change="changeCount" />
+              <el-input-number v-model="count" :min="1" />
               <!-- 按鈕組件 -->
               <div>
                 <el-button size="large" class="btn" @click="onAddCart">

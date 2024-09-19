@@ -1,7 +1,14 @@
 <script setup>
 import { ref , onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 // 導入api
-import { getSettlementData } from '@/apis/settlement'; // 獲取訂單結算頁的資料
+import { getSettlementData , submitOrder } from '@/apis/settlement'; // 獲取訂單結算頁的資料
+// 導入倉庫
+import { useCartStore } from '@/stores' // 導入 購物車倉庫
+// 定義倉庫
+const cartStore = useCartStore() // 定義 購物車倉庫
+// 定義路由
+const router = useRouter()
 
 
 // ---------- 獲取訂單結算頁的資料 -----------
@@ -49,6 +56,41 @@ const onChangeAddress = () => {
   defaultAddress.value = activeAddress.value
   // 關閉彈窗
   toggleFlag.value = false
+}
+
+// 提交訂單按鈕 
+const onSubmitOrder = async () => {
+  
+  // 調用接口 提交訂單給後台
+  const res = await submitOrder({
+    deliveryTimeType : 1,
+    payType : 1,
+    payChannel : 1,
+    buyerMessage : '',
+    goods : orderData.value.goods.map( item => {
+      return {
+        skuId : item.skuId,
+        count : item.count
+      }
+    }),
+    addressId : defaultAddress.value.id
+  })
+
+  // 將後台返回的訂單 id 存入進來
+  const id = res.result.id
+
+  // 利用查詢參數跳轉傳參的方式來跳轉
+  router.push({
+    path:'/pay',
+    // 將支付頁面需要的 訂單id傳進去 以便調用接口做渲染
+    query:{
+      id
+    }
+  })
+  
+  // 跳轉到支付頁面後 , 要更新購物車的最新數據 調用之前在 cartStore封裝的方法
+  cartStore.getLoginUserList()
+  
 }
 
 
@@ -159,7 +201,7 @@ const onChangeAddress = () => {
         </div>
         <!-- 提交訂單 -->
         <div class="submit">
-          <el-button type="primary" size="large" >提交訂單</el-button>
+          <el-button type="primary" size="large" @click="onSubmitOrder">提交訂單</el-button>
         </div>
       </div>
     </div>
@@ -182,8 +224,6 @@ const onChangeAddress = () => {
       </span>
     </template>
   </el-dialog>
-
-
 
   <!-- 添加地址 -->
 

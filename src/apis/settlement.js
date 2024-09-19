@@ -6,3 +6,12 @@ export const getSettlementData = () => {
     url: '/member/order/pre'
   })
 }
+
+// 提交訂單
+export const submitOrder = (data) => {
+  return http({
+    url : '/member/order',
+    method:'post',
+    data
+  })
+}
