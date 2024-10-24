@@ -15,7 +15,6 @@ const likeList = ref([]) // 存儲猜你喜歡商品數據
 const getLikeList = async () => {
   const res = await getLikeListAPI({ limit: 4 })
 
-  console.log(res);
 
   likeList.value = res.result
 }

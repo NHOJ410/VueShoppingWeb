@@ -1,6 +1,11 @@
 <script setup>
+import { ref , onMounted } from 'vue'
+// 導入api
+import { getUserOrderAPI } from '@/apis/userCenter';
+
+
 // tab列表
-const tabTypes = [
+const tabTypes = ref([
   { name: "all", label: "全部訂單" },
   { name: "unpay", label: "待付款" },
   { name: "deliver", label: "待發貨" },
@@ -8,9 +13,32 @@ const tabTypes = [
   { name: "comment", label: "待評價" },
   { name: "complete", label: "已完成" },
   { name: "cancel", label: "已取消" }
-]
-// 訂單列表
-const orderList = []
+])
+
+// -------------- 獲取我的訂單列表部分 -------------------
+
+const orderList = ref([]) // 存儲我的訂單的數據
+
+// 獲取我的訂單列表所需要的參數
+const userOrderParams = ref({
+  orderState : 1, // tab切換的狀態
+  page : 1, // 當前頁數
+  pageSize : 10 // 單頁多少條數據
+})
+
+// 定義方法 發送請求 獲取數據
+const getUserOrder = async () => {
+
+  const res = await getUserOrderAPI(userOrderParams.value)
+  
+  // 將獲取到的數據存起來
+  orderList.value = res.result.items
+  
+}
+
+onMounted(() => {
+  getUserOrder()
+})
 
 </script>
 
@@ -91,16 +119,15 @@ const orderList = []
               </div>
             </div>
           </div>
-          <!-- 分頁 -->
+          <!-- 分頁
           <div class="pagination-container">
             <el-pagination background layout="prev, pager, next" />
-          </div>
+          </div> -->
         </div>
       </div>
 
     </el-tabs>
   </div>
-
 </template>
 
 
