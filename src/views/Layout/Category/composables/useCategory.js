@@ -10,8 +10,10 @@ export const useCategoryData = () => {
   // 獲取路由
   const route = useRoute();
 
+
   // 獲取一級分類數據
   const categoryList = ref({}) // 存儲一級分類列表數據
+  
   // 發送請求 獲取一級分類數據
   const getCategory = async ( id = route.params.id) => {
     const res = await getCategoryService(id)

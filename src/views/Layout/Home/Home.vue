@@ -5,6 +5,8 @@ import HomeBanner from '@/views/Layout/Home/components/HomeBanner.vue'
 import HomeNews from '@/views/Layout/Home/components/HomeNews.vue'
 import HomeHot from '@/views/Layout/Home/components/HomeHot.vue'
 import HomeProduct from '@/views/Layout/Home/components/HomeProduct.vue'
+
+
 </script>
 
 <template>

@@ -232,8 +232,7 @@ const onSubmitOrder = async () => {
 <style scoped lang="scss">
 .xtx-pay-checkout-page {
   margin-top: 20px;
-
-  .wrapper {
+    .wrapper {
     background: #fff;
     padding: 0 20px;
 
