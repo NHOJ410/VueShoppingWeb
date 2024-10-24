@@ -1,9 +1,13 @@
 import axios from 'axios'
 import 'element-plus/dist/index.css'
-import { ElMessage , ElMessageBox } from 'element-plus'
+import { ElMessage , ElMessageBox , ElLoading} from 'element-plus'
 import router from '@/router'
 // 導入user倉庫 
 import { useUserInfoStore } from '@/stores'
+
+// 控制 el-loading的變量
+let loadingInstance;
+
 
 const baseURL = 'http://pcapi-xiaotuxian-front-devtest.itheima.net'
 
@@ -22,12 +26,25 @@ httpInstance.interceptors.request.use(function (config) {
 
   // 判斷 如果有token的時候 就在請求時攜帶上token
   if ( token ) config.headers.Authorization = `Bearer ${token}`
+
+  // 開始顯示 loading
+  loadingInstance = ElLoading.service({
+    lock: true,
+    text: '加載中...',
+    spinner: 'el-icon-loading',
+  });
   
   
 
   return config;
 }, function (error) {
   // 對請求錯誤做些什麼
+
+  // 請求錯誤時關閉 loading
+  if (loadingInstance) {
+    loadingInstance.close();
+  }
+
   return Promise.reject(error);
 });
 
@@ -37,6 +54,11 @@ httpInstance.interceptors.request.use(function (config) {
 httpInstance.interceptors.response.use(function (response) {
   // 2xx 範圍內的狀態碼都會觸發該函數。
   // 對響應數據做點什麼
+
+  // 請求成功時關閉 loading
+  if (loadingInstance) {
+    loadingInstance.close();
+  }
   
 
   return response.data
@@ -44,6 +66,11 @@ httpInstance.interceptors.response.use(function (response) {
 }, function (error) {
   // 超出 2xx 範圍的狀態碼都會觸發該函數。
   // 對響應錯誤做點什麼
+
+  // 請求錯誤時關閉 loading
+  if (loadingInstance) {
+    loadingInstance.close();
+  }
 
   // token過期/失效處理 , 當響應狀態碼是401的時候
   if ( error.response.status === 401 ) {

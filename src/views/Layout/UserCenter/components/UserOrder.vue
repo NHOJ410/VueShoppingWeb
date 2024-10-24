@@ -1,5 +1,5 @@
 <script setup>
-import { ref , onMounted } from 'vue'
+import { ref , onMounted  } from 'vue'
 // 導入api
 import { getUserOrderAPI } from '@/apis/userCenter';
 
@@ -15,24 +15,30 @@ const tabTypes = ref([
   { name: "cancel", label: "已取消" }
 ])
 
+
 // -------------- 獲取我的訂單列表部分 -------------------
 
 const orderList = ref([]) // 存儲我的訂單的數據
-
+const totalCount = ref(0) // 存儲訂單總數量 用來做分頁器的渲染
+ 
 // 獲取我的訂單列表所需要的參數
 const userOrderParams = ref({
-  orderState : 1, // tab切換的狀態
+  orderState : 0, // tab切換的狀態
   page : 1, // 當前頁數
-  pageSize : 10 // 單頁多少條數據
+  pageSize : 5 // 單頁多少條數據
 })
 
 // 定義方法 發送請求 獲取數據
 const getUserOrder = async () => {
 
+
   const res = await getUserOrderAPI(userOrderParams.value)
   
   // 將獲取到的數據存起來
   orderList.value = res.result.items
+  
+  // 存儲訂單總數量
+  totalCount.value = res.result.counts
   
 }
 
@@ -40,11 +46,44 @@ onMounted(() => {
   getUserOrder()
 })
 
+// 按照接口文檔 , 根據後端回傳的 payState 決定要顯示哪個支付狀態 
+const formatPayState = ( payState ) => {
+  const stateMap = {
+    1 : '待付款',
+    2 : '待發貨',
+    3 : '待收貨',
+    4 : '待評價',
+    5 : '已完成',
+    6 : '已取消'
+  }
+
+  return stateMap[payState]
+}
+
+
+// -------------------- 根據切換tab欄 , 來展示對應的訂單數據 ------------------
+
+// 監聽 el-tabs 的切換狀態
+const tabChange = ( item ) => {
+
+  // 將獲取到的新值 , 賦值給 userOrderParams.value.orderState 來發送請求 獲取對應的訂單數據
+  userOrderParams.value.orderState = item
+
+  // 重新發送一次請求 渲染對應的訂單數據即可!
+  getUserOrder()
+
+}
+
+
+
+
+
+
 </script>
 
 <template>
   <div class="order-container">
-    <el-tabs>
+    <el-tabs @tab-change="tabChange">
       <!-- tab切換 -->
       <el-tab-pane v-for="item in tabTypes" :key="item.name" :label="item.label" />
 
@@ -79,13 +118,13 @@ onMounted(() => {
                         <span>{{ item.attrsText }}</span>
                       </p>
                     </div>
-                    <div class="price">¥{{ item.realPay?.toFixed(2) }}</div>
+                    <div class="price">${{ item.realPay?.toFixed(2) }}</div>
                     <div class="count">x{{ item.quantity }}</div>
                   </li>
                 </ul>
               </div>
               <div class="column state">
-                <p>{{ order.orderState }}</p>
+                <p>{{ formatPayState(order.orderState)}}</p>
                 <p v-if="order.orderState === 3">
                   <a href="javascript:;" class="green">查看物流</a>
                 </p>
@@ -119,10 +158,11 @@ onMounted(() => {
               </div>
             </div>
           </div>
-          <!-- 分頁
+          <!-- 底部分頁器部分 -->
           <div class="pagination-container">
-            <el-pagination background layout="prev, pager, next" />
-          </div> -->
+            <el-pagination v-model:current-page="userOrderParams.page" v-model:page-size="userOrderParams.pageSize" :total="totalCount" background layout="prev, pager, next , sizes , total" 
+            :page-sizes="[5, 10, 15, 20]" @size-change="getUserOrder" @current-change="getUserOrder"/>
+          </div>  
         </div>
       </div>
 
