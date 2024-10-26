@@ -13,7 +13,6 @@ const getHotList = async () => {
   hotList.value = result.result
 }
 
-
 // 調用方法 獲取新鮮好物數據
 getHotList()
 
@@ -24,7 +23,7 @@ getHotList()
      <!-- 主體內容模板(插槽部分) -->
       <ul class="goods-list">
         <li v-for="item in hotList" :key="item.id">
-          <RouterLink to="/">
+          <RouterLink to="/category/1005000">
             <img  alt="" v-lazyLoading="item.picture"/>
             <p class="title">{{ item.title }}</p>
             <p class="alt">{{ item.alt }}</p>
@@ -49,8 +48,7 @@ getHotList()
     transition: all .4s;
 
     &:hover {
-      transform: translate3d(0, -3px, 0);
-      box-shadow: 0 3px 8px rgb(0 0 0 / 20%);
+      @include category-Hover;
     }
     img {
       width: 306px;

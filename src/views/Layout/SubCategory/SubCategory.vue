@@ -11,10 +11,15 @@ import GoodsItem from '@/views/Layout/Home/components/GoodsItem.vue' // 產品�
 
 const route = useRoute()
 
+console.log(route);
+
 const subCategoryList = ref({}) // 存儲二級分類數據
 
 // 定義方法 獲取動態路由參數
 const getSubCategoryList = async () => {
+  
+  // 因為在首頁輪播圖使用強制跳轉 , 所以這裡加一個判斷 不然會報錯
+  if ( route.matched[0].path === '/') return 
   
   const res = await getSubCategoryService(route.params.id)
 
@@ -38,15 +43,22 @@ const contentData = ref({ // 用來傳遞參數
 })
 
 const getSubCategoryContent = async () => {
+  
   const res = await getSubContent(contentData.value)
   subCategoryContent.value = res.result.items
 }
+
 getSubCategoryContent()
 
 // 篩選功能處理 
-const tabChange = () => {
+const tabChange = ( value ) => {
+
+ 
   // 讓當前頁數回到第一頁
   contentData.value.page = 1
+  // 變更排序方式 (但這裡好像都不會變)
+  contentData.value.sortField = value
+
   // 重新調用接口 獲取新的數據 
   getSubCategoryContent()
 }
@@ -80,20 +92,23 @@ const getNewList = async () => {
 
   <div class="container ">
     <!-- 面包屑導航 -->
-    <div class="bread-container">
-      <el-breadcrumb separator=">">
+    <div class="bread-container" >
+      <el-breadcrumb separator=">" v-if="subCategoryList.parentId">
         <el-breadcrumb-item :to="{ path: '/' }">首頁</el-breadcrumb-item>
         <el-breadcrumb-item :to="{ path: `/category/${subCategoryList.parentId}` }">{{ subCategoryList.parentName }}</el-breadcrumb-item>
         <el-breadcrumb-item>{{ subCategoryList.name }}</el-breadcrumb-item>
       </el-breadcrumb>
     </div>
+    <!-- tab欄切換列表部分 -->
     <div class="sub-container">
       <el-tabs v-model="contentData.sortField" @tab-change="tabChange" >
         <el-tab-pane label="最新商品" name="publishTime"></el-tab-pane>
         <el-tab-pane label="最高人氣" name="orderNum"></el-tab-pane>
         <el-tab-pane label="評論最多" name="evaluateNum"></el-tab-pane>
       </el-tabs>
-      <div class="body" v-infinite-scroll="getNewList" :infinite-scroll-disabled="onDisabled" :infinite-scroll-delay="2000">
+
+      <!-- 商品列表內容(使用了懶加載功能來展示更多的商品) -->
+      <div class="body" v-infinite-scroll="getNewList" :infinite-scroll-disabled="onDisabled" :infinite-scroll-delay="1000">
          <!-- 二級分類列表內容-->
         <GoodsItem v-for="good in subCategoryContent" :good="good" :key="good.id" />
       </div>
@@ -109,14 +124,15 @@ const getNewList = async () => {
 .bread-container {
   padding: 25px 0;
   .el-breadcrumb {
-      font-size: 15px;
+      font-size: 20px;
     }
 }
-// 內容主體區域
+
+// 商品列表區域
 .sub-container {
   padding: 20px 10px;
   background-color: #fff;
-
+  
   .body {
     display: flex;
     flex-wrap: wrap;
@@ -129,37 +145,7 @@ const getNewList = async () => {
     margin-right: 20px;
     padding: 20px 30px;
     text-align: center;
-
-    img {
-      width: 160px;
-      height: 160px;
-    }
-
-    p {
-      padding-top: 10px;
-    }
-
-    .name {
-      font-size: 16px;
-    }
-
-    .desc {
-      color: #999;
-      height: 29px;
-    }
-
-    .price {
-      color: $priceColor;
-      font-size: 20px;
-    }
   }
-
-  .pagination-container {
-    margin-top: 20px;
-    display: flex;
-    justify-content: center;
-  }
-
 
 }
 </style>

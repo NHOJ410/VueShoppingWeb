@@ -11,12 +11,12 @@ defineProps({
 </script>
 
 <template>
-  <!-- 右側商品列表 -->
-  <RouterLink to="/" class="goods-item">
+  <!-- 商品列表組件 -->
+  <RouterLink :to="`/detail/${good.id}`" class="goods-item">
     <img v-lazyLoading="good.picture" alt="" />
     <p class="name ellipsis">{{ good.name }}</p>
     <p class="desc ellipsis">{{ good.desc }}</p>
-    <p class="price">${{ good.price }}</p>
+    <p class="price">${{ good.price }}元</p>
   </RouterLink>
 </template>
 
@@ -30,8 +30,7 @@ defineProps({
       transition: all .5s;
       // 經過時的動畫 hover效果
       &:hover {
-        transform: translate3d(0, -3px, 0);
-        box-shadow: 0 3px 8px rgb(0 0 0 / 20%);
+        @include category-Hover
       }
       img {
         width: 160px;

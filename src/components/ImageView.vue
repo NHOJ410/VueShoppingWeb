@@ -1,5 +1,5 @@
 <script setup>
-import { ref , watch } from 'vue'
+import { ref , watch , computed } from 'vue'
 // 導入 VueUse插件
 import { useMouseInElement } from '@vueuse/core' // 獲取鼠標相對位置函數
 
@@ -26,46 +26,34 @@ const changeIndex = (index) => {
 // ----------- 放大鏡效果 -----------
 
 const target = ref(null) // 獲取左側大圖 DOM 元素
-// 獲取鼠標相對位置
+// 使用 VueUse獲取鼠標相對位置
 const { elementX, elementY, isOutside } = useMouseInElement(target)
 
-// 有效範圍內的計算邏輯
-const left = ref(0) // 小滑塊橫向距離
-const top = ref(0)  // 小滑塊縱向距離
 
-const largeX = ref(0) // 大圖片橫向移動距離
-const largeY = ref(0) // 大圖片縱向移動距離
-
-// 使用 watch 來監聽元素移動時的計算結果
-watch([elementX , elementY , isOutside] , () => {
-  
-  if ( isOutside.value === false ) {
-   // 有效範圍內的計算邏輯 
-
-  // 橫向移動計算
-  if ( elementX.value > 100 && elementX.value < 300 ) {
-    left.value = elementX.value - 100
-  }
-  // 縱向移動計算
-  if ( elementY.value > 100 && elementY.value < 300 ) {
-    top.value = elementY.value - 100
-  }
-
-  // 邊界距離控制邏輯
-  // 橫向距離控制
-  if ( elementX.value > 300 )  left.value = 200 
-  if ( elementX.value < 100 )  left.value = 0
-
-  // 縱向距離控制
-  if ( elementY.value > 300 )  top.value = 200 
-  if ( elementY.value < 100 )  top.value = 0
-  }
-
-  // 計算右側大圖片移動距離
-  largeX.value = -left.value * 2  // 大圖片橫向移動距離
-  largeY.value = -top.value * 2 // 大圖片縱向移動距離 
-  
+const left = computed(() => {
+  if (isOutside.value) return 0
+  if (elementX.value > 300) return 200
+  if (elementX.value < 100) return 0
+  return elementX.value - 100
 })
+
+const top = computed(() => {
+  if (isOutside.value) return 0
+  if (elementY.value > 300) return 200
+  if (elementY.value < 100) return 0
+  return elementY.value - 100
+})
+
+const largeX = computed(() => -left.value * 2)
+const largeY = computed(() => -top.value * 2)
+
+// 只需要監聽 isOutside 的變化，其他計算會自動更新
+watch(isOutside, () => {
+  if (isOutside.value === false) {
+    // 如果範圍內的其他操作可以放在這裡
+  }
+})
+
 
 </script>
 
@@ -78,19 +66,21 @@ watch([elementX , elementY , isOutside] , () => {
       <!-- 放大鏡濛層 -->
       <div :class="{ layer : !isOutside }" :style="{ left: `${left}px`, top: `${top}px` }"></div>
     </div>
+
     <!-- 小圖列表 -->
     <ul class="small">
       <li v-for="(img, index) in imageList" :key="index" @mouseenter="changeIndex(index)" :class="{ active: activeIndex === index }">
         <img :src="img" alt="" />
       </li>
     </ul>
+
     <!-- 放大鏡大圖 -->
     <div class="large" :style="[{
         backgroundImage: `url(${imageList[activeIndex]})`,
         backgroundPositionX: `${largeX}px`,
         backgroundPositionY: `${largeY}px`,
-
-      }]" v-show="!isOutside"></div>
+      }]" v-show="!isOutside">
+    </div>
   </div>
 </template>
 
@@ -102,17 +92,19 @@ watch([elementX , elementY , isOutside] , () => {
   position: relative;
   display: flex;
   
+  
   // 左側大圖片
   .middle {
     width: 400px;
     height: 400px;
     background: #f5f5f5;
+    cursor: none;
   }
 
   .large {
     position: absolute;
     top: 0;
-    left: 410px;
+    left: 405px;
     width: 400px;
     height: 400px;
     z-index: 500;
@@ -127,6 +119,7 @@ watch([elementX , elementY , isOutside] , () => {
   .layer {
     width: 200px;
     height: 200px;
+    border-radius: 50%;
     background: rgba(0, 0, 0, 0.2);
     // 絕對定位 然後跟隨滑鼠控制left和top屬性即可讓滑塊移動
     left: 0;
@@ -140,17 +133,16 @@ watch([elementX , elementY , isOutside] , () => {
     li {
       width: 68px;
       height: 68px;
-      margin-left: 12px;
+      margin-left: 16px;
       margin-bottom: 15px;
       cursor: pointer;
       
       // 圖片激活時的效果
       &:hover,
       &.active {
-        border: 2px solid $xtxColor;
-        transform: translate3d(0, -2px, 0);
-        box-shadow: 0 3px 8px rgb(0 0 0 / 40%);
-        transition: all .2s;
+        transform: scale(1.2);
+        box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.3);
+        transition: all .3s;
       }
     }
   }

@@ -1,22 +1,45 @@
 <script setup>
-import { ref } from 'vue'
+import { ref , watch } from 'vue'
 import { useRoute } from 'vue-router'
+import { ElMessage } from 'element-plus';
+// 導入圖標
+import { ShoppingCart } from '@element-plus/icons-vue'
 // 導入api 
 import { getDetailData } from '@/apis/detail'; // 獲取商品詳情資料
 // 導入組件
-import HotDetail from '@/views/Layout/Detail/components/HotDetail.vue' // 導入熱榜組件
+import DetailMsg from '@/views/Layout/Detail/components/DetailMsg.vue' // 導入商品促銷和服務部分組件
+import DetailFooter from '@/views/Layout/Detail/components/DetailFooter.vue' // 導入商品詳情底部組件
 // 導入Pinia倉庫
 import { useCartStore } from '@/stores' // 導入 本地購物車倉庫
-import { ElMessage } from 'element-plus';
 const cartStore = useCartStore()
 
+// ----------- 數量統計部分 ---------------
+const totalData = ref([
+  { title: '銷量人氣', value: '銷量人氣', icon: 'task-filling', data: 0 },
+  { title: '商品評價', value: '查看評價', icon: 'comment-filling', data: 0 },
+  { title: '收藏人氣', value: '收藏商品', icon: 'favorite-filling', data: 0 },
+])
+
 // ------------ 獲取商品詳情資料 ---------------
-const route = useRoute() 
+
+const route = useRoute()
 const detailData = ref({}) // 存儲商品詳情數據
 // 發送請求 獲取商品詳情數據
 const getDetail = async () => {
   const res = await getDetailData(route.params.id)
   detailData.value = res.result
+
+
+  // -------- 存儲商品評價部分 ----------- 
+
+  // 提取 collectCount、commentCount 和 salesCount
+  const { collectCount, commentCount, salesCount } = res.result;
+
+  // 將數據添加到 totalData的 data裡面 
+  totalData.value[0].data = salesCount
+  totalData.value[1].data = commentCount
+  totalData.value[2].data = collectCount
+
 }
 getDetail()
 
@@ -37,9 +60,9 @@ const count = ref(1) // 商品數量 (默認為1)
 // --------- 加入購物車按鈕 -------------------- 
 
 const onAddCart = () => {
-   
-  if ( skuObj.skuId) { //  如果用戶選擇完規格後點擊加入購物車按紐
-    
+
+  if (skuObj.skuId) { //  如果用戶選擇完規格後點擊加入購物車按紐
+
     //  調用 cartStore倉庫的方法 , 將需要的商品相關資訊存入進去
     cartStore.addCart(
       {
@@ -54,30 +77,45 @@ const onAddCart = () => {
       }
     )
     //  提示用戶加入購物車成功
-    ElMessage.success('添加購物車完成!')
+    ElMessage.success({
+      message : '添加購物車完成!',
+      duration : 5000
+    })
 
     // 讓數字框組件的數量回到 1 
     count.value = 1
 
   } else { // 如果用戶沒有選擇完成規格後就去點擊加入購物車按紐
     // 提示用戶請選擇商品規格
-    ElMessage.warning('請選擇商品規格!')
+    ElMessage.warning({
+      message : '請選擇商品規格!',
+      duration : 5000
+    })
   }
 }
+
+
+
+// --------- 如果點擊了其他商品 , 就跳轉到該商品 ---------------
+watch(() => route.path , () => {
+  getDetail()
+})
 
 </script>
 
 <template>
-  <div class="xtx-goods-page">
+  <div class="xtx-goods-page" v-if="detailData.id">
     <!-- 版心設置 -->
-    <div class="container" v-if="detailData.id">
+    <div class="container" >
       <!-- 上方麵包屑導航部分 -->
       <div class="bread-container">
         <el-breadcrumb separator=">">
           <el-breadcrumb-item :to="{ path: '/' }">首頁</el-breadcrumb-item>
-          <el-breadcrumb-item :to="{ path: `/category/${detailData.categories[1].id}` }">{{ detailData.categories[1].name }}
+          <el-breadcrumb-item :to="{ path: `/category/${detailData.categories[1].id}` }">{{
+            detailData.categories[1].name }}
           </el-breadcrumb-item>
-          <el-breadcrumb-item :to="{ path: `/category/${detailData.categories[0].id}` }">{{ detailData.categories[0].name }}
+          <el-breadcrumb-item :to="{ path: `/category/${detailData.categories[0].id}` }">{{
+            detailData.categories[0].name }}
           </el-breadcrumb-item>
           <el-breadcrumb-item>{{ detailData.name }}</el-breadcrumb-item>
         </el-breadcrumb>
@@ -87,98 +125,39 @@ const onAddCart = () => {
         <div>
           <div class="goods-info">
             <div class="media">
-              <!-- 圖片預覽區 -->
+              <!-- 圖片預覽區部分 -->
               <ImageView :imageList="detailData.mainPictures"></ImageView>
 
               <!-- 統計數據區域 -->
               <ul class="goods-sales">
-                <li>
-                  <p>銷量人氣</p>
-                  <p> {{ detailData.collectCount }} </p>
-                  <p><i class="iconfont icon-task-filling"></i>銷量人氣</p>
-                </li>
-                <li>
-                  <p>商品評價</p>
-                  <p>{{ detailData.commentCount }}</p>
-                  <p><i class="iconfont icon-comment-filling"></i>查看評價</p>
-                </li>
-                <li>
-                  <p>收藏人氣</p>
-                  <p>{{ detailData.salesCount }}</p>
-                  <p><i class="iconfont icon-favorite-filling"></i>收藏商品</p>
-                </li>
-                <li>
-                  <p>品牌資訊</p>
-                  <p>{{  detailData.brand.name }}</p>
-                  <p><i class="iconfont icon-dynamic-filling"></i>品牌主頁</p>
+                <li v-for="(item, index) in totalData" :key="index">
+                  <p>{{ item.title }}</p>
+                  <p>{{ item.data }}</p>
+                  <p><i :class="`iconfont icon-${item.icon}`"></i>{{ item.value }}</p>
                 </li>
               </ul>
             </div>
+
             <div class="spec">
-              <!-- 商品訊息區 -->
-              <p class="g-name">{{  detailData.name }}</p>
-              <p class="g-desc">{{  detailData.desc }}</p>
-              <p class="g-price">
-                <span class="price">{{  detailData.price }}</span>
-                <span class="oldPrice">{{  detailData.oldPrice }}</span>
-              </p>
-              <div class="g-service">
-                <dl>
-                  <dt>促銷</dt>
-                  <dd>12月好物放送，App領券購買直降120元</dd>
-                </dl>
-                <dl>
-                  <dt>服務</dt>
-                  <dd>
-                    <span>無憂退貨</span>
-                    <span>快速退款</span>
-                    <span>免費包郵</span>
-                    <a href="javascript:;">了解詳情</a>
-                  </dd>
-                </dl>
-              </div>
-              <!-- sku組件 -->
-              <SkuItem :goods="detailData" @change="skuResult"></SkuItem> 
+              <!-- 商品訊息部分 -->
+              <DetailMsg :detailData="detailData"></DetailMsg>
+              <!-- 規格組件部分 -->
+              <SkuItem :goods="detailData" @change="skuResult"></SkuItem>
 
               <!-- 數字輸入框組件 -->
               <el-input-number v-model="count" :min="1" />
-              <!-- 按鈕組件 -->
+              <!-- 加入購物車按鈕部分 -->
               <div>
-                <el-button size="large" class="btn" @click="onAddCart">
+                <el-button size="large" :icon="ShoppingCart" type="success" class="addCartbtn" @click="onAddCart">
                   加入購物車
                 </el-button>
               </div>
-
             </div>
           </div>
-          <div class="goods-footer">
-            <div class="goods-article">
-              <!-- 商品詳情 -->
-              <div class="goods-tabs">
-                <nav>
-                  <a>商品詳情</a>
-                </nav>
-                <div class="goods-detail">
-                  <!-- 規格區域 -->
-                  <ul class="attrs">
-                    <li v-for="item in detailData.details.properties" :key="item.value">
-                      <span class="dt">{{ item.name }}</span>
-                      <span class="dd">{{ item.value }}</span>
-                    </li>
-                  </ul>
-                  <!-- 圖片 -->
-                   <img v-for="item in detailData.details.pictures" :key="item" v-lazyLoading="item" alt="">
 
-                </div>
-              </div>
-            </div>
-            <!-- 24小時 + 週 熱榜商品推薦 -->
-            <div class="goods-aside">
-              <!-- 24小時熱榜商品 -->
-              <HotDetail :hotType="1" :title="'24小時熱榜商品'"></HotDetail>
-              <!-- 周熱榜商品 -->
-              <HotDetail :hotType="2" :title="'本週熱榜商品'"></HotDetail>
-            </div>
+          <!-- 底部商品展示部分 -->
+          <div class="goods-footer">
+            <DetailFooter :detailData="detailData"></DetailFooter>
           </div>
         </div>
       </div>
@@ -194,127 +173,21 @@ const onAddCart = () => {
     min-height: 600px;
     background: #fff;
     display: flex;
-
+    
+    // 左側圖片預覽區域
     .media {
       width: 580px;
       height: 600px;
       padding: 10px 50px;
     }
-
+    
+    // 右側商品詳情區域
     .spec {
       flex: 1;
       padding: 30px 30px 30px 0;
     }
   }
 
-  .goods-footer {
-    display: flex;
-    margin-top: 20px;
-
-    .goods-article {
-      width: 940px;
-      margin-right: 20px;
-    }
-
-    .goods-aside {
-      width: 280px;
-      min-height: 1000px;
-    }
-  }
-
-  .goods-tabs {
-    min-height: 600px;
-    background: #fff;
-  }
-
-  .goods-warn {
-    min-height: 600px;
-    background: #fff;
-    margin-top: 20px;
-  }
-
-  .number-box {
-    display: flex;
-    align-items: center;
-
-    .label {
-      width: 60px;
-      color: #999;
-      padding-left: 10px;
-    }
-  }
-  
-  // 商品訊息區域
-  .g-name {
-    font-size: 22px;
-  }
-
-  .g-desc {
-    color: #999;
-    margin-top: 10px;
-  }
-  
-  .g-price {
-    margin-top: 10px;
-
-    span {
-      &::before {
-        content: "$";
-        font-size: 14px;
-      }
-
-      &:first-child {
-        color: $priceColor;
-        margin-right: 10px;
-        font-size: 22px;
-      }
-
-      &:last-child {
-        color: #999;
-        text-decoration: line-through;
-        font-size: 16px;
-      }
-    }
-  }
-
-  .g-service {
-    background: #f5f5f5;
-    width: 600px;
-    padding: 20px 20px 0 40px;
-    margin-top: 10px;
-
-    dl {
-      padding-bottom: 20px;
-      display: flex;
-      align-items: center;
-
-      dt {
-        width: 50px;
-        color: #999;
-      }
-
-      dd {
-        color: #666;
-
-        &:last-child {
-          span {
-            margin-right: 10px;
-
-            &::before {
-              content: "•";
-              color: $xtxColor;
-              margin-right: 2px;
-            }
-          }
-
-          a {
-            color: $xtxColor;
-          }
-        }
-      }
-    }
-  }
-  
   // 數據統計區域
   .goods-sales {
     display: flex;
@@ -364,73 +237,23 @@ const onAddCart = () => {
       }
     }
   }
-}
 
-.goods-tabs {
-  min-height: 600px;
-  background: #fff;
-
-  nav {
-    height: 70px;
-    line-height: 70px;
-    display: flex;
-    border-bottom: 1px solid #f5f5f5;
-
-    a {
-      padding: 0 40px;
-      font-size: 18px;
-      position: relative;
-
-      >span {
-        color: $priceColor;
-        font-size: 16px;
-        margin-left: 10px;
-      }
-    }
+  // 麵包屑組件
+  .bread-container {
+    padding: 25px 0;
   }
-}
+ 
+  // 加入購物車按鈕
+  .addCartbtn {
+    margin-top: 15px;
 
-// 下方商品詳情區域
-.goods-detail {
-  padding: 40px;
-  // 規格區域
-  .attrs {
-    display: flex;
-    flex-wrap: wrap;
-    margin-bottom: 30px;
-    font-size: 16px;
-
-    li {
-      display: flex;
-      margin-bottom: 10px;
-      width: 50%;
-
-      .dt {
-        width: 100px;
-        color: #999;
-        font-weight: 650;
-      }
-
-      .dd {
-        flex: 1;
-        color: #666;
-        font-weight: 700;
-      }
-    }
   }
   
-  // 商品詳情圖片區域
-  >img {
-    width: 100%;
+  // 底部商品展示部分
+  .goods-footer {
+    display: flex;
+    margin-top: 20px;
   }
-}
 
-.btn {
-  margin-top: 20px;
-
-}
-
-.bread-container {
-  padding: 25px 0;
 }
 </style>

@@ -29,7 +29,6 @@ const getSettlement = async () => {
 
   addressList.value = res.result.userAddresses // 收貨地址列表
   
-  
 }
 // 調用請求 獲取數據 ( 因為涉及到 DOM操作 所以在 onMounted裡面調用 )
 onMounted(() => {
@@ -92,11 +91,6 @@ const onSubmitOrder = async () => {
   cartStore.getLoginUserList()
   
 }
-
-
-
-
-
 
 </script>
 

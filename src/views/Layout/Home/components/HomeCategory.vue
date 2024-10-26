@@ -12,21 +12,25 @@ const categoryStore = useCategoryStore() // 定義商品分類倉庫
     <!-- 左側商品列表主體 -->
     <ul class="menu">
       <li v-for="item in categoryStore.categoryNav" :key="item.id">
-        <RouterLink to="/">{{ item.name }} </RouterLink>
-        <RouterLink v-for="i in item.children.slice(0,2)" :key="i.id" to="/">{{ i.name }} </RouterLink>
+        <RouterLink :to="`/category/${item.id}`">{{ item.name }} </RouterLink>
+        <RouterLink v-for="i in item.children.slice(0, 2)" :key="i.id" :to="`/category/${item.id}`">{{ i.name }}
+        </RouterLink>
         <!-- 經過時觸發彈層效果 -->
         <div class="layer">
-          <h4>分類推薦 <small>根據你的 購買/瀏覽紀錄 推薦商品</small></h4>
+          <h4>{{ item.name }}推薦 <small>根據你的 購買/瀏覽紀錄 推薦商品</small></h4>
+          <!-- 商品列表部分 -->
           <ul>
             <li v-for="i in item.goods" :key="i.id">
-              <RouterLink to="/">
-                <img alt="" :src="i.picture"/>
+              <RouterLink :to="`/detail/${i.id}`">
+                <!-- 商品圖片 -->
+                <img alt="" :src="i.picture" />
+                <!-- 商品描述 -->
                 <div class="info">
                   <p class="name ellipsis-2">
                     {{ i.name }}
                   </p>
                   <p class="desc ellipsis">{{ i.desc }}</p>
-                  <p class="price"><i>$</i>{{ i.price }}</p>
+                  <p class="price"><i>$</i>{{ i.price }}元</p>
                 </div>
               </RouterLink>
             </li>
@@ -46,6 +50,7 @@ const categoryStore = useCategoryStore() // 定義商品分類倉庫
   position: relative;
   z-index: 99;
   border-radius: 10px;
+
   // 左側商品列表
   .menu {
     li {
@@ -55,7 +60,8 @@ const categoryStore = useCategoryStore() // 定義商品分類倉庫
 
       &:hover {
         background: $xtxColor;
-        border-radius: 4px;
+        border-radius: 8px;
+        cursor: pointer;
       }
 
       a {
@@ -68,7 +74,14 @@ const categoryStore = useCategoryStore() // 定義商品分類倉庫
           margin-right: 10px;
         }
       }
-      
+
+      // 在 hover 狀態下 , 讓盒子顯示出來
+      &:hover {
+        .layer {
+          display: block;
+        }
+      }
+
       // 經過時觸發彈層效果
       .layer {
         width: 990px;
@@ -80,6 +93,7 @@ const categoryStore = useCategoryStore() // 定義商品分類倉庫
         display: none;
         padding: 0 15px;
 
+        // 頂部標題部分
         h4 {
           font-size: 20px;
           font-weight: normal;
@@ -87,10 +101,11 @@ const categoryStore = useCategoryStore() // 定義商品分類倉庫
 
           small {
             font-size: 16px;
-            color: #666;
+            color: #505050;
           }
         }
 
+        // 商品列表部分
         ul {
           display: flex;
           flex-wrap: wrap;
@@ -109,8 +124,10 @@ const categoryStore = useCategoryStore() // 定義商品分類倉庫
             }
 
             &:hover {
-                background: #c0fff0;
-              }
+              transform: scale(1.2);
+              transition: all 0.2s ease;
+              box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.1);
+            } 
 
             a {
               display: flex;
@@ -118,31 +135,41 @@ const categoryStore = useCategoryStore() // 定義商品分類倉庫
               height: 100%;
               align-items: center;
               padding: 10px;
-              overflow: hidden;           
+              overflow: hidden;
 
               img {
                 width: 95px;
                 height: 95px;
+                border-radius: 5px;
               }
 
               .info {
                 padding-left: 10px;
                 line-height: 24px;
                 overflow: hidden;
-
+                /* 禁止文字換行 */
+                white-space: nowrap;
+                /* 隱藏超出範圍的文字 */
+                overflow: hidden;
+                /* 文字超出時顯示省略號 */
+                text-overflow: ellipsis;
+                
+                // 商品名
                 .name {
-                  font-size: 14px;
+                  font-size: 16px;
                   color: #666;
                   overflow: hidden;
                   font-weight: 700;
-                }
 
+                }
+                // 商品描述
                 .desc {
                   color: #999;
+                  font-size: 14px;
                 }
-
+                // 商品價格
                 .price {
-                  font-size: 18px;
+                  font-size: 14px;
                   color: $priceColor;
 
                   i {
@@ -155,12 +182,7 @@ const categoryStore = useCategoryStore() // 定義商品分類倉庫
         }
       }
 
-      // 在 hover 狀態下 , 讓盒子顯示出來
-      &:hover {
-        .layer {
-          display: block;
-        }
-      }
+      
     }
   }
 }

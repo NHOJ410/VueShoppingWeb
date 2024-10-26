@@ -10,7 +10,7 @@ export const lazyImg = {
       const { stop } = useIntersectionObserver(el, ([{ isIntersecting }]) => {
           // inTersecting 代表元素是否在可視區域 返回一個 boolean
           //  拿到是否進入 viewport 的 boolean後 , 就可以來做圖片懶加載的判斷了 
-          if (isIntersecting) { // 如果值為 true ( 代表進入圖片視口區域的話 )\
+          if (isIntersecting) { // 如果值為 true ( 代表進入圖片視口區域的話 )
             el.src = ''
             // 就讓圖片載入
             el.src = binding.value

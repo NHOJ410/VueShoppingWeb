@@ -21,15 +21,18 @@ getProductList()
   <div class="home-product">
     <!-- 頂部標題 -->
     <HomePanel :title="item.name" v-for="item in productList" :key="item.id">
-      <!-- 左側大圖片 -->
       <div class="box">
-        <RouterLink class="cover" to="/">
+        <!-- 左側大圖片 -->
+        <RouterLink class="cover" :to="`/category/${item.id}`">
           <img v-lazyLoading="item.picture" alt="" />
+          <!-- 大圖片 - 中間的遮罩部分 -->
           <strong class="label">
             <span>{{ item.name }}館</span>
             <span>{{ item.saleInfo }}</span>
           </strong>
         </RouterLink>
+
+
         <!-- 右側商品列表 -->
         <ul class="goods-list">
           <li v-for="good in item.goods" :key="good.id">
@@ -45,28 +48,12 @@ getProductList()
 .home-product {
   background: #fff;
   margin-top: 10px;
-  .sub {
-    margin-bottom: 2px;
-
-    a {
-      padding: 2px 12px;
-      font-size: 16px;
-      border-radius: 4px;
-
-      &:hover {
-        background: $xtxColor;
-        color: #fff;
-      }
-
-      &:last-child {
-        margin-right: 80px;
-      }
-    }
-  }
-  // 左側大圖片
+  
+ 
   .box {
     display: flex;
 
+     // 左側大圖片
     .cover {
       width: 240px;
       height: 610px;
@@ -76,8 +63,10 @@ getProductList()
       img {
         width: 100%;
         height: 100%;
+        object-fit: cover;
       }
-
+       
+      // 大圖片 - 中間遮罩部分
       .label {
         width: 100%;
         height: 66px;
@@ -95,7 +84,7 @@ getProductList()
           text-align: center;
 
           &:first-child {
-            width: 76px;
+            width: 80px;
             background: rgba(0, 0, 0, 0.9);
           }
 
@@ -108,7 +97,7 @@ getProductList()
     }
   }
 
-  // 右側商品列表
+  // 右側商品列表部分
   .goods-list {
       width: 990px;
       display: flex;

@@ -23,20 +23,17 @@ const { bannerList } = useBanner()
       <div class="bread-container">
         <el-breadcrumb separator=">">
           <el-breadcrumb-item :to="{ path: '/' }">首頁</el-breadcrumb-item>
-          <el-breadcrumb-item>{{ categoryList.name }}</el-breadcrumb-item>
+          <el-breadcrumb-item >{{ categoryList.name }}</el-breadcrumb-item>
         </el-breadcrumb>
       </div>
       <!-- 輪播圖區域 -->
       <div class="home-banner">
         <el-carousel height="440px">
-          <el-carousel-item
-            v-for="item in bannerList"
-            :key="item.id"
-            interval="2000"
-            motion-blur="true"
-            autoplay="true"
-          >
-            <img :src="item.imgUrl" alt="" />
+          <el-carousel-item v-for="item in bannerList" :key="item.id" interval="2000" motion-blur="true"
+            autoplay="true">
+            <router-link :to="item.hrefUrl">
+              <img :src="item.imgUrl" alt="" />
+            </router-link>
           </el-carousel-item>
         </el-carousel>
       </div>
@@ -46,18 +43,18 @@ const { bannerList } = useBanner()
         <!-- 頂部大標題和商品分類導航 -->
         <h3>全部分類</h3>
         <ul>
-          <li v-for="all in categoryList.children" :key="all.id">
-            <RouterLink :to="`/category/sub/${all.id}`">
-              <img v-lazyLoading="all.picture" />
-              <p>{{ all.name }}</p>
-            </RouterLink>
+          <li v-for="item in categoryList.children" :key="item.id">
+            <RouterLink :to="`/category/sub/${item.id}`">
+              <img :src="item.picture" />
+              <p>{{ item.name }}</p>
+            </RouterLink> 
           </li>
         </ul>
       </div>
-      
+
       <!-- 底部商品部分 -->
-       <!-- 標題部分 -->
-      <div class="ref-goods" v-for="item in categoryList.children" :key="item.id" >
+      <div class="ref-goods" v-for="item in categoryList.children" :key="item.id">
+        <!-- 標題部分 -->
         <div class="head">
           <h3>- {{ item.name }} -</h3>
         </div>
@@ -71,20 +68,14 @@ const { bannerList } = useBanner()
 </template>
 
 
-<style  lang="scss" scoped>
+<style lang="scss" scoped>
 .top-category {
-  h3 {
-    font-size: 28px;
-    color: #666;
-    font-weight: normal;
-    text-align: center;
-    line-height: 100px;
-  }
+
 
   // 面包屑導航樣式
   .bread-container {
     padding: 25px 0;
-    
+
     .el-breadcrumb {
       font-size: 15px;
     }
@@ -101,6 +92,7 @@ const { bannerList } = useBanner()
       width: 100%;
       height: 440px;
       border-radius: 10px;
+      object-fit: cover;
     }
 
     // 加大輪播圖的箭頭樣式
@@ -114,7 +106,18 @@ const { bannerList } = useBanner()
   .sub-list {
     margin-top: 20px;
     background-color: #fff;
+    border-radius: 10px;
 
+    // 全部分類文字樣式
+    h3 {
+      font-size: 28px;
+      color: #666;
+      font-weight: normal;
+      text-align: center;
+      line-height: 100px;
+    }
+
+    // 商品列表部分
     ul {
       display: flex;
       padding: 0 32px;
@@ -123,11 +126,17 @@ const { bannerList } = useBanner()
       li {
         width: 168px;
         height: 160px;
-
+        transition: all .3s;
+        &:hover {
+          transform: scale(1.05);
+          box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.2);
+        }
+       // 內容樣式
         a {
           text-align: center;
           display: block;
           font-size: 16px;
+          padding-top: 10px;
 
           img {
             width: 100px;
@@ -135,22 +144,33 @@ const { bannerList } = useBanner()
           }
 
           p {
-            line-height: 40px;
+            line-height: 3.8;
           }
 
           &:hover {
             color: $xtxColor;
           }
         }
+
+       
       }
     }
   }
-  
+
   // 底部商品分類中的標題部分
   .ref-goods {
     background-color: #fff;
     margin-top: 20px;
     position: relative;
+    border-radius: 10px;
+    // 標題樣式
+    h3 {
+      font-size: 28px;
+      color: #666;
+      font-weight: normal;
+      text-align: center;
+      line-height: 100px;
+    }
 
     .head {
       .xtx-more {
@@ -167,7 +187,7 @@ const { bannerList } = useBanner()
         top: -20px;
       }
     }
-    
+
     // 商品主體部分
     .body {
       display: flex;
@@ -177,6 +197,4 @@ const { bannerList } = useBanner()
   }
 
 }
-
-
 </style>

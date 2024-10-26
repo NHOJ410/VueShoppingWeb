@@ -21,11 +21,17 @@ onMounted(() => {
 
 <template>
   <div class="home-banner">
-    <el-carousel height="500px">
-      <el-carousel-item v-for="item in bannerList" :key="item.id" interval="2000" motion-blur="true">
-          <img :src="item.imgUrl" alt="">
+    <el-carousel height="500px" :motion-blur="true">
+      <el-carousel-item  v-for="item in bannerList" :key="item.id" interval="2000" motion-blur="true">
+          <router-link :to="item.hrefUrl">
+            <img :src="item.imgUrl" alt="">
+          </router-link>
       </el-carousel-item>
     </el-carousel>
+    <!-- 查看更多 -->
+     <div class="more">
+       <router-link to="/category/sub/1005000">點我查看更多</router-link>
+     </div>
   </div>
 </template>
 
@@ -46,6 +52,7 @@ onMounted(() => {
     width: 100%;
     height: 500px;
     border-radius: 10px;
+    position: relative;
   }
   
   // 加大輪播圖的箭頭樣式
@@ -53,5 +60,27 @@ onMounted(() => {
     font-size: 30px;
     color: #ffffff;
   }
+
+  .more {
+    cursor: pointer;
+    width: 150px;
+    height: 30px;
+    margin: 20px;
+    font-weight: 550;
+    text-align: center;
+    line-height: 1.5;
+    border-radius: 5px;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    font-size: 18px;
+    background: linear-gradient(to bottom, #b2fefa, #0ed2f7); 
+
+    &:hover {
+      transform: scale(1.2);
+      transition: all 0.5s ease;
+    }
+  }
+
 }
 </style>

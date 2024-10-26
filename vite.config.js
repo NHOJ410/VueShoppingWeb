@@ -6,10 +6,21 @@ import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 
+// svg圖標插件
+import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
+import path from 'path'
+
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
     vue(),
+    // 配置 svg圖標插件
+    createSvgIconsPlugin({
+      // Specify the icon folder to be cached
+      iconDirs: [path.resolve(process.cwd(), 'src/assets/svg')],
+      // Specify symbolId format
+      symbolId: 'icon-[dir]-[name]',
+    }),
     AutoImport({
       resolvers: [ElementPlusResolver()],
     }),

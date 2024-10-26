@@ -14,10 +14,15 @@ categoryStore.getCategory() // 調用 商品分類倉庫 獲取數據
 </script>
 
 <template>
+  <!-- 頭部組件 -->
   <LayoutHeader></LayoutHeader>
+  <!-- 頭部導航組件 -->
   <LayoutNav></LayoutNav>
+  <!-- 頭部商品導航吸頂效果組件 -->
   <LayoutNavFixed></LayoutNavFixed>
+  <!-- 二級路由出口 -->
   <router-view></router-view>
+  <!-- 底部組件 -->
   <LayoutFooter></LayoutFooter>
 </template>
 

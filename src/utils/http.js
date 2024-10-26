@@ -6,7 +6,7 @@ import router from '@/router'
 import { useUserInfoStore } from '@/stores'
 
 // 控制 el-loading的變量
-let loadingInstance;
+let loadingInstance = false
 
 
 const baseURL = 'http://pcapi-xiaotuxian-front-devtest.itheima.net'
@@ -30,8 +30,8 @@ httpInstance.interceptors.request.use(function (config) {
   // 開始顯示 loading
   loadingInstance = ElLoading.service({
     lock: true,
-    text: '加載中...',
-    spinner: 'el-icon-loading',
+    text: '因為是中國的api 所以可能會有點慢 請見諒...',
+    customClass: 'custom-loading'
   });
   
   

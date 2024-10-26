@@ -19,7 +19,6 @@ export const useUserInfoStore = defineStore('user', () => {
   const getUserInfo = async (data) => {
     const res =  await loginService(data)
     userInfo.value = res.result
-    
     // 登入後 調用合併購物車請求 , 將本地購物車和後端數據合併
     await mergeCartService(cartStore.cartList.map(item => {
       return {

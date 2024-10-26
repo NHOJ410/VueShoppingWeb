@@ -1,5 +1,4 @@
 <script setup>
-import { ref } from "vue";
 // 導入插件
 import { useScroll } from "@vueuse/core"; // 導入VueUse獲取滾動位置插件
 // 導入 Pinia 倉庫
@@ -12,7 +11,7 @@ const categoryStore = useCategoryStore(); // 定義商品分類倉庫
 
 // ------ 導航條吸附功能 ------
 
-const { y } = useScroll(window); // 獲取滾動位置
+const { y } = useScroll(window); // 使用VueUse獲取滾動位置
 
 </script>
 
@@ -20,7 +19,7 @@ const { y } = useScroll(window); // 獲取滾動位置
   <div class="app-header-sticky" :class="{ show: y > 78 }">
     <div class="container">
       <RouterLink class="logo" to="/" />
-      <!-- 頭部商品列表區域 -->
+      <!-- 頭部導航列表區域 -->
       <ul class="app-header-nav">
         <li class="home">
           <RouterLink to="/">首頁</RouterLink>
@@ -29,11 +28,8 @@ const { y } = useScroll(window); // 獲取滾動位置
           <RouterLink active-class="active" :to="`/category/${item.id}`">{{ item.name }}</RouterLink>
         </li>
       </ul>
-
-      <div class="right">
-        <RouterLink to="/">品牌</RouterLink>
-        <RouterLink to="/">專題</RouterLink>
-      </div>
+      
+      
     </div>
   </div>
 </template>
@@ -49,9 +45,10 @@ const { y } = useScroll(window); // 獲取滾動位置
   z-index: 999;
   background-color: #fff;
   border-bottom: 1px solid #e4e4e4;
+
   // 此處為關鍵樣式!
 
-  // 狀態一 : 往上平移自身高度 + 完全透明
+  // 狀態一 : 往上平移自身高度 + 完全透明 ( 隱藏起來 )
   transform: translateY(-100%);
   opacity: 0;
 
@@ -62,39 +59,22 @@ const { y } = useScroll(window); // 獲取滾動位置
     opacity: 1;
   }
 
+  // 導航內容部分
   .container {
     display: flex;
     align-items: center;
   }
-
+  
+  // logo圖
   .logo {
     width: 200px;
     height: 80px;
-    background: url("@/assets/images/logo.png") no-repeat right 2px;
-    background-size: 160px auto;
+    background: url('@/assets/images/Vuelogo.webp') no-repeat center center;
+    background-size: 80px auto;
   }
-
-  .right {
-    width: 220px;
-    display: flex;
-    text-align: center;
-    padding-left: 40px;
-    border-left: 2px solid $xtxColor;
-
-    a {
-      width: 38px;
-      margin-right: 40px;
-      font-size: 16px;
-      line-height: 1;
-
-      &:hover {
-        color: $xtxColor;
-      }
-    }
-  }
-}
-
-.app-header-nav {
+  
+  // 左側主要導航
+  .app-header-nav {
   width: 820px;
   display: flex;
   padding-left: 40px;
@@ -113,8 +93,10 @@ const { y } = useScroll(window); // 獲取滾動位置
       display: inline-block;
 
       &:hover {
-        color: $xtxColor;
-        border-bottom: 1px solid $xtxColor;
+          color: $xtxColor;
+          border-bottom: 1px solid $xtxColor;
+          font-size: 1.3em;
+          transition: 0.5s all ease;
       }
     }
 
@@ -123,5 +105,9 @@ const { y } = useScroll(window); // 獲取滾動位置
       border-bottom: 1px solid $xtxColor;
     }
   }
+ }
+
 }
+
+
 </style>

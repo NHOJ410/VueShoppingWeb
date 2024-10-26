@@ -28,15 +28,16 @@ const getHotList = async () => {
 }
 getHotList()
 
- 
+
 </script>
 
 
 <template>
+  <!-- 熱榜部分 -->
   <div class="goods-hot">
     <h3>{{ props.title }}</h3>
     <!-- 商品區域 -->
-    <RouterLink to="/" class="goods-item" v-for="item in hotList" :key="item.id">
+    <RouterLink :to="`/detail/${item.id}`" class="goods-item" v-for="item in hotList" :key="item.id">
       <img :src="item.picture" alt="" />
       <p class="name ellipsis">{{ item.name }}</p>
       <p class="desc ellipsis">{{ item.desc }}</p>
@@ -49,7 +50,8 @@ getHotList()
 <style scoped lang="scss">
 .goods-hot {
   margin-bottom: 20px;
-
+  
+  // 主題部分 (24小時熱榜/週熱榜)
   h3 {
     height: 70px;
     background: $helpColor;
@@ -68,14 +70,14 @@ getHotList()
     padding: 20px 30px;
     text-align: center;
     background: #fff;
+    transition: all .5s; 
     
     // 懸浮效果
     &:hover {
-        transform: translate3d(0, -4px, 0);
-        box-shadow: 0 3px 8px rgb(0 0 0 / 40%);
-        transition: linear .3s;
+       @include category-Hover
     }
-
+    
+    // 圖片
     img {
       width: 160px;
       height: 160px;
@@ -84,16 +86,19 @@ getHotList()
     p {
       padding-top: 10px;
     }
-
+    
+    // 商品名稱
     .name {
       font-size: 16px;
     }
-
+    
+    // 商品描述
     .desc {
       color: #999;
       height: 29px;
     }
-
+    
+    // 商品價格
     .price {
       color: $priceColor;
       font-size: 20px;

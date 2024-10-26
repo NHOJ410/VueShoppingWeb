@@ -3,6 +3,11 @@
   box-sizing: border-box;
 }
 
+/* 自定義 loading 字體大小 */
+.custom-loading .el-loading-text {
+  font-size: 30px; /* 根據需要調整字體大小 */
+}
+
 html {
   height: 100%;
   font-size: 14px;
@@ -50,7 +55,8 @@ img {
   max-width: 100%;
   max-height: 100%;
   vertical-align: middle;
-  background: #ebebeb url('@/assets/images/200.png') no-repeat center / contain;
+  background: url('@/assets/images/none.jpg') no-repeat 100% / 100%;
+  background-size: contain;
 }
 ul {
   list-style: none;

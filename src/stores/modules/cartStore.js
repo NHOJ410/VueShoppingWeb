@@ -80,6 +80,12 @@ export const useCartStore = defineStore('cart', () => {
        getLoginUserList()
 
     }
+
+    // 刪除完成後 提示用戶刪除成功
+    ElMessage.success({
+      message : '刪除成功 !',
+      duration : 5000
+    })
     
   }
 

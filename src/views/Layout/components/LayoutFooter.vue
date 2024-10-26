@@ -1,3 +1,6 @@
+<script setup>
+</script>
+
 <template>
   <footer class="app_footer">
   <!-- 聯繫我們 -->
@@ -11,7 +14,7 @@
       <dl>
         <dt>關注我們</dt>
         <dd><i class="iconfont icon-weixin"></i> WeChat</dd>
-        <dd><i class="iconfont icon-weibo"></i> WeiBo</dd>
+        <dd><i class="iconfont icon-weibo"></i>WeiBo</dd>
       </dl>
       <dl>
         <dt>下載APP</dt>
@@ -19,44 +22,47 @@
         <dd class="download">
           <span>掃描二維碼</span>
           <span>立刻下載APP</span>
-          <a href="javascript:;">下載頁面</a>
+          <a href="#">下載連結</a>
         </dd>
       </dl>
       <dl>
-        <dt>服務熱線</dt>
-        <dd class="hotline">400-0000-000 <small>週一至週日 8:00-18:00</small></dd>
+        <dt>電子郵件</dt>
+        <dd class="gmail">
+          <a href="mailto:ae411253@gmail.com"><SVGItem :svgName="'gmail'" :width="'100px'" :height="'100px'"></SVGItem></a>
+        </dd>
       </dl>
     </div>
   </div>
-  <!-- 其它 -->
+
+  <!-- 底部大圖標 和 版權信息部分 -->
   <div class="extra">
     <div class="container">
       <div class="slogan">
-        <a href="javascript:;">
+        <a href="#">
           <i class="iconfont icon-footer01"></i>
-          <span>價格親民</span>
+          <span>價格實惠</span>
         </a>
-        <a href="javascript:;">
+        <a href="#">
           <i class="iconfont icon-footer02"></i>
-          <span>物流快捷</span>
+          <span>配送迅速</span>
         </a>
-        <a href="javascript:;">
+        <a href="#">
           <i class="iconfont icon-footer03"></i>
-          <span>品質新鮮</span>
+          <span>品質保證</span>
         </a>
       </div>
       <!-- 版權信息 -->
       <div class="copyright">
         <p>
-          <a href="javascript:;">關於我們</a>
-          <a href="javascript:;">幫助中心</a>
-          <a href="javascript:;">售後服務</a>
-          <a href="javascript:;">配送與驗收</a>
-          <a href="javascript:;">商務合作</a>
-          <a href="javascript:;">搜尋推薦</a>
-          <a href="javascript:;">友情連結</a>
+          <a href="#">關於我們</a>
+          <a href="#">幫助中心</a>
+          <a href="#">售後服務</a>
+          <a href="#">配送與驗收</a>
+          <a href="#">商務合作</a>
+          <a href="#">搜尋推薦</a>
+          <a href="#">友情連結</a>
         </p>
-        <p>CopyRight © 小兔鮮兒</p>
+        <p>CopyRight © Vue購物商城</p>
       </div>
     </div>
   </div>
@@ -69,7 +75,7 @@
 .app_footer {
   overflow: hidden;
   background-color: #f5f5f5;
-  padding-top: 20px;
+  padding-top: 25px;
 
   .contact {
     background: #fff;
@@ -78,13 +84,14 @@
       padding: 60px 0 40px 25px;
       display: flex;
     }
-
+    
     dl {
       height: 190px;
       text-align: center;
       padding: 0 72px;
       border-right: 1px solid #f2f2f2;
       color: #999;
+     
 
       &:first-child {
         padding-left: 0;
@@ -95,12 +102,14 @@
         padding-right: 0;
       }
     }
-
+    
+    // 標題
     dt {
       line-height: 1;
-      font-size: 18px;
-    }
-
+      font-size: 22px;
+    }  
+    
+    // 內容
     dd {
       margin: 36px 12px 0 0;
       float: left;
@@ -108,6 +117,7 @@
       height: 92px;
       padding-top: 10px;
       border: 1px solid #ededed;
+      cursor: pointer;
 
       .iconfont {
         font-size: 36px;
@@ -154,33 +164,24 @@
         background-color: $xtxColor;
       }
     }
-
-    .hotline {
-      padding-top: 20px;
-      font-size: 22px;
+     
+    // 電子郵件部分
+    .gmail {
       color: #666;
-      width: auto;
-      height: auto;
       border: none;
-
-      small {
-        display: block;
-        font-size: 15px;
-        color: #999;
-      }
     }
   }
   
   // 底部大圖標部分
   .extra {
-    background-color: #333;
+    background: linear-gradient(to right, #2d5b6e, #376675, #2c5364);
   }
-
+  
   .slogan {
     height: 178px;
     line-height: 58px;
     padding: 60px 100px;
-    border-bottom: 1px solid #434343;
+    border-bottom: 1px solid #868686;
     display: flex;
     justify-content: space-between;
 
@@ -209,7 +210,7 @@
     height: 170px;
     padding-top: 40px;
     text-align: center;
-    color: #999;
+    color: #fff;
     font-size: 15px;
 
     p {
@@ -218,10 +219,10 @@
     }
 
     a {
-      color: #999;
+      color: #fff;
       line-height: 1;
       padding: 0 10px;
-      border-right: 1px solid #999;
+      border-right: 1px solid #fff;
 
       &:last-child {
         border-right: none;

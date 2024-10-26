@@ -1,5 +1,12 @@
+// 顏色變量
 $xtxColor: #27ba9b;
 $helpColor: #e26237;
 $sucColor: #1dc779;
 $warnColor: #ffb302;
 $priceColor: #cf4444;
+
+// hover效果變量
+@mixin category-Hover  {
+  transform: scale(1.05);
+  box-shadow: 0 0 2px 2px rgba(0 ,0 ,0 ,0.3);
+}

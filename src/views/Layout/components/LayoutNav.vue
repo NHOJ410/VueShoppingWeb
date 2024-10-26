@@ -1,35 +1,60 @@
 <script setup>
+import { ref} from 'vue'
 // 導入組件
 import LayoutCart from './LayoutCart.vue'; // 頭部購物車組件
+import { Search } from '@element-plus/icons-vue'
 
 // 導入 Pinia倉庫
 import { useCategoryStore } from '@/stores' // 導入商品分類倉庫
 const categoryStore = useCategoryStore() // 定義商品分類倉庫
 
+const searchValue = ref('') // 綁定搜索框的值
+
+// 搜索框的事件函數 ( 由於接口請求不到 所以提示用戶 )
+const focusInp = async () => {
+
+  await ElMessageBox.alert(
+    '這裡的api好像有點問題 所以沒有做= =',
+    '不好意思',
+    {
+      confirmButtonText: '好的'
+    }
+  )
+
+  searchValue.value = ''
+
+}
 
 </script>
 <template>
+  <!-- 頭部導航條部分 -->
   <header class='app-header'>
     <div class="container">
       <h1 class="logo">
-        <RouterLink to="/">小兔仙</RouterLink>
+        <RouterLink to="/">Vue購物商城</RouterLink>
       </h1>
-      <!-- 頭部商品列表區域 -->
-      <ul class="app-header-nav"> 
+      <!-- 頭部導航欄部分 -->
+      <ul class="app-header-nav">
         <li class="home">
-          <RouterLink  to="/">首頁</RouterLink>
-        </li>   
+          <RouterLink to="/">首頁</RouterLink>
+        </li>
         <li class="home" v-for="item in categoryStore.categoryNav" :key="item.id">
           <RouterLink active-class="active" :to="`/category/${item.id}`">{{ item.name }}</RouterLink>
         </li>
       </ul>
+
+      <!-- 搜索框部分 -->
       <div class="search">
-        <i class="iconfont icon-search"></i>
-        <input type="text" placeholder="請輸入你想查詢的商品">
+        <el-autocomplete @input="focusInp" v-model="searchValue" placeholder="請輸入想要搜索的商品" :fit-input-width="true"
+          style="width: 280px" :icon="Search">
+          <template #prepend>
+            <el-button style="border-radius: 0; background: linear-gradient(to right, #a8ff78, #78ffd6);" :icon="Search" @click="focusInp"/>
+          </template>
+        </el-autocomplete>
       </div>
       <!-- 頭部購物車區域 -->
       <LayoutCart></LayoutCart>
-      
+
     </div>
   </header>
 </template>
@@ -43,7 +68,7 @@ const categoryStore = useCategoryStore() // 定義商品分類倉庫
     display: flex;
     align-items: center;
   }
-  
+
   // 頭部Logo
   .logo {
     width: 200px;
@@ -53,36 +78,37 @@ const categoryStore = useCategoryStore() // 定義商品分類倉庫
       height: 132px;
       width: 100%;
       text-indent: -9999px;
-      background: url('@/assets/images/logo.png') no-repeat center 18px / contain;
+      background: url('@/assets/images/Vuelogo.webp') no-repeat center / contain;
     }
   }
-  
+
   // 頭部導航條部分
   .app-header-nav {
     width: 820px;
     display: flex;
-    padding-left: 40px;
+    padding-left: 60px;
     position: relative;
     z-index: 998;
-  
+
     li {
-      margin-right: 40px;
+      margin-right: 30px;
       width: 38px;
       text-align: center;
-  
+
       a {
         font-size: 16px;
         line-height: 32px;
         height: 32px;
-        display: inline-block;        
-  
+        display: inline-block;
+
         &:hover {
           color: $xtxColor;
           border-bottom: 1px solid $xtxColor;
-          transition: 0.5s;
+          font-size: 1.3em;
+          transition: 0.5s all ease;
         }
       }
-      
+
       // active激活時觸發的顏色
       .active {
         color: $xtxColor;
@@ -90,28 +116,8 @@ const categoryStore = useCategoryStore() // 定義商品分類倉庫
       }
     }
   }
-  
-  // 頭部右側搜索框
-  .search {
-    width: 170px;
-    height: 32px;
-    position: relative;
-    border-bottom: 1px solid #e7e7e7;
-    line-height: 32px;
-
-    .icon-search {
-      font-size: 18px;
-      margin-left: 5px;
-      vertical-align: middle;
-    }
-
-    input {
-      width: 140px;
-      padding-left: 5px;
-      color: #666;
-    }
-  }
 
   
+
 }
 </style>

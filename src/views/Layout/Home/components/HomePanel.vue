@@ -39,7 +39,8 @@ defineProps({
     padding: 40px 0;
     display: flex;
     align-items: flex-end;
-
+    
+    // 主標題
     h3 {
       flex: 1;
       font-size: 32px;
@@ -47,8 +48,9 @@ defineProps({
       margin-left: 6px;
       height: 35px;
       line-height: 35px;
+      // 副標題
       small {
-        font-weight: normal;
+        font-weight: 600;
         font-size: 18px;
         color: #999;
         margin-left: 20px;

@@ -1,9 +1,9 @@
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import TermsofService from '@/components/TermsofService.vue'
 // 導入Pina倉庫
 import { useUserInfoStore } from '@/stores/index.js' // 導入登入用戶倉庫
-
 const userStore = useUserInfoStore() // 定義user倉庫
 
 // ------------- 登入表單 -------------
@@ -12,24 +12,24 @@ const router = useRouter()
 
 // 登入表單-輸入框
 const loginForm = ref({
-  account : '',
-  password:'',
-  agree : false
+  account: '',
+  password: '',
+  agree: false
 })
 
 // 登入表單-驗證規則
 const loginRules = ref({
-  account : [
-    { required : true, message : '請輸入帳號 ! ', trigger : 'blur' }
+  account: [
+    { required: true, message: '請輸入帳號 ! ', trigger: 'blur' }
   ],
-  password:[
-    { required : true, message : '請輸入密碼 ! ', trigger : 'blur' },
-    { min : 6 , max : 14 , message : '請輸入6-14位數的密碼 ! ', trigger : 'blur' }
+  password: [
+    { required: true, message: '請輸入密碼 ! ', trigger: 'blur' },
+    { min: 6, max: 14, message: '請輸入6-14位數的密碼 ! ', trigger: 'blur' }
   ],
-  agree : [
-    { 
-      validator : (rule, value, callback) => {
-        if ( value ) { // 如果勾選同意條款
+  agree: [
+    {
+      validator: (rule, value, callback) => {
+        if (value) { // 如果勾選同意條款
           callback() // 通過驗證  
         } else {
           callback(new Error('請勾選同意條款 ! ')) // 未通過驗證, 提示用戶勾選同意條款
@@ -37,66 +37,78 @@ const loginRules = ref({
       }
     }
   ]
-  
+
 })
 
 // 獲取 登入表單實例對象
 const loginRef = ref(null)
 
 // 登入按鈕點擊事件
-const onLogin = async  () => {
+const onLogin = async () => {
 
   // 使用 async/await 進行一次性表單驗證
   await loginRef.value.validate()
-  
+
   // 調用登入接口 , 發起登入請求
   await userStore.getUserInfo(loginForm.value)
-  
+
   // 彈出提示框 提示用戶登入成功
-  ElMessage.success('登入成功! 歡迎進入小兔仙商城')
-  
+  ElMessage.success('登入成功 ! 歡迎回到 Vue購物商城 !')
+
   // 跳轉到首頁
   router.replace('/home')
-  
+
 }
+
+
+// 服務條款部分
+const isShowService = ref(false) // 控制服務條款部分的顯示隱藏
+
+// 提示使用者部分
+const isShowMsg = ref(true)
 
 </script>
 <template>
-  <div>
+  <div class="loginPage">
+    <!-- 頂部logo和進入網站首頁按鈕 -->
     <header class="login-header">
-      <div class="container m-top-20">
+      <div class="container m-top-20 ">
         <!-- 頂部logo -->
         <h1 class="logo">
-          <RouterLink to="/">小兔鮮</RouterLink>
+          <RouterLink to="/">Vue購物商城</RouterLink>
         </h1>
         <!-- 進入網站首頁 -->
         <RouterLink class="entry" to="/">
-          進入網站首頁
+          點我進入網站首頁
           <i class="iconfont icon-angle-right"></i>
           <i class="iconfont icon-angle-right"></i>
         </RouterLink>
       </div>
     </header>
+
+    <!-- 中間登入表單區 -->
     <section class="login-section">
       <div class="wrapper">
-        <nav>
-          <a href="javascript:;">歡迎登入</a>
+        <nav class="welcomeTitle">
+          <a href="#">歡迎登入</a>
         </nav>
         <!-- 登入表單輸入區域 -->
         <div class="account-box">
           <div class="form">
-            <el-form label-position="right" label-width="60px" status-icon :model="loginForm" :rules="loginRules" ref="loginRef">
+            <el-form :hide-required-asterisk="true" label-position="right" label-width="40px" status-icon
+              :model="loginForm" :rules="loginRules" ref="loginRef">
               <el-form-item label="帳號" prop="account">
-                <el-input v-model="loginForm.account" />
+                <el-input v-model="loginForm.account" placeholder="請輸入帳號" />
               </el-form-item>
               <el-form-item label="密碼" prop="password">
-                <el-input v-model="loginForm.password" />
+                <el-input show-password v-model="loginForm.password" placeholder="請輸入密碼" />
               </el-form-item>
               <!-- 同意條款區域 -->
               <el-form-item label-width="22px" prop="agree">
                 <el-checkbox size="large" v-model="loginForm.agree">
-                  我已同意 隱私條款和服務條款
+                  我已同意 服務條款
                 </el-checkbox>
+                <div class="service" @click="isShowService = true">點擊查看服務條款</div>
               </el-form-item>
               <!-- 點擊登入按鈕 -->
               <el-button size="large" class="subBtn" @click="onLogin">點擊登入</el-button>
@@ -109,249 +121,179 @@ const onLogin = async  () => {
     <footer class="login-footer">
       <div class="container">
         <p>
-          <a href="javascript:;">關於我們</a>
-          <a href="javascript:;">幫助中心</a>
-          <a href="javascript:;">售後服務</a>
-          <a href="javascript:;">配送與驗收</a>
-          <a href="javascript:;">商務合作</a>
-          <a href="javascript:;">搜索推薦</a>
-          <a href="javascript:;">友情連結</a>
+          <a href="#">關於我們</a>
+          <a href="#">幫助中心</a>
+          <a href="#">售後服務</a>
+          <a href="#">配送與驗收</a>
+          <a href="#">商務合作</a>
+          <a href="#">搜索推薦</a>
+          <a href="#">友情連結</a>
         </p>
-        <p>CopyRight &copy; 小兔鮮兒</p>
+        <p>CopyRight &copy; Vue購物商城</p>
       </div>
     </footer>
+
+    <!-- 服務條款組件部分 -->
+    <TermsofService v-model:isShowService="isShowService"></TermsofService>
+
+    <!-- 提示使用者部分 -->
+    <el-dialog title="提示" width="600px" v-model="isShowMsg">
+      <template #default>
+        <div class="msg" style="font-size: 22px; line-height: 2.5; user-select: text;">
+          <p>帳號為 : heima288</p>
+          <p>密碼為 : hm#qd@23!</p>
+          <p style="color : red;">由於是中國的api 所以可能會有點慢 請見諒</p>
+        </div>
+      </template>
+    </el-dialog>
   </div>
 </template>
 
 
 <style scoped lang='scss'>
-.login-header {
-  background: #fff;
-  border-bottom: 1px solid #e4e4e4;
+.loginPage {
 
-  .container {
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-  }
+  background-color: #fff;
 
-  .logo {
-    width: 200px;
-
-    a {
-      display: block;
-      height: 132px;
-      width: 100%;
-      text-indent: -9999px;
-      background: url("@/assets/images/logo.png") no-repeat center 18px / contain;
-    }
-  }
-
-  .sub {
-    flex: 1;
-    font-size: 24px;
-    font-weight: normal;
-    margin-bottom: 38px;
-    margin-left: 20px;
-    color: #666;
-  }
-
-  .entry {
-    width: 120px;
-    margin-bottom: 38px;
-    font-size: 16px;
-
-    i {
-      font-size: 14px;
-      color: $xtxColor;
-      letter-spacing: -5px;
-    }
-  }
-}
-
-.login-section {
-  background: url('@/assets/images/login-bg.png') no-repeat center / cover;
-  height: 488px;
-  position: relative;
-
-  .wrapper {
-    width: 480px;
+  // 頂部LOGO部分和進入網站首頁部分
+  .login-header {
     background: #fff;
-    position: absolute;
-    left: 50%;
-    top: 54px;
-    transform: translate3d(100px, 0, 0);
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+    border-bottom: 1px solid #e4e4e4;
 
-    nav {
-      font-size: 14px;
-      height: 100px;
-      margin-bottom: 20px;
-      border-bottom: 1px solid #f5f5f5;
+    .container {
       display: flex;
-      padding: 0 40px;
-      text-align: right;
-      align-items: center;
+      align-items: flex-end;
+      justify-content: space-between;
+    }
+
+    .logo {
+      width: 200px;
 
       a {
-        flex: 1;
-        line-height: 1;
-        display: inline-block;
-        font-size: 18px;
-        position: relative;
+        display: block;
+        height: 132px;
+        width: 100%;
         text-align: center;
+        background: url("../../assets/images/Vuelogo.webp") no-repeat center 18px / contain;
+        color: $xtxColor;
       }
     }
-  }
-}
 
-.login-footer {
-  padding: 30px 0 50px;
-  background: #fff;
-
-  p {
-    text-align: center;
-    color: #999;
-    padding-top: 20px;
-
-    a {
-      line-height: 1;
-      padding: 0 10px;
-      color: #999;
-      display: inline-block;
-
-      ~a {
-        border-left: 1px solid #ccc;
-      }
+    .sub {
+      flex: 1;
+      font-size: 24px;
+      font-weight: normal;
+      margin-bottom: 38px;
+      margin-left: 20px;
+      color: #666;
     }
-  }
-}
-// 表單輸入區域
-.account-box {
-  .toggle {
-    padding: 15px 40px;
-    text-align: right;
 
-    a {
-      color: $xtxColor;
+    // 進入網站首頁部分
+    .entry {
+      width: 240px;
+      margin-bottom: 38px;
+      font-size: 22px;
 
       i {
+        font-size: 18px;
+        color: $xtxColor;
+        letter-spacing: -5px;
+      }
+    }
+  }
+
+
+  // 中間登入表單區
+  .login-section {
+    background: url('@/assets/images/loginbg.webp') no-repeat center / cover;
+    background-size: cover;
+    height: 574px;
+    position: relative;
+
+    // 表單部分
+    .wrapper {
+      width: 680px;
+      background: #fff;
+      position: absolute;
+      left: 62%;
+      top: 54px;
+      box-shadow: 0 0 18px 20px $xtxColor;
+
+      // 歡迎登入文字
+      .welcomeTitle {
         font-size: 14px;
+        height: 100px;
+        margin-bottom: 20px;
+        border-bottom: 1px solid #f5f5f5;
+        display: flex;
+        padding: 0 40px;
+        text-align: right;
+        align-items: center;
+
+        a {
+          flex: 1;
+          line-height: 1;
+          display: inline-block;
+          font-size: 28px;
+          position: relative;
+          text-align: center;
+          color: $xtxColor;
+        }
       }
+
+      // 表單輸入區域
+      .account-box {
+
+        // 表單部分
+        .form {
+          padding: 20px 20px;
+
+          // 服務條款
+          .service {
+            margin-left: 10px;
+            color: #3fb984;
+            padding: 2px;
+            cursor: pointer;
+          }
+        }
+
+      }
+
+      // 登入按鈕部分
+      .subBtn {
+        background: $xtxColor;
+        width: 100%;
+        color: #fff;
+        margin-top: 40px;
+        font-size: 24px;
+      }
+
     }
+
   }
 
-  .form {
-    padding: 0 20px 20px 20px;
 
-    &-item {
-      margin-bottom: 28px;
+  // 底部版權部分
+  .login-footer {
+    padding: 30px 0 50px;
+    background: #fff;
 
-      .input {
-        position: relative;
-        height: 36px;
-
-        >i {
-          width: 34px;
-          height: 34px;
-          background: #cfcdcd;
-          color: #fff;
-          position: absolute;
-          left: 1px;
-          top: 1px;
-          text-align: center;
-          line-height: 34px;
-          font-size: 18px;
-        }
-
-        input {
-          padding-left: 44px;
-          border: 1px solid #cfcdcd;
-          height: 36px;
-          line-height: 36px;
-          width: 100%;
-
-          &.error {
-            border-color: $priceColor;
-          }
-
-          &.active,
-          &:focus {
-            border-color: $xtxColor;
-          }
-        }
-
-        .code {
-          position: absolute;
-          right: 1px;
-          top: 1px;
-          text-align: center;
-          line-height: 34px;
-          font-size: 14px;
-          background: #f5f5f5;
-          color: #666;
-          width: 90px;
-          height: 34px;
-          cursor: pointer;
-        }
-      }
-
-      >.error {
-        position: absolute;
-        font-size: 12px;
-        line-height: 28px;
-        color: $priceColor;
-
-        i {
-          font-size: 14px;
-          margin-right: 2px;
-        }
-      }
-    }
-
-    .agree {
-      a {
-        color: #069;
-      }
-    }
-
-    .btn {
-      display: block;
-      width: 100%;
-      height: 40px;
-      color: #fff;
+    p {
       text-align: center;
-      line-height: 40px;
-      background: $xtxColor;
+      color: #999;
+      padding-top: 20px;
 
-      &.disabled {
-        background: #cfcdcd;
-      }
-    }
-  }
-
-  .action {
-    padding: 20px 40px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    .url {
       a {
+        line-height: 1;
+        padding: 0 10px;
         color: #999;
-        margin-left: 10px;
+        display: inline-block;
+
+        ~a {
+          border-left: 1px solid #ccc;
+        }
       }
     }
   }
 }
-
-.subBtn {
-  background: $xtxColor;
-  width: 100%;
-  color: #fff;
-  margin-top: 40px;
-}
-
-
-
 </style>

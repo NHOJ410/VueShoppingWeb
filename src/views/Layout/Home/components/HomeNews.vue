@@ -26,7 +26,7 @@ getNewsList()
           <RouterLink :to="`/detail/${item.id}`">
             <img v-lazyLoading="item.picture" alt=""/>
             <p class="name">{{ item.name }}</p>
-            <p class="price">$ {{ item.price }}</p>
+            <p class="price">$ {{ item.price }}元</p>
           </RouterLink>
         </li>
       </ul>
@@ -44,13 +44,11 @@ getNewsList()
   li {
     width: 306px;
     height: 406px;
-    background: #f0f9f4;
     transition: all .4s;
     margin-top: 15px;
 
     &:hover {
-      transform: translate3d(0, -3px, 0);
-      box-shadow: 0 3px 8px rgb(0 0 0 / 20%);
+      @include category-Hover
     }
     img {
       width: 306px;
