@@ -47,7 +47,7 @@
 
       // tab欄標題
       h4 {
-        font-size: 18px;
+        font-size: 17px;
         font-weight: 400;
         padding: 20px 52px 5px;
       }
