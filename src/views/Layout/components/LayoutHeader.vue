@@ -75,6 +75,12 @@ const onLoginOut = () => {
         line-height: 1;
         display: inline-block;
 
+        transition: all 0.3s ease;
+        &:hover {
+          color: $xtxColor;
+          transform: scale(1.2);
+        }
+
         i {
           font-size: 14px;
           margin-right: 8px;
@@ -98,18 +104,10 @@ const onLoginOut = () => {
         }
         
 
-        transition: all 0.3s ease;
-        &:hover {
-          color: $xtxColor;
-          transform: scale(1.2);
-        }
+        
       }
 
-      ~li {
-        a {
-          border-left: 1px solid #fff;
-        }
-      }
+      
 
 
     }
