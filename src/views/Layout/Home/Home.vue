@@ -1,4 +1,5 @@
 <script setup>
+import { onMounted } from 'vue'
 // 導入組件
 import HomeCategory from '@/views/Layout/Home/components/HomeCategory.vue'
 import HomeBanner from '@/views/Layout/Home/components/HomeBanner.vue'
@@ -6,13 +7,20 @@ import HomeNews from '@/views/Layout/Home/components/HomeNews.vue'
 import HomeHot from '@/views/Layout/Home/components/HomeHot.vue'
 import HomeProduct from '@/views/Layout/Home/components/HomeProduct.vue'
 
+// 導入封裝的WOWJS
+import  initWowJS  from '@/utils/wow.js'
+
+// 在onMounted() 鉤子中 初始化WOWJS
+onMounted(() => {
+  initWowJS()
+})
 
 </script>
 
 <template>
 
   <!-- 上方商品菜單和輪播圖 -->
-  <div class="container">
+  <div class="container wow rubberBand">
    <HomeCategory></HomeCategory>
    <HomeBanner></HomeBanner>
   </div>

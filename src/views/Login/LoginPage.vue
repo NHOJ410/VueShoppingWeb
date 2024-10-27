@@ -1,11 +1,19 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
 import TermsofService from '@/components/TermsofService.vue'
 // 導入Pina倉庫
 import { useUserInfoStore } from '@/stores/index.js' // 導入登入用戶倉庫
 const userStore = useUserInfoStore() // 定義user倉庫
+// 導入封裝的WOWJS
+import  initWowJS  from '@/utils/wow.js'
+
+// 在onMounted() 鉤子中 初始化WOWJS
+onMounted(() => {
+  initWowJS()
+})
+ 
 
 // ------------- 登入表單 -------------
 
@@ -75,11 +83,11 @@ const isShowMsg = ref(true)
     <header class="login-header">
       <div class="container m-top-20 ">
         <!-- 頂部logo -->
-        <h1 class="logo">
+        <h1 class="logo wow bounceInLeft">
           <RouterLink to="/">Vue購物商城</RouterLink>
         </h1>
         <!-- 進入網站首頁 -->
-        <RouterLink class="entry" to="/">
+        <RouterLink class="entry wow bounceInRight" to="/">
           點我進入網站首頁
           <i class="iconfont icon-angle-right"></i>
           <i class="iconfont icon-angle-right"></i>
@@ -89,7 +97,7 @@ const isShowMsg = ref(true)
 
     <!-- 中間登入表單區 -->
     <section class="login-section">
-      <div class="wrapper">
+      <div class="wrapper wow zoomInLeft">
         <nav class="welcomeTitle">
           <a href="#">歡迎登入</a>
         </nav>

@@ -7,6 +7,10 @@ import { lazyImg } from './directives/index.js' // 導入自定義指令檔案
 import { globalComponents } from '@/components/index.js' // 全局組件註冊
 import 'virtual:svg-icons-register' // 導入 svg圖標插件
 
+// 導入 animate.css
+import 'animate.css'
+import 'animate.css/animate.compat.css'
+
 const app = createApp(App)
 
 app.use(pinia)

@@ -1,9 +1,9 @@
 <script setup>
 import { onMounted, ref } from 'vue';
 // 導入api
-import { getBannerService } from '@/apis/home'; // 導入輪播圖數據
+import { getBannerService } from '@/apis/home'
 
-const bannerList = ref([])
+const bannerList = ref([]) // 存儲輪播圖數據
 
 // 獲取輪播圖數據
 const getBanner = async () => {
@@ -20,18 +20,18 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="home-banner">
+  <div class="home-banner ">
     <el-carousel height="500px" :motion-blur="true">
-      <el-carousel-item  v-for="item in bannerList" :key="item.id" interval="2000" motion-blur="true">
-          <router-link :to="item.hrefUrl">
-            <img :src="item.imgUrl" alt="">
-          </router-link>
+      <el-carousel-item v-for="item in bannerList" :key="item.id" interval="2000" motion-blur="true">
+        <router-link :to="item.hrefUrl">
+          <img :src="item.imgUrl" alt="">
+        </router-link>
       </el-carousel-item>
     </el-carousel>
     <!-- 查看更多 -->
-     <div class="more">
-       <router-link to="/category/sub/1005000">點我查看更多</router-link>
-     </div>
+    <div class="more">
+      <router-link to="/category/sub/1005000">點我查看更多</router-link>
+    </div>
   </div>
 </template>
 
@@ -46,7 +46,7 @@ onMounted(() => {
   top: 0;
   z-index: 98;
   border-radius: 10px;
-  
+
   // 輪播圖裡面的圖片大小
   img {
     width: 100%;
@@ -54,7 +54,7 @@ onMounted(() => {
     border-radius: 10px;
     position: relative;
   }
-  
+
   // 加大輪播圖的箭頭樣式
   :deep(.el-carousel__arrow) {
     font-size: 30px;
@@ -74,7 +74,7 @@ onMounted(() => {
     right: 0;
     bottom: 0;
     font-size: 18px;
-    background: linear-gradient(to bottom, #b2fefa, #0ed2f7); 
+    background: linear-gradient(to bottom, #b2fefa, #0ed2f7);
 
     &:hover {
       transform: scale(1.2);
