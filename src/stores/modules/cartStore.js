@@ -66,6 +66,20 @@ export const useCartStore = defineStore('cart', () => {
   // --------- 刪除購物車 ---------
   const deleteCart = async (skuId) => {
 
+    // 先詢問用戶是否要刪除 
+    await ElMessageBox.confirm(
+      '是否確認要刪除這項商品 ?',
+      '此操作會將商品從購物車中刪除',
+      {
+        confirmButtonText: '是的',
+        cancelButtonText: '我再想想',
+        type: 'warning',
+      }
+    )  
+
+    // 走到這裡代表點擊確認按鈕 , 那就繼續走邏輯
+
+
     if ( !token.value ) { // 如果用戶沒有登入 , 就走本地購物車
       
       // 使用數組 filter() 方法 , 將購物車頁面點擊刪除的商品過濾掉 , 並重新賦值給 購物車列表 這樣就完成了刪除功能

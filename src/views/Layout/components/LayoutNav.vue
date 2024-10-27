@@ -100,17 +100,19 @@ const focusInp = async () => {
         line-height: 32px;
         height: 32px;
         display: inline-block;
+        transition: 0.4s all ease;
+
 
         &:hover {
           color: $xtxColor;
           border-bottom: 1px solid $xtxColor;
-          font-size: 1.3em;
-          transition: 0.5s all ease;
+          transform: scale(1.2);
         }
       }
 
       // active激活時觸發的顏色
       .active {
+        transform: scale(1.2);
         color: $xtxColor;
         border-bottom: 1px solid $xtxColor;
       }

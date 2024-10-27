@@ -1,11 +1,16 @@
 <template>
+  <!-- 商品規格組件部分 -->
   <div class="goods-sku">
     <dl v-for="item in goods.specs" :key="item.id">
+      <!-- 規格屬性名 -->
       <dt>{{ item.name }}</dt>
+      <!-- 規格屬性值 -->
       <dd>
         <template v-for="val in item.values" :key="val.name">
+          <!-- 規格圖片 -->
           <img :class="{ selected: val.selected, disabled: val.disabled }" @click="clickSpecs(item, val)"
             v-if="val.picture" :src="val.picture" />
+          <!-- 規格文字 -->
           <span :class="{ selected: val.selected, disabled: val.disabled }" @click="clickSpecs(item, val)" v-else>{{
               val.name
           }}</span>
@@ -19,21 +24,21 @@
 import { watchEffect } from 'vue'
 import getPowerSet from './power-set'
 const spliter = '★'
-// 根据skus数据得到路径字典对象
+// 根據 skus 資料得到路徑字典物件
 const getPathMap = (skus) => {
   const pathMap = {}
   if (skus && skus.length > 0) {
     skus.forEach(sku => {
-      // 1. 过滤出有库存有效的sku
+      // 1. 過濾出有庫存有效的 sku
       if (sku.inventory) {
-        // 2. 得到sku属性值数组
+        // 2. 得到 sku 屬性值數組
         const specs = sku.specs.map(spec => spec.valueName)
-        // 3. 得到sku属性值数组的子集
+        // 3. 得到 sku 屬性值數組的子集
         const powerSet = getPowerSet(specs)
-        // 4. 设置给路径字典对象
+        // 4. 設定給路徑字典物件
         powerSet.forEach(set => {
           const key = set.join(spliter)
-          // 如果没有就先初始化一个空数组
+          // 如果沒有就先初始化一個空數組
           if (!pathMap[key]) {
             pathMap[key] = []
           }
@@ -45,19 +50,19 @@ const getPathMap = (skus) => {
   return pathMap
 }
 
-// 初始化禁用状态
+// 初始化禁用狀態
 function initDisabledStatus (specs, pathMap) {
   if (specs && specs.length > 0) {
     specs.forEach(spec => {
       spec.values.forEach(val => {
-        // 设置禁用状态
+        // 設置禁用狀態
         val.disabled = !pathMap[val.name]
       })
     })
   }
 }
 
-// 得到当前选中规格集合
+// 得到當前選中規格的集合
 const getSelectedArr = (specs) => {
   const selectedArr = []
   specs.forEach((spec, index) => {
@@ -71,17 +76,17 @@ const getSelectedArr = (specs) => {
   return selectedArr
 }
 
-// 更新按钮的禁用状态
+// 更新按鈕的禁用狀態
 const updateDisabledStatus = (specs, pathMap) => {
-  // 遍历每一种规格
+  // 遍歷每一種規格
   specs.forEach((item, i) => {
-    // 拿到当前选择的项目
+    // 拿到當前選擇的項目
     const selectedArr = getSelectedArr(specs)
-    // 遍历每一个按钮
+    // 遍歷每一個按鈕
     item.values.forEach(val => {
       if (!val.selected) {
         selectedArr[i] = val.name
-        // 去掉undefined之后组合成key
+        // 去掉 undefined 之後組合成 key
         const key = selectedArr.filter(value => value).join(spliter)
         val.disabled = !pathMap[key]
       }
@@ -93,7 +98,7 @@ const updateDisabledStatus = (specs, pathMap) => {
 export default {
   name: 'XtxGoodSku',
   props: {
-    // specs:所有的规格信息  skus:所有的sku组合
+    // specs:所有的規格資訊  skus:所有的 SKU 組合
     goods: {
       type: Object,
       default: () => ({ specs: [], skus: [] })
@@ -105,31 +110,31 @@ export default {
     watchEffect(() => {
       // 得到所有字典集合
       pathMap = getPathMap(props.goods.skus)
-      // 组件初始化的时候更新禁用状态
+      // 组件初始化的时候更新禁用狀態
       initDisabledStatus(props.goods.specs, pathMap)
     })
 
     const clickSpecs = (item, val) => {
       if (val.disabled) return false
-      // 选中与取消选中逻辑
+      // 選中與取消選中邏輯
       if (val.selected) {
         val.selected = false
       } else {
         item.values.forEach(bv => { bv.selected = false })
         val.selected = true
       }
-      // 点击之后再次更新选中状态
+      // 點擊之後再次更新選中狀態
       updateDisabledStatus(props.goods.specs, pathMap)
-      // 把选择的sku信息传出去给父组件
-      // 触发change事件将sku数据传递出去
+      // 把選擇的 sku 信息傳出去給父組件
+      // 觸發 change 事件將 sku 資料傳遞出去
       const selectedArr = getSelectedArr(props.goods.specs).filter(value => value)
-      // 如果选中得规格数量和传入得规格总数相等则传出完整信息(都选择了)
-      // 否则传出空对象
+      // 如果選中的規格數量和傳入的規格總數相等則傳出完整資訊（都選擇了）
+      // 否則傳出空對象
       if (selectedArr.length === props.goods.specs.length) {
-        // 从路径字典中得到skuId
+        // 從路徑字典中得到 skuId
         const skuId = pathMap[selectedArr.join(spliter)][0]
         const sku = props.goods.skus.find(sku => sku.id === skuId)
-        // 傳遞數據給父組件
+         // 傳遞資料給父組件
         emit('change', {
           skuId: sku.id,
           price: sku.price,
@@ -146,7 +151,9 @@ export default {
 }
 </script>
 
+
 <style scoped lang="scss">
+// 通用樣式變量
 @mixin sku-state-mixin {
   border: 1px solid #e4e4e4;
   margin-right: 10px;
@@ -163,32 +170,38 @@ export default {
   }
 }
 
+
+// 商品規格組件
 .goods-sku {
   padding-left: 10px;
   padding-top: 20px;
-
+  
   dl {
     display: flex;
     padding-bottom: 20px;
     align-items: center;
-
+    
+    // 規格屬性名
     dt {
       width: 120px;
       color: #999;
       font-size: 16px;
-    }
-
+    } 
+    
+    // 規格屬性值
     dd {
       flex: 1;
       color: #666;
-
+      
+      // 規格圖片
       >img {
         width: 50px;
         height: 50px;
         margin-bottom: 4px;
         @include sku-state-mixin;
       }
-
+       
+      // 規格文字
       >span {
         display: inline-block;
         height: 30px;

@@ -11,3 +11,4 @@ export default pinia
 export * from '@/stores/modules/category.js'
 export * from '@/stores/modules/user.js'
 export * from '@/stores/modules/cartStore.js'
+export * from '@/stores/modules/payOrder.js'

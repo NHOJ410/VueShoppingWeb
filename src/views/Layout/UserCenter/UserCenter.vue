@@ -1,10 +1,12 @@
-<script setup> </script>
+<script setup></script>
 
 <template>
   <div class="container">
+
+    <!-- 左側tab欄 -->
     <div class="xtx-member-aside">
       <div class="user-manage">
-        <h4>我的帳戶</h4>
+        <h4>我的資料</h4>
         <div class="links">
           <RouterLink to="/userCenter/user">個人中心</RouterLink>
         </div>
@@ -14,6 +16,8 @@
         </div>
       </div>
     </div>
+
+    <!-- 右側內容區 -->
     <div class="article">
       <!-- 三級路由的展示的地方 -->
       <RouterView />
@@ -24,67 +28,61 @@
 
 <style scoped lang="scss">
 .container {
+  width: 1440px;
   display: flex;
+  justify-content: space-between;
   padding-top: 20px;
+  gap: 40px;
 
+  // 左側tab欄部分
   .xtx-member-aside {
-    width: 220px;
-    margin-right: 20px;
-    border-radius: 2px;
+    width: 180px;
+    text-align: center;
     background-color: #fff;
 
     .user-manage {
       background-color: #fff;
 
+      
+
+      // tab欄標題
       h4 {
         font-size: 18px;
         font-weight: 400;
         padding: 20px 52px 5px;
-        border-top: 1px solid #f6f6f6;
       }
-
+  
+      // tab欄連結部分
       .links {
-        padding: 0 52px 10px;
-      }
+        border-bottom: 1px solid #f6f6f6;
 
-      a {
-        display: block;
-        line-height: 1;
-        padding: 15px 0;
-        font-size: 14px;
-        color: #666;
-        position: relative;
+        a {
+          display: block;
+          line-height: 1;
+          padding: 30px 0;
+          font-size: 14px;
+          color: #666;
+          position: relative;
 
-        &:hover {
-          color: $xtxColor;
-        }
-
-        &.active,
-        &.router-link-exact-active {
-          color: $xtxColor;
-
-          &:before {
-            display: block;
+          &:hover {
+            transform: scale(1.3);
+            color: $xtxColor;
+            transition: all 0.3s ease;
+          }
+          &.router-link-exact-active {
+            color: $xtxColor;
           }
         }
-
-        &:before {
-          content: '';
-          display: none;
-          width: 6px;
-          height: 6px;
-          border-radius: 50%;
-          position: absolute;
-          top: 19px;
-          left: -16px;
-          background-color: $xtxColor;
-        }
       }
+
+
     }
   }
 
+
+  // 右側內容區部分
   .article {
-    width: 1000px;
+    flex: 1;
     background-color: #fff;
   }
 }

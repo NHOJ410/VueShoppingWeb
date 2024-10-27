@@ -1,8 +1,7 @@
 <script setup>
 // 導入 路由方法
-import { useRouter, useRoute } from 'vue-router'
+import { useRouter } from 'vue-router'
 const router = useRouter()
-const route = useRoute()
 // 導入 Pinia 倉庫
 import { useCartStore } from '@/stores/modules/cartStore' // 導入購物車倉庫
 
@@ -14,12 +13,13 @@ const cartStore = useCartStore() // 定義購物車倉庫
 
 <template>
   <!-- 購物車圖標 -->
-  <div class="cart" >
-    <router-link class="curr" to="cartList">
-      <i class="iconfont icon-cart"></i><em v-show="cartStore.cartList.length !== 0">{{ cartStore.cartList.length }}</em>
-    </router-link>
+  <div class="cart">
+    <div class="curr">
+      <i class="iconfont icon-cart"></i><em v-show="cartStore.cartList.length !== 0">{{ cartStore.cartList.length
+        }}</em>
+    </div>
     <!-- 購物車內容區 -->
-    <div class="layer" v-show="cartStore.cartList.length  !== 0">
+    <div class="layer" v-show="cartStore.cartList.length !== 0">
       <!-- 每一項商品 -->
       <div class="list">
         <div class="item" v-for="item in cartStore.cartList" :key="item">
@@ -27,11 +27,11 @@ const cartStore = useCartStore() // 定義購物車倉庫
             <img :src="item.picture" alt="" />
             <div class="center">
               <!-- 商品名 -->
-              <p class="name ellipsis-2">
+              <p class="name ">
                 {{ item.name }}
               </p>
               <!-- 規格名 -->
-              <p class="attr ellipsis">{{ item.attrsText }}</p>
+              <p class="attr ">{{ item.attrsText }}</p>
             </div>
             <!-- 價格和數量 -->
             <div class="right">
@@ -82,7 +82,7 @@ const cartStore = useCartStore() // 定義購物車倉庫
       top: 0;
       padding: 2px 6px;
       line-height: 1;
-      background: red;  
+      background: red;
       color: #fff;
       font-size: 12px;
       border-radius: 10px;
@@ -132,25 +132,6 @@ const cartStore = useCartStore() // 定義購物車倉庫
       overflow: auto;
       padding: 0 10px;
 
-      &::-webkit-scrollbar {
-        width: 10px;
-        height: 10px;
-      }
-
-      &::-webkit-scrollbar-track {
-        background: #f8f8f8;
-        border-radius: 2px;
-      }
-
-      &::-webkit-scrollbar-thumb {
-        background: #eee;
-        border-radius: 10px;
-      }
-
-      &::-webkit-scrollbar-thumb:hover {
-        background: #ccc;
-      }
-      
       // 每一項商品
       .item {
 
@@ -169,14 +150,14 @@ const cartStore = useCartStore() // 定義購物車倉庫
         }
 
         &:hover {
-          background-color: rgb(197, 195, 195);
+          background: lighten($xtxColor, 40%);
 
           i {
             opacity: 1;
             cursor: pointer;
           }
 
-    
+
         }
 
         // 商品主體內容
@@ -207,7 +188,7 @@ const cartStore = useCartStore() // 定義購物車倉庫
               color: #999;
               padding-top: 5px;
             }
-              
+
           }
 
           // 右側商品價格和數量區域
