@@ -14,7 +14,7 @@ categoryStore.getCategory() // 調用 商品分類倉庫 獲取數據
 </script>
 
 <template>
-  <!-- 頭部組件 -->
+  <!-- 頭部組件部分 -->
   <LayoutHeader></LayoutHeader>
   <!-- 頭部導航組件 -->
   <LayoutNav></LayoutNav>
