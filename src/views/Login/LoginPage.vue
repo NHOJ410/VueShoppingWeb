@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { ElMessage } from 'element-plus'
 import TermsofService from '@/components/TermsofService.vue'
 // 導入Pina倉庫
 import { useUserInfoStore } from '@/stores/index.js' // 導入登入用戶倉庫
@@ -152,13 +153,14 @@ const isShowMsg = ref(true)
 
 <style scoped lang='scss'>
 .loginPage {
-
+  height: 100vh;
+  overflow: hidden;
   background-color: #fff;
 
   // 頂部LOGO部分和進入網站首頁部分
   .login-header {
+    padding-top: 20px;
     background: #fff;
-    border-bottom: 1px solid #e4e4e4;
 
     .container {
       display: flex;
@@ -205,9 +207,10 @@ const isShowMsg = ref(true)
 
   // 中間登入表單區
   .login-section {
+    margin-top: 40px;
     background: url('@/assets/images/loginbg.webp') no-repeat center / cover;
     background-size: cover;
-    height: 574px;
+    height: 594px;
     position: relative;
 
     // 表單部分
