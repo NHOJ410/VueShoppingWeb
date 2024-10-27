@@ -1,8 +1,8 @@
 # 項目名稱 : Vue購物商城 
 
 ![image](https://github.com/user-attachments/assets/3d6ac948-34f0-4a49-9f7c-390c8f55312b)
-![image](https://github.com/user-attachments/assets/2d6a7557-9418-4738-b813-050194838895)
-![image](https://github.com/user-attachments/assets/c10f6afb-e706-418c-9a43-b10711a1e135)
+![image](https://github.com/user-attachments/assets/5e2aba04-197b-4642-b505-873ef12e9d94)
+![image](https://github.com/user-attachments/assets/ff8ca2bd-ce6b-4813-ab29-bb6437c9ace2)
 
 # 前言 : 
 
@@ -30,7 +30,7 @@
 
 ## 也學習到很多新的技術 認識到了很多開源庫 , 並結合網路上看到的組件庫來進行使用 
 
-例如 : [ 放大鏡 , 商品規格(這個還需要再多多複習 ) 的組件封裝 ] [ wow.js animate.css 動畫效果庫使用 ] 等等 
+例如 : [ 放大鏡 , 商品規格(這個還需要再多多複習 ) 的組件封裝 ] [ 圖片懶加載自定義指令的封裝及應用 ]  [ wow.js animate.css 動畫效果庫使用 ] 等等 
 
 讓我感覺這次的學習收穫滿滿 也覺得前端開發相當的有趣 
 
