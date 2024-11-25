@@ -6,7 +6,7 @@
 ### 首頁
 ![image](https://github.com/user-attachments/assets/5e2aba04-197b-4642-b505-873ef12e9d94)
 ### 商品詳情頁面
-![image](https://github.com/user-attachments/assets/ff8ca2bd-ce6b-4813-ab29-bb6437c9ace2)
+![image](https://github.com/user-attachments/assets/faf12a0c-acaa-4d2b-ba63-f20335a5ab6e)
 
 # 前言 : 
 
