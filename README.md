@@ -6,7 +6,10 @@
 ### 首頁
 ![image](https://github.com/user-attachments/assets/5e2aba04-197b-4642-b505-873ef12e9d94)
 ### 商品詳情頁面
-![image](https://github.com/user-attachments/assets/e6f85274-4034-452b-b7a6-5ec4ea06e67a)
+![image](https://github.com/user-attachments/assets/32ac4077-d685-42c2-ada8-b75a6bde3c95)
+### 放大鏡效果
+![image](https://github.com/user-attachments/assets/54099ba6-5f1e-47e3-8fd0-238f2a7136f6)
+
 
 # 前言 : 
 
