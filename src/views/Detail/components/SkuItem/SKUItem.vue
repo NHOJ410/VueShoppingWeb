@@ -29,13 +29,13 @@ const getPathMap = (skus) => {
   const pathMap = {}
   if (skus && skus.length > 0) {
     skus.forEach(sku => {
-      // 1. 過濾出有庫存有效的 sku
+      //  過濾出有庫存有效的 sku
       if (sku.inventory) {
-        // 2. 得到 sku 屬性值數組
+        //  得到 sku 屬性值數組
         const specs = sku.specs.map(spec => spec.valueName)
-        // 3. 得到 sku 屬性值數組的子集
+        //  得到 sku 屬性值數組的子集
         const powerSet = getPowerSet(specs)
-        // 4. 設定給路徑字典物件
+        //  設定給路徑字典物件
         powerSet.forEach(set => {
           const key = set.join(spliter)
           // 如果沒有就先初始化一個空數組

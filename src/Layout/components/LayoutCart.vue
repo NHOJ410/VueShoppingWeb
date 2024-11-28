@@ -29,7 +29,7 @@ watch(() => cartStore.cartList.length, () => {
 <template>
   <!-- 購物車圖標 -->
   <div class="cart">
-    <div class="curr ">
+    <div class="curr">
       <i class="iconfont icon-cart"></i><em class="wow backInDown" :key="keyId"
         v-show="cartStore.cartList.length !== 0">{{ cartStore.cartList.length }}</em>
     </div>

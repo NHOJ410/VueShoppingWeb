@@ -16,7 +16,7 @@ useWowPlugin()
 
 <template>
   <!-- 上方商品菜單和輪播圖 -->
-  <div class="container wow rubberBand">
+  <div class="container">
     <div class="category">
       <HomeCategory></HomeCategory>
       <HomeBanner></HomeBanner>

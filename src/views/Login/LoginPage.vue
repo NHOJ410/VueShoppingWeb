@@ -46,6 +46,17 @@ const onLogin = async () => {
 
 }
 
+// 底部服務相關超連結部分
+const footerHerfData = ref([
+  { name : '關於我們' , href : '#'},
+  { name : '幫助中心' , href : '#'},
+  { name : '售後服務' , href : '#'},
+  { name : '配送與驗收' , href : '#'},
+  { name : '商務合作' , href : '#'},
+  { name : '搜索推薦' , href : '#'},
+  { name : '友情連結' , href : '#' }
+])
+
 
 // 服務條款部分
 const isShowService = ref(false) // 控制服務條款部分的顯示隱藏
@@ -106,16 +117,11 @@ const isShowMsg = ref(true)
     <!-- 底部服務相關超連結 -->
     <footer class="login-footer">
       <div class="container">
-        <p>
-          <a href="#">關於我們</a>
-          <a href="#">幫助中心</a>
-          <a href="#">售後服務</a>
-          <a href="#">配送與驗收</a>
-          <a href="#">商務合作</a>
-          <a href="#">搜索推薦</a>
-          <a href="#">友情連結</a>
-        </p>
-        <p>CopyRight &copy; Vue購物商城</p>
+        <div class="footer-links">
+          <router-link v-for="item in footerHerfData" :key="item.name" :to="item.href">{{ item.name }}</router-link>
+        </div>
+        <span class="copyright">CopyRight &copy; Vue購物商城</span>
+        
       </div>
     </footer>
 
@@ -263,10 +269,13 @@ const isShowMsg = ref(true)
 
   // 底部版權部分
   .login-footer {
+    display: flex;
+    justify-content: center;
     padding: 30px 0 50px;
     background: #fff;
-
-    p {
+    
+    // 底部超連結部分
+    .footer-links {
       text-align: center;
       color: #999;
       padding-top: 20px;
@@ -281,6 +290,13 @@ const isShowMsg = ref(true)
           border-left: 1px solid #ccc;
         }
       }
+    }
+
+    .copyright {
+      display: block;
+      text-align: center;
+      color: #999;
+      margin-top: 20px;
     }
   }
 }

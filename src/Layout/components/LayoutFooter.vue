@@ -40,11 +40,11 @@ const msgData = ref([
 
 // 底部大圖標部分
 const footerIcon = ref([
-  { name: '價格實惠', icon: 'footer01' },
-  { name: '配送迅速', icon: 'footer02' },
-  { name: '品質保證', icon: 'footer03' },
-  { name: '多樣選擇', icon: 'footer01' },
-  { name: '售後無憂', icon: 'footer02' }
+  { name: '價格實惠', icon: 'footer01', href : '#' },
+  { name: '配送迅速', icon: 'footer02', href : '#' },
+  { name: '品質保證', icon: 'footer03', href : '#' },
+  { name: '多樣選擇', icon: 'footer01', href : '#' },
+  { name: '售後無憂', icon: 'footer02', href : '#' }
 ])
 
 // 版權訊息部分
@@ -92,16 +92,16 @@ const copyrightData = ref([
       <div class="container">
         <!-- 底部大圖標部分 -->
         <div class="slogan">
-          <a href="#" v-for="(item, index) in footerIcon" :key="index">
+          <router-link  :to="`${item.href}`" v-for="(item, index) in footerIcon" :key="index">
             <i :class="`iconfont icon-${item.icon}`"></i>
             <span>{{ item.name }}</span>
-          </a>
+          </router-link>
         </div>
         <!-- 版權信息 -->
         <div class="copyright">
-          <p class="copyrightData">
-            <a href="#" v-for="(item, index) in copyrightData" :key="index">{{ item }}</a>
-          </p>
+          <div class="copyrightData">
+            <router-link :to="`${item.href}`" v-for="(item, index) in copyrightData" :key="index">{{ item }}</router-link>
+          </div>
           <p>CopyRight © Vue購物商城</p>
         </div>
       </div>
@@ -109,7 +109,7 @@ const copyrightData = ref([
   </footer>
 </template>
 
-<style scoped lang='scss'>
+<style  lang='scss' scoped>
 // 底部聯繫我們部分
 .app_footer {
   overflow: hidden;
@@ -209,8 +209,6 @@ const copyrightData = ref([
       border-bottom: 1px solid #868686;
       display: flex;
       justify-content: space-between;
-
-
 
       a {
         height: 58px;

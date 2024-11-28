@@ -1,7 +1,7 @@
 <script setup>
 import { ref} from 'vue'
 // 導入組件
-import LayoutCart from './LayoutCart.vue'; // 頭部購物車組件
+import LayoutCart from '@/Layout/components/LayoutCart.vue'; // 頭部購物車組件
 import { Search } from '@element-plus/icons-vue'
 
 // 導入 Pinia倉庫

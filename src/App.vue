@@ -1,5 +1,10 @@
 <script setup>
+// 配置elementPlus 的中文語言
+import { ElConfigProvider } from 'element-plus'
+import zhtw from 'element-plus/es/locale/lang/zh-tw'
+// 導入圖標組件
 import { Upload } from '@element-plus/icons-vue'
+
 </script>
 
 <template>
@@ -10,7 +15,10 @@ import { Upload } from '@element-plus/icons-vue'
     </template> 
   </el-backtop>
   <!-- 路由出口 -->
-  <router-view></router-view>
+  <el-config-provider :locale="zhtw">
+    <router-view></router-view>
+  </el-config-provider>
+  
 </template>
 
 <style lang="scss" scoped>

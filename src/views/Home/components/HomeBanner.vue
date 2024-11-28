@@ -20,7 +20,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="home-banner ">
+  <div class="home-banner">
     <el-carousel height="500px" :motion-blur="true">
       <el-carousel-item v-for="item in bannerList" :key="item.id" interval="2000" motion-blur="true">
         <router-link :to="item.hrefUrl">

@@ -9,6 +9,18 @@
   color : $xtxColor;
 }
 
+/* nprogress 的進度條 */
+#nprogress .bar {
+  background: #29d;
+  height: 2px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999; /* 確保進度條在最上層 */
+}
+
+
 html {
   height: 100%;
   font-size: 14px;

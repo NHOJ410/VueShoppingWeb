@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+// 導入倉庫
 import { useUserInfoStore } from '@/stores'// 導入用戶倉庫
 
 const router = createRouter({
@@ -8,7 +9,7 @@ const router = createRouter({
     { path:'/login' , component: () => import('@/views/Login/LoginPage.vue')}, // 登入頁面
     // 首頁架子
     { path:'/' , 
-      component: () => import('@/views/Layout/LayoutContainer.vue'),
+      component: () => import('@/Layout/LayoutContainer.vue'),
       redirect: '/home', // 重定向到首頁
       // 二級路由
       children: [
@@ -50,14 +51,15 @@ const router = createRouter({
 
 // 路由前置守衛
 router.beforeEach((to) => {
+  
   const userInfoStore = useUserInfoStore();
   const token = userInfoStore.userInfo.token
   // 如果想要在登入狀態下(有token)去強行訪問 「登入頁面」 就導回首頁
   if (to.path === '/login' && token ) {
      return '/home' 
   }
-  
 })
+
 
 
 

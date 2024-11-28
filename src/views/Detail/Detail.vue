@@ -70,6 +70,20 @@ const onAddorBuyBtn = async (method) => {
       }
     )
   } else { // 如果走到這裡代表是『立即購買』
+    
+    // 先詢問用戶是否要購買
+    await ElMessageBox.confirm(
+      `是否確認要購買「${detailData.value.name}」<br>數量為「${count.value}」呢?`,
+      '溫馨提示',
+      {
+        confirmButtonText: '是的 去買單',
+        cancelButtonText: '我再想想',
+        type: 'warning',
+        dangerouslyUseHTMLString: true
+        
+      }
+    )
+
     // 調用接口 提交訂單給後台
     const res = await submitOrder({
       deliveryTimeType: 1,
