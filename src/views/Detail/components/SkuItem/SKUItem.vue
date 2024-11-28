@@ -11,7 +11,7 @@
           <img :class="{ selected: val.selected, disabled: val.disabled }" @click="clickSpecs(item, val)"
             v-if="val.picture" :src="val.picture" />
           <!-- 規格文字 -->
-          <span :class="{ selected: val.selected, disabled: val.disabled }" @click="clickSpecs(item, val)" v-else>{{
+          <span :class="{ selected: val.selected, disabled: val.disabled}" @click="clickSpecs(item, val)" v-else>{{
               val.name
           }}</span>
         </template>
@@ -173,17 +173,15 @@ export default {
 
 // 商品規格組件
 .goods-sku {
-  padding-left: 10px;
-  padding-top: 20px;
+    padding-top: 20px; 
   
   dl {
     display: flex;
-    padding-bottom: 20px;
-    align-items: center;
+    align-items: flex-start;   
     
     // 規格屬性名
     dt {
-      width: 120px;
+      width: 60px;
       color: #999;
       font-size: 16px;
     } 
@@ -192,7 +190,8 @@ export default {
     dd {
       flex: 1;
       color: #666;
-      
+      height: 60px;
+  
       // 規格圖片
       >img {
         width: 50px;
@@ -210,6 +209,7 @@ export default {
         margin-bottom: 4px;
         @include sku-state-mixin;
       }
+      
     }
   }
 }
