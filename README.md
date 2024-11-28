@@ -1,6 +1,12 @@
 # 項目名稱 : Vue購物商城 
+
+線上地址 : https://precious-griffin-4070a4.netlify.app/
+
+組件功能整理 : https://childlike-box-14b.notion.site/Vue-14a916c569a480b79b72e6a39eb1cfa5?pvs=4
+
 ### 路由設計
 ![image](https://github.com/user-attachments/assets/411e41a9-5efd-4fea-8a3a-b1cc3267c319)
+
 ### 登入頁面
 ![image](https://github.com/user-attachments/assets/3d6ac948-34f0-4a49-9f7c-390c8f55312b)
 ### 首頁
