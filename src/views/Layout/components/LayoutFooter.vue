@@ -61,7 +61,7 @@ const copyrightData = ref([
       <div class="container">
         <dl v-for="(item, index) in msgData" :key="index">
           <dt>{{ item.title }}</dt>
-          <dd v-for="data in item.dataArr" @click="downloadURL">
+          <dd v-for="data in item.dataArr" :key="data.svgName" @click="downloadURL">
             <SVGItem :svgName="data.svgName" width="50px" height="50px"></SVGItem>{{ data.title }}
           </dd>
         </dl>

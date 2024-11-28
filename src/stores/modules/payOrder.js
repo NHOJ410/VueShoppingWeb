@@ -22,8 +22,9 @@ export const usePayOrderStore = defineStore('payOrder', () => {
     const res = await getSettlementData()
 
     orderData.value = res.result // 訂單資料
-
-    defaultAddress.value = res.result.userAddresses.find(item => item.isDefault === 0) // 找到後端提供的默認地址資料來渲染頁面
+    
+    // 找到後端提供的默認地址資料來渲染頁面 「api設計 isDefault 為 0 代表默認地址 」
+    defaultAddress.value = res.result.userAddresses.find(item => item.isDefault === 0) 
 
     addressList.value = res.result.userAddresses // 收貨地址列表
   }
@@ -52,7 +53,7 @@ export const usePayOrderStore = defineStore('payOrder', () => {
     // 提示用戶切換地址成功
     ElMessage.success({
       message: '切換收貨地址成功 !',
-      duration: 5000
+      duration: 3000
     })
   }
 
@@ -62,7 +63,7 @@ export const usePayOrderStore = defineStore('payOrder', () => {
   // 定義倉庫
   const cartStore = useCartStore() // 定義 購物車倉庫
 
-  // 定義 VueRouter
+  // 定義 Router
   const router = useRouter()
 
   // 提交訂單按鈕 
@@ -120,6 +121,6 @@ export const usePayOrderStore = defineStore('payOrder', () => {
     onChangeAddress, // 確認切換收貨地址事件處理函數
     
     // -------------------- 提交訂單部分 ---------------------
-    onSubmitOrder
+    onSubmitOrder // 提交訂單按鈕
   }
 })

@@ -1,23 +1,20 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { ElMessage } from 'element-plus'
-import TermsofService from '@/components/TermsofService.vue'
+const router = useRouter()
+// 導入組件
+import TermsofService from '@/views/Login/components/TermsofService.vue' // 導入 服務條款組件
 // 導入Pina倉庫
 import { useUserInfoStore } from '@/stores/index.js' // 導入登入用戶倉庫
 const userStore = useUserInfoStore() // 定義user倉庫
-// 導入封裝的WOWJS
-import  initWowJS  from '@/utils/wow.js'
+// 導入 hooks
+import { useFormRules } from './composables/useFormRules.js' // 表單驗證
+import { useWowPlugin } from '@/composables/useWowPlugin.js' // wow.js插件
 
-// 在onMounted() 鉤子中 初始化WOWJS
-onMounted(() => {
-  initWowJS()
-})
- 
+// wow.js插件效果
+useWowPlugin()
 
 // ------------- 登入表單 -------------
-
-const router = useRouter()
 
 // 登入表單-輸入框
 const loginForm = ref({
@@ -26,28 +23,8 @@ const loginForm = ref({
   agree: false
 })
 
-// 登入表單-驗證規則
-const loginRules = ref({
-  account: [
-    { required: true, message: '請輸入帳號 ! ', trigger: 'blur' }
-  ],
-  password: [
-    { required: true, message: '請輸入密碼 ! ', trigger: 'blur' },
-    { min: 6, max: 14, message: '請輸入6-14位數的密碼 ! ', trigger: 'blur' }
-  ],
-  agree: [
-    {
-      validator: (rule, value, callback) => {
-        if (value) { // 如果勾選同意條款
-          callback() // 通過驗證  
-        } else {
-          callback(new Error('請勾選同意條款 ! ')) // 未通過驗證, 提示用戶勾選同意條款
-        }
-      }
-    }
-  ]
-
-})
+// 登入表單 驗證規則
+const { loginRules } = useFormRules()
 
 // 獲取 登入表單實例對象
 const loginRef = ref(null)
@@ -113,11 +90,11 @@ const isShowMsg = ref(true)
                 <el-input show-password v-model="loginForm.password" placeholder="請輸入密碼" />
               </el-form-item>
               <!-- 同意條款區域 -->
-              <el-form-item label-width="22px" prop="agree">
+              <el-form-item label-width="40px" prop="agree">
                 <el-checkbox size="large" v-model="loginForm.agree">
                   我已同意 服務條款
                 </el-checkbox>
-                <div class="service" @click="isShowService = true">點擊查看服務條款</div>
+                <div class="service" :isShowService="isShowService" @click="isShowService = true">點擊查看服務條款</div>
               </el-form-item>
               <!-- 點擊登入按鈕 -->
               <el-button size="large" class="subBtn" @click="onLogin">點擊登入</el-button>

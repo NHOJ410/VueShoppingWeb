@@ -19,6 +19,7 @@ export const useUserInfoStore = defineStore('user', () => {
   const getUserInfo = async (data) => {
     const res =  await loginService(data)
     userInfo.value = res.result
+    
     // 登入後 調用合併購物車請求 , 將本地購物車和後端數據合併
     await mergeCartService(cartStore.cartList.map(item => {
       return {
@@ -37,7 +38,7 @@ export const useUserInfoStore = defineStore('user', () => {
   const clearUserInfo = () => {
     // 清空用戶訊息
     userInfo.value = {}
-    // 清空購物車列表商品
+    // 清空購物車列表商品「用戶的購物車列表是從接口拿的 這裡放心清空」
     cartStore.clearCartList()
   }
    

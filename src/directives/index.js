@@ -5,7 +5,7 @@ import { useIntersectionObserver } from '@vueuse/core' // 判斷元素是否在�
 export const lazyImg = {
   install(app) {
     app.directive('lazyLoading', {
-      beforeMount(el, binding) {
+      mounted(el, binding) {
         // 這裡的 el 就是要懶加載的元素
       const { stop } = useIntersectionObserver(el, ([{ isIntersecting }]) => {
           // inTersecting 代表元素是否在可視區域 返回一個 boolean

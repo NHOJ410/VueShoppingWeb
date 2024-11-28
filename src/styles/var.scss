@@ -5,6 +5,19 @@ $sucColor: #1dc779;
 $warnColor: #ffb302;
 $priceColor: #cf4444;
 
+// 麵包屑導航樣式
+@mixin bread-item {
+  // 面包屑導航樣式
+  .bread-container {
+    padding: 25px 0;
+
+    .el-breadcrumb {
+      font-size: 20px;
+      font-weight: 700;
+    }
+  }
+}
+
 // hover效果變量
 @mixin category-Hover  {
   transform: scale(1.05);

@@ -1,9 +1,10 @@
-import { fileURLToPath, URL } from 'node:url'
-import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-// Element Plus相關配置
+import { defineConfig } from 'vite'
+import { fileURLToPath, URL } from 'node:url'
+// 自動import 插件
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
+// Element Plus相關配置
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 
 // svg圖標插件
@@ -38,9 +39,10 @@ export default defineConfig({
       scss: {
         // 自動引入elent的scss自訂樣式 
         // 自動引入 scss 全局變量
-        
-        additionalData: `@use "@/styles/element/index.scss" as *;
-        @use "@/styles/var.scss" as *;` 
+        additionalData: `
+        @use "@/styles/element/index.scss" as *;
+        @use "@/styles/var.scss" as *;
+        ` 
       },
     },
   },

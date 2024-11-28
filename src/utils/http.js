@@ -90,10 +90,8 @@ httpInstance.interceptors.response.use(function (response) {
       }
     ).then(() => { // 跳轉到登入頁面邏輯
         router.push('/login')
-      })
-      .catch(() => { // 停留在未登入狀態的邏輯
-
     })
+      
 
     return
   }

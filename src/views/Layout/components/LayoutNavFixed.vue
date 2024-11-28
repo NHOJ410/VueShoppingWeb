@@ -11,7 +11,9 @@ const categoryStore = useCategoryStore(); // 定義商品分類倉庫
 
 // ------ 導航條吸附功能 ------
 
-const { y } = useScroll(window); // 使用VueUse獲取滾動位置
+//  使用VueUse獲取滾動位置 
+const { y } = useScroll(window)
+
 
 </script>
 
@@ -28,8 +30,6 @@ const { y } = useScroll(window); // 使用VueUse獲取滾動位置
           <RouterLink active-class="active" :to="`/category/${item.id}`">{{ item.name }}</RouterLink>
         </li>
       </ul>
-      
-      
     </div>
   </div>
 </template>

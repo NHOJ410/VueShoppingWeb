@@ -31,6 +31,18 @@ export const deleteCartService = ( ids ) => {
   })
 }
 
+// 切換購物車的全選 / 取消
+export const changeAllSelectService = (selected , ids ) => {
+  return http({
+    url : '/member/cart/selected',
+    method : 'put',
+    data : {
+      selected,
+      ids
+    }
+  })
+}
+
 // 合併 本地購物車到後端購物車
 export const mergeCartService = ( data ) => {
   return http({

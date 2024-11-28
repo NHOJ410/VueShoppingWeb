@@ -14,6 +14,7 @@ categoryStore.getCategory() // 調用 商品分類倉庫 獲取數據
 </script>
 
 <template>
+  <div class="box">
   <!-- 頭部組件部分 -->
   <LayoutHeader></LayoutHeader>
   <!-- 頭部導航組件 -->
@@ -24,9 +25,9 @@ categoryStore.getCategory() // 調用 商品分類倉庫 獲取數據
   <router-view></router-view>
   <!-- 底部組件 -->
   <LayoutFooter></LayoutFooter>
+</div>
 </template>
 
 <style lang="scss" scoped>
- 
 
 </style>
