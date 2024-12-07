@@ -12,7 +12,7 @@ import 'nprogress/nprogress.css'
 // 控制 el-loading的變量
 let loadingInstance = false
 
-const baseURL = 'http://pcapi-xiaotuxian-front-devtest.itheima.net'
+const baseURL = 'https://pcapi-xiaotuxian-front-devtest.itheima.net'
 
 const httpInstance = axios.create({
   // 配置基地址 , 超時時間
