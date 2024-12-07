@@ -116,7 +116,7 @@ const onCheckAll = (checked) => {
                 </template>
                 <!-- 圖片部分 -->
                 <template #image>
-                  <img class="emptyImg" src="../../../../assets/images/vueLoading.gif"/>
+                  <img class="emptyImg" src="@/assets/images/vueLoading.gif"/>
                 </template>
                 <!-- 按鈕部分 -->
                 <el-button type="success" size="large" @click="$router.push('/')">先去隨便逛逛吧</el-button>

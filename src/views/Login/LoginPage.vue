@@ -69,13 +69,13 @@ const isShowMsg = ref(true)
   <div class="loginPage">
     <!-- 頂部logo和進入網站首頁按鈕 -->
     <header class="login-header">
-      <div class="container m-top-20 ">
+      <div class="container">
         <!-- 頂部logo -->
         <h1 class="logo wow bounceInLeft">
           <RouterLink to="/">Vue購物商城</RouterLink>
         </h1>
         <!-- 進入網站首頁 -->
-        <RouterLink class="entry wow bounceInRight" to="/">
+        <RouterLink class="entry wow bounceInRight" to="/home">
           點我進入網站首頁
           <i class="iconfont icon-angle-right"></i>
           <i class="iconfont icon-angle-right"></i>
