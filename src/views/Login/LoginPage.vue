@@ -167,7 +167,7 @@ const isShowMsg = ref(true)
         height: 132px;
         width: 100%;
         text-align: center;
-        background: url("../../assets/images/Vuelogo.webp") no-repeat center 18px / contain;
+        background: url("@/assets/images/Vuelogo.webp") no-repeat center 18px / contain;
         color: $xtxColor;
       }
     }
