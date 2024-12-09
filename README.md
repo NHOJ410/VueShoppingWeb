@@ -1,6 +1,6 @@
 # 項目名稱 : Vue購物商城 
 
-線上地址 ( 接口蠻常崩潰的 = = ) : https://precious-griffin-4070a4.netlify.app
+線上地址 ( 接口蠻常崩潰的 = = 且有些資源可能因為不是 https而加載不出來 ) : https://precious-griffin-4070a4.netlify.app
 
 組件功能整理 : https://childlike-box-14b.notion.site/Vue-14a916c569a480b79b72e6a39eb1cfa5?pvs=4
 
