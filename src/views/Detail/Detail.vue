@@ -233,7 +233,7 @@ watch(() => route.path, () => {
       // 數字框組件
       .countItem {
         position: absolute;
-        top: 70%;
+        top: 80%;
       }
 
       // 加入購物車 和 立即購買按鈕

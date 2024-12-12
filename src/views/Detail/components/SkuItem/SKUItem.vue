@@ -258,6 +258,7 @@ watchEffect(() => {
       flex: 1;
       color: #666;
       
+      
       // 規格圖片
       >img {
         width: 50px;
