@@ -21,6 +21,8 @@
 }
 
 
+
+
 html {
   height: 100%;
   font-size: 14px;
@@ -104,7 +106,7 @@ ul {
 }
 
 
-// reset element
-.el-breadcrumb__inner.is-link {
-  font-weight: 400 !important;
+// 隱藏 Google 翻譯工具欄
+.skiptranslate {
+  display: none !important;
 }

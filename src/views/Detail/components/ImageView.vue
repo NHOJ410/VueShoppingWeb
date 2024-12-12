@@ -125,7 +125,7 @@ const largeY = computed(() => -top.value * 2)  // 放大鏡效果圖 Y軸移動�
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     background-repeat: no-repeat;
     background-color: #f8f8f8;
-    // 圖片大小 = 2:1  將來控制背景圖的移動來實現放大的效果查看 background-position
+    // 圖片大小 = 2:1  將來控制背景圖的移動來實現放大的效果查看
     background-size: 200% , 200%;
   }
   

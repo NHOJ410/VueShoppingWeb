@@ -229,6 +229,13 @@ watch(() => route.path, () => {
       padding: 30px 30px 30px 30px;
       position: relative;
 
+
+      // 數字框組件
+      .countItem {
+        position: absolute;
+        top: 80%;
+      }
+
       // 加入購物車 和 立即購買按鈕
       .footerBtn {
         width: 100%;
