@@ -35,7 +35,7 @@
 
 組件庫為 : ElementPlus 
 
-其他js庫用的有 : VueUse , wow.js 等等
+其他js庫用的有 : VueUse , wow.js nProgress.js 等等
 
 ## 在裡面也應用到的很多之前學習過的技術 , 起到了很好的複習作用
 
