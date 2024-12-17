@@ -16,7 +16,7 @@ const router = useRouter()
   .box {
     width: 100vw;
     height: 100vh;
-    background: url('@/assets/images/notFound.webp') no-repeat center / contain;
+    background: url('@/assets/images/NotFound.webp') no-repeat center / contain;
     background-color: #addd9a;
     position: relative;
     .backBtn {
