@@ -2,6 +2,11 @@
 import { ref } from 'vue'
 import { Download } from '@element-plus/icons-vue'
 
+import { useWowPlugin } from '@/composables/useWowPlugin.js' // wow.js插件
+
+// wow.js插件效果
+useWowPlugin()
+
 // 下載連結 跳轉到Vue官網 
 const downloadURL = () => {
   window.open('https://vuejs.org/')

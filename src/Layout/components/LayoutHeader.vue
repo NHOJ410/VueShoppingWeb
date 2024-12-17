@@ -59,6 +59,7 @@ const onLoginOut = () => {
 // 頂部導航條部分
 .app-topnav {
   background: linear-gradient(to right, #2d5b6e, #376675, #2c5364);
+  transform: translateY(-40px);
 
   ul {
     display: flex;
