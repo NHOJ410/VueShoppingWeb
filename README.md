@@ -35,6 +35,8 @@
 
 其他js庫用的有 : VueUse , wow.js nProgress.js 等等
 
+另外調用了 Google翻譯API 完成了簡轉繁功能
+
 ## 在裡面也應用到的很多之前學習過的技術 , 起到了很好的複習作用
 
 例如 : [ 路由導航守衛 ] [ 二次封裝Axios , 保證 axios基本實例不被更改 ] [ 請求/響應攔截器的封裝及使用 ]  [ ElementPlus多個組件的使用 ] [ Pinia的使用 ] [ svg圖標組件的設置 ]
