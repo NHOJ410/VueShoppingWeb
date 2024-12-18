@@ -8,13 +8,17 @@
 ![image](https://github.com/user-attachments/assets/411e41a9-5efd-4fea-8a3a-b1cc3267c319)
 
 ### 登入頁面
-![image](https://github.com/user-attachments/assets/3d6ac948-34f0-4a49-9f7c-390c8f55312b)
+![image](https://github.com/user-attachments/assets/68196b5f-920f-48f0-a322-7eccda7cafa7)
+
 ### 首頁
-![image](https://github.com/user-attachments/assets/5e2aba04-197b-4642-b505-873ef12e9d94)
+![image](https://github.com/user-attachments/assets/45278fe2-f264-4488-b87c-145802b3e4e6)
+
 ### 商品詳情頁面
-![image](https://github.com/user-attachments/assets/32ac4077-d685-42c2-ada8-b75a6bde3c95)
+![image](https://github.com/user-attachments/assets/4ae5da1a-70e8-4e64-8fc2-e2d2cc9c8fbd)
+
 ### 放大鏡效果
-![image](https://github.com/user-attachments/assets/54099ba6-5f1e-47e3-8fd0-238f2a7136f6)
+![image](https://github.com/user-attachments/assets/e3751cb3-8162-4328-b43b-cb38ffa2836b)
+
 
 
 # 前言 : 
