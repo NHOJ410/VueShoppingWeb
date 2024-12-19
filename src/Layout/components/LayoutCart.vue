@@ -131,7 +131,7 @@ watch(() => cartStore.cartList.length, () => {
     &::before {
       content: "";
       position: absolute;
-      right: 14px;
+      right: 5px;
       top: -10px;
       width: 20px;
       height: 20px;

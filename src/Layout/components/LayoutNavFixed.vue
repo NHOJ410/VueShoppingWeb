@@ -20,7 +20,9 @@ const { y } = useScroll(window)
 <template>
   <div class="app-header-sticky" :class="{ show: y > 78 }">
     <div class="container">
-      <RouterLink class="logo" to="/" />
+      <RouterLink to="/">
+        <SVGItem :svgName="'vueLogo'" width="80" height="80" alt="Vue Logo"></SVGItem>
+      </RouterLink>
       <!-- 頭部導航列表區域 -->
       <ul class="app-header-nav">
         <li class="home">
@@ -63,51 +65,41 @@ const { y } = useScroll(window)
   .container {
     display: flex;
     align-items: center;
-  }
-  
-  // logo圖
-  .logo {
-    width: 200px;
-    height: 80px;
-    background: url('@/assets/images/Vuelogo.webp') no-repeat center center;
-    background-size: 80px auto;
-  }
-  
-  // 左側主要導航
-  .app-header-nav {
-  width: 820px;
-  display: flex;
-  padding-left: 40px;
-  position: relative;
-  z-index: 998;
+    gap: 100px;
 
-  li {
-    margin-right: 40px;
-    width: 38px;
-    text-align: center;
+    // 左側主要導航
+    .app-header-nav {
+      width: 820px;
+      display: flex;
+      padding-left: 40px;
+      position: relative;
+      z-index: 998;
 
-    a {
-      font-size: 16px;
-      line-height: 32px;
-      height: 32px;
-      display: inline-block;
+      li {
+        margin-right: 40px;
+        width: 38px;
+        text-align: center;
 
-      &:hover {
+        a {
+          font-size: 16px;
+          line-height: 32px;
+          height: 32px;
+          display: inline-block;
+
+          &:hover {
+            color: $mainColor;
+            border-bottom: 1px solid $mainColor;
+            font-size: 1.3em;
+            transition: 0.5s all ease;
+          }
+        }
+
+        .active {
           color: $mainColor;
           border-bottom: 1px solid $mainColor;
-          font-size: 1.3em;
-          transition: 0.5s all ease;
+        }
       }
     }
-
-    .active {
-      color: $mainColor;
-      border-bottom: 1px solid $mainColor;
-    }
   }
- }
-
 }
-
-
 </style>

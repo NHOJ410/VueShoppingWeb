@@ -4,10 +4,10 @@ import { ref } from 'vue'
 export const useFormRules = () => {
   const loginRules = ref({
     account: [
-      { required: true, message: '請輸入帳號 ! 帳號為 : heima288', trigger: 'blur' }
+      { required: true, message: '請輸入帳號 ! ', trigger: 'blur' }
     ],
     password: [
-      { required: true, message: '請輸入密碼 ! 密碼為 : hm#qd@23! ', trigger: 'blur' },
+      { required: true, message: '請輸入密碼 ! ', trigger: 'blur' },
       { min: 6, max: 14, message: '請輸入6-14位數的密碼 ! ', trigger: 'blur' }
     ],
     agree: [

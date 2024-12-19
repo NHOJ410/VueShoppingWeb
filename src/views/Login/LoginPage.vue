@@ -103,8 +103,8 @@ const onShowTermsofService = () => {
         <!-- 進入網站首頁 -->
         <RouterLink class="entry wow bounceInRight" to="/home">
           點我進入網站首頁
-          <i class="iconfont icon-angle-right"></i>
-          <i class="iconfont icon-angle-right"></i>
+          <i class="iconfont icon-icon-angle-right"></i>
+          <i class="iconfont icon-icon-angle-right"></i>
         </RouterLink>
       </div>
     </header>
@@ -167,7 +167,7 @@ const onShowTermsofService = () => {
 <style scoped lang='scss'>
 .loginPage {
   height: 100vh;
-  transform: translateY(-30px);
+  margin-top: -40px;
   overflow: hidden;
   background-color: #fff;
 

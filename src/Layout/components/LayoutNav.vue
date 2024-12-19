@@ -1,5 +1,5 @@
 <script setup>
-import { ref} from 'vue'
+import { ref } from 'vue'
 // 導入組件
 import LayoutCart from '@/Layout/components/LayoutCart.vue'; // 頭部購物車組件
 import { Search } from '@element-plus/icons-vue'
@@ -31,7 +31,10 @@ const focusInp = async () => {
   <header class='app-header'>
     <div class="container">
       <h1 class="logo">
-        <RouterLink to="/">Vue購物商城</RouterLink>
+        <RouterLink to="/" class="logo-link">
+          <SVGItem :svgName="'vueLogo'" width="120" height="120" alt="Vue Logo"></SVGItem>
+          <strong>Vue購物商城</strong>
+        </RouterLink>
       </h1>
       <!-- 頭部導航欄部分 -->
       <ul class="app-header-nav">
@@ -42,13 +45,13 @@ const focusInp = async () => {
           <RouterLink active-class="active" :to="`/category/${item.id}`">{{ item.name }}</RouterLink>
         </li>
       </ul>
-
+      
       <!-- 搜索框部分 -->
       <div class="search">
-        <el-autocomplete @input="focusInp" v-model="searchValue" placeholder="請輸入想要搜索的商品" :fit-input-width="true"
-          style="width: 280px" :icon="Search">
+        <el-autocomplete @input="focusInp" v-model="searchValue" placeholder="請輸入想要搜索的商品" :fit-input-width="true" :icon="Search" style="width: 360px">
           <template #prepend>
-            <el-button style="border-radius: 0; background: linear-gradient(to right, #a8ff78, #78ffd6);" :icon="Search" @click="focusInp"/>
+            <el-button :icon="Search"
+              @click="focusInp" />
           </template>
         </el-autocomplete>
       </div>
@@ -63,61 +66,79 @@ const focusInp = async () => {
 <style scoped lang='scss'>
 .app-header {
   background: #fff;
+  margin-top: -40px;
 
   .container {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-  }
 
-  // 頭部Logo
-  .logo {
-    width: 200px;
+    // 頭部Logo部分
+    .logo {
+      width: 200px;
 
-    a {
-      display: block;
-      height: 132px;
-      width: 100%;
-      text-indent: -9999px;
-      background: url('@/assets/images/Vuelogo.webp') no-repeat center / contain;
-    }
-  }
+      .logo-link {
+        display: flex;
+        align-items: center;
+        height: 132px;
+        width: 100%;
 
-  // 頭部導航條部分
-  .app-header-nav {
-    width: 820px;
-    display: flex;
-    padding-left: 60px;
-    position: relative;
-    z-index: 998;
-
-    li {
-      margin-right: 30px;
-      width: 38px;
-      text-align: center;
-
-      a {
-        font-size: 16px;
-        line-height: 32px;
-        height: 32px;
-        display: inline-block;
-        transition: 0.4s all ease;
-
-
-        &:hover {
-          color: $mainColor;
-          border-bottom: 1px solid $mainColor;
-          transform: scale(1.2);
+        strong {
+          text-indent: -9999px;
+          font-weight: 700;
         }
       }
 
-      // active激活時觸發的顏色
-      .active {
-        transform: scale(1.2);
-        color: $mainColor;
-        border-bottom: 1px solid $mainColor;
+    }
+
+    // 頭部導航條部分
+    .app-header-nav {
+      width: 820px;
+      display: flex;
+      position: relative;
+      margin-left: 40px;
+      z-index: 998;
+      li {
+        margin-right: 30px;
+        width: 38px;
+        text-align: center;
+        
+        // 文字
+        a {
+          font-size: $miniFontSize;
+          line-height: 32px;
+          height: 32px;
+          display: inline-block;
+          transition: 0.4s all ease;
+
+          // hover效果
+          &:hover {
+            color: $mainColor;
+            border-bottom: 1px solid $mainColor;
+            transform: scale(1.2);
+          }
+        }
+
+        // active激活時觸發的顏色
+        .active {
+          transform: scale(1.2);
+          color: $mainColor;
+          border-bottom: 1px solid $mainColor;
+        }
       }
     }
+
+    // 搜索框部分
+    .search {
+      margin-right: 10px;
+      .el-autocomplete {
+        --el-input-width : 300px;
+      }
+    }
+
   }
+
+
 
 }
 </style>
