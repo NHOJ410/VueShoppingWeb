@@ -3,21 +3,21 @@
 線上地址 ( 接口蠻常崩潰的 = =  ) : https://vueshoppingweb.netlify.app/
 
 組件功能整理 : https://childlike-box-14b.notion.site/Vue-14a916c569a480b79b72e6a39eb1cfa5?pvs=4
-
 ### 路由設計
 ![image](https://github.com/user-attachments/assets/411e41a9-5efd-4fea-8a3a-b1cc3267c319)
-
 ### 登入頁面
-![image](https://github.com/user-attachments/assets/68196b5f-920f-48f0-a322-7eccda7cafa7)
+![image](https://github.com/user-attachments/assets/a3356631-4417-4e63-8c9d-85247c35dadf)
 
 ### 首頁
-![image](https://github.com/user-attachments/assets/45278fe2-f264-4488-b87c-145802b3e4e6)
+![image](https://github.com/user-attachments/assets/1060ed7b-e66a-458e-810f-88534151e6bd)
 
 ### 商品詳情頁面
-![image](https://github.com/user-attachments/assets/4ae5da1a-70e8-4e64-8fc2-e2d2cc9c8fbd)
+![image](https://github.com/user-attachments/assets/2e483e98-6922-4555-af6e-f3c1a65cc99c)
+
 
 ### 放大鏡效果
-![image](https://github.com/user-attachments/assets/e3751cb3-8162-4328-b43b-cb38ffa2836b)
+![image](https://github.com/user-attachments/assets/38d752da-67c6-4dc8-a979-23b74d8399a3)
+
 
 
 
