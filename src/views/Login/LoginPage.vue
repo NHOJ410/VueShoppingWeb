@@ -10,8 +10,7 @@ const userStore = useUserInfoStore() // 定義user倉庫
 // 導入 hooks
 import { useFormRules } from './composables/useFormRules.js' // 表單驗證
 import { useWowPlugin } from '@/composables/useWowPlugin.js' // wow.js插件
-import { useThrottleFn } from '@vueuse/core'  // 修改這行引入
-
+import { useThrottleFn } from '@vueuse/core'  // 導入 vueUse的節流函數
 // wow.js插件效果
 useWowPlugin()
 

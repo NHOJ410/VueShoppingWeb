@@ -30,7 +30,7 @@ watch(() => cartStore.cartList.length, () => {
   <!-- 購物車圖標 -->
   <div class="cart">
     <div class="curr">
-      <i class="iconfont icon-cart"></i><em class="wow backInDown" :key="keyId"
+      <i class="iconfont icon-al-icon-cart"></i><em class="wow backInDown" :key="keyId"
         v-show="cartStore.cartList.length !== 0">{{ cartStore.cartList.length }}</em>
     </div>
     <!-- 購物車內容區 -->
@@ -86,8 +86,8 @@ watch(() => cartStore.cartList.length, () => {
     position: relative;
     display: block;
 
-    .icon-cart {
-      font-size: 22px;
+    .icon-al-icon-cart {
+      font-size: $secFontSize;
     }
 
     // 購物車顯示數量
