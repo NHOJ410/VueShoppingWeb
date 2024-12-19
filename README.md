@@ -28,32 +28,50 @@
 
 ## 使用技術與工具
 
-### 前端框架：Vue3 + Pinia
-### 組件庫：Element Plus
+### 前端框架  
+![Vue3](https://img.shields.io/badge/Vue3-%2341B883.svg?style=for-the-badge&logo=vue.js&logoColor=white)  
+![Pinia](https://img.shields.io/badge/Pinia-%23FFD85A.svg?style=for-the-badge&logo=vue.js&logoColor=black)
 
-## 其他庫與工具：
-### VueUse 功能強大的 Vue 組合式 API 工具庫，用於處理常見的功能需求（如節流、防抖、監聽 DOM 元素狀態等），提升開發效率。
-### wow.js（動態動畫效果）
-### nProgress.js（頁面進度條）
-### Google 翻譯 API（實現簡體到繁體的轉換功能）
+### 組件庫  
+![Element Plus](https://img.shields.io/badge/Element%20Plus-%234096F3.svg?style=for-the-badge&logo=element&logoColor=white)
+
+---
+
+## 其他庫與工具
+
+- ![VueUse](https://img.shields.io/badge/VueUse-%2341B883.svg?style=flat-square&logo=vue.js&logoColor=white)  
+  功能強大的 Vue 組合式 API 工具庫，用於處理常見的功能需求（如節流、防抖、監聽 DOM 元素狀態等），提升開發效率。
+
+- ![wow.js](https://img.shields.io/badge/wow.js-%23FF69B4.svg?style=flat-square)  
+  動態動畫效果，為頁面增添視覺吸引力。
+
+- ![nProgress.js](https://img.shields.io/badge/nProgress.js-%23000000.svg?style=flat-square)  
+  提供頁面加載的進度條效果，提升用戶體驗。
+
+- ![Google Translate API](https://img.shields.io/badge/Google%20API-%234285F4.svg?style=flat-square&logo=google&logoColor=white)  
+  實現簡體到繁體的自動轉換功能。
+
+---
 
 ## 項目亮點與技術點
 
 ### 基礎技術的應用與強化
-### 路由導航守衛：實現頁面權限控制與用戶體驗優化。
-### Axios 的二次封裝：確保基本實例安全且具備靈活性，並使用請求/響應攔截器，統一處理 API 錯誤和數據。
-### Element Plus 組件：使用多個高效組件，如表格、表單、抽屜等，提升開發效率與界面質量。
-### Pinia 狀態管理：靈活管理全局數據，提高代碼的可維護性。
+- **路由導航守衛**：實現頁面權限控制與用戶體驗優化。  
+- **Axios 的二次封裝**：確保基本實例安全且具備靈活性，並使用請求/響應攔截器，統一處理 API 錯誤和數據。  
+- **Element Plus 組件**：使用多個高效組件，如表格、表單、按鈕 、 提示框等等，提升開發效率與界面質量。  
+- **Pinia 狀態管理**：靈活管理全局數據，提高代碼的可維護性。
 
-## 進階功能的實現
-### svg 圖標組件：便於動態展示與管理圖標。
-### 圖片懶加載指令：自定義指令，優化資源加載，提升用戶體驗。
-### 商品規格組件封裝：將商品選擇邏輯模組化，提升復用性與可擴展性。
-### 無限加載組件：結合 Element Plus 實現無限滾動加載，提升數據展示的連續性。
-## 新技術的學習與應用
-### 放大鏡效果：模仿電商網站的產品圖片展示，提供細節查看功能。
-### 結合開源庫：如 wow.js 動態動畫，讓頁面更具吸引力。
-### Google 翻譯 API：實現網站內容的簡體到繁體轉換，適應不同使用者需求。
+### 進階功能的實現
+- **SVG 圖標組件**：便於動態展示與管理圖標資源。  
+- **圖片懶加載指令**：自定義指令，優化資源加載，提升用戶體驗。  
+- **商品規格組件封裝**：將商品選擇邏輯模組化，提升模塊復用性與可擴展性。  
+- **無限滾動加載**：結合 Element Plus 實現數據的連續展示，提升流暢性。
+
+### 新技術的學習與應用
+- **放大鏡效果**：模仿電商網站的產品細節展示功能。  
+- **結合開源庫**：如 wow.js 為頁面添加動態動畫，增強視覺吸引力。  
+- **Google 翻譯 API**：實現網站內容的簡體到繁體轉換，適應不同使用者需求。
+
 
 # 收穫與體會
 
