@@ -1,24 +1,39 @@
-# 項目名稱 : Vue購物商城 
+# 項目名稱 : Vue 購物商城 🛒
 
-帳號為 : heima288 密碼為 : hm#qd@23!
+**帳號**: `heima288`  
+**密碼**: `hm#qd@23!`
 
-線上地址 ( 接口蠻常崩潰的 = =  ) : https://vueshoppingweb.netlify.app/
+---
 
-組件功能整理 : https://childlike-box-14b.notion.site/Vue-14a916c569a480b79b72e6a39eb1cfa5?pvs=4
+## 線上地址 🌐
 
-### 路由設計
+您可以在以下地址查看此項目的演示：
+
+[線上地址](https://vueshoppingweb.netlify.app/)
+
+**注意**：由於後端接口的穩定性問題，接口可能會時常崩潰，請見諒。😊
+
+---
+
+## 組件功能整理 📋
+
+您可以查看功能的詳細整理：[功能整理](https://childlike-box-14b.notion.site/Vue-14a916c569a480b79b72e6a39eb1cfa5?pvs=4)
+
+---
+
+
+## 路由設計
 ![image](https://github.com/user-attachments/assets/411e41a9-5efd-4fea-8a3a-b1cc3267c319)
-### 登入頁面
+## 登入頁面
 ![image](https://github.com/user-attachments/assets/a3356631-4417-4e63-8c9d-85247c35dadf)
 
-### 首頁
+## 首頁
 ![image](https://github.com/user-attachments/assets/1060ed7b-e66a-458e-810f-88534151e6bd)
 
-### 商品詳情頁面
+## 商品詳情頁面
 ![image](https://github.com/user-attachments/assets/2e483e98-6922-4555-af6e-f3c1a65cc99c)
 
-
-### 放大鏡效果
+## 放大鏡效果
 ![image](https://github.com/user-attachments/assets/38d752da-67c6-4dc8-a979-23b74d8399a3)
 
 
