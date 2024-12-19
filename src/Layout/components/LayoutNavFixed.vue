@@ -1,10 +1,11 @@
 <script setup>
+// 導入組件
+import LayoutCart from '@/Layout/components/LayoutCart.vue'; // 頭部購物車組件
+
 // 導入插件
 import { useScroll } from "@vueuse/core"; // 導入VueUse獲取滾動位置插件
 // 導入 Pinia 倉庫
 import { useCategoryStore } from "@/stores"; // 導入商品分類倉庫
-
-
 const categoryStore = useCategoryStore(); // 定義商品分類倉庫
 
 
@@ -32,6 +33,8 @@ const { y } = useScroll(window)
           <RouterLink active-class="active" :to="`/category/${item.id}`">{{ item.name }}</RouterLink>
         </li>
       </ul>
+      <!-- 購物車部分 -->
+      <LayoutCart></LayoutCart> 
     </div>
   </div>
 </template>
@@ -65,7 +68,7 @@ const { y } = useScroll(window)
   .container {
     display: flex;
     align-items: center;
-    gap: 100px;
+    gap: 80px;
 
     // 左側主要導航
     .app-header-nav {

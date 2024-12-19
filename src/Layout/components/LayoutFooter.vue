@@ -7,9 +7,9 @@ import { useWowPlugin } from '@/composables/useWowPlugin.js' // wow.js插件
 // wow.js插件效果
 useWowPlugin()
 
-// 下載連結 跳轉到Vue官網 
+// 下載連結 跳轉到 github儲存庫 
 const downloadURL = () => {
-  window.open('https://vuejs.org/')
+  window.open('https://github.com/NHOJ410/VueShoppingWeb')
 }
 
 // 客戶服務和關注我們部分
@@ -45,11 +45,11 @@ const msgData = ref([
 
 // 底部大圖標部分
 const footerIcon = ref([
-  { name: '價格實惠', icon: 'footer01', href : '#' },
-  { name: '配送迅速', icon: 'footer02', href : '#' },
-  { name: '品質保證', icon: 'footer03', href : '#' },
-  { name: '多樣選擇', icon: 'footer01', href : '#' },
-  { name: '售後無憂', icon: 'footer02', href : '#' }
+  { name: '價格實惠', icon: 'money-dollar', href: '#' },
+  { name: '配送迅速', icon: 'clock-fast', href: '#' },
+  { name: '品質保證', icon: 'car', href: '#' },
+  { name: '多樣選擇', icon: 'choose', href: '#' },
+  { name: '售後無憂', icon: 'good', href: '#' }
 ])
 
 // 版權訊息部分
@@ -64,6 +64,7 @@ const copyrightData = ref([
     <!-- 客戶服務和關注我們部分 -->
     <div class="contact">
       <div class="container">
+        <!-- SVG部分 -->
         <dl v-for="(item, index) in msgData" :key="index">
           <dt>{{ item.title }}</dt>
           <dd v-for="data in item.dataArr" :key="data.svgName" @click="downloadURL">
@@ -73,7 +74,7 @@ const copyrightData = ref([
         <!-- 下載APP區域 -->
         <dl>
           <dt>下載APP</dt>
-          <dd class="qrcode"><img class="qrcodeImg" src="@/assets/images/qrcode_vuejs.org.png" /></dd>
+          <dd class="qrcode"><img class="qrcodeImg" src="@/assets/images/LayoutFooter/qrcode.png" /></dd>
           <dd class="download">
             <span>立即掃描QRCode</span>
             <span>下載APP</span>
@@ -97,7 +98,7 @@ const copyrightData = ref([
       <div class="container">
         <!-- 底部大圖標部分 -->
         <div class="slogan">
-          <router-link  :to="`${item.href}`" v-for="(item, index) in footerIcon" :key="index">
+          <router-link :to="`${item.href}`" v-for="(item, index) in footerIcon" :key="index">
             <i :class="`iconfont icon-${item.icon}`"></i>
             <span>{{ item.name }}</span>
           </router-link>
@@ -105,7 +106,8 @@ const copyrightData = ref([
         <!-- 版權信息 -->
         <div class="copyright">
           <div class="copyrightData">
-            <router-link :to="`${item.href}`" v-for="(item, index) in copyrightData" :key="index">{{ item }}</router-link>
+            <router-link :to="`${item.href}`" v-for="(item, index) in copyrightData" :key="index">{{ item
+              }}</router-link>
           </div>
           <p>CopyRight © Vue購物商城</p>
         </div>
@@ -114,93 +116,94 @@ const copyrightData = ref([
   </footer>
 </template>
 
-<style  lang='scss' scoped>
-// 底部聯繫我們部分
+<style lang='scss' scoped>
 .app_footer {
   overflow: hidden;
   background-color: #f5f5f5;
   padding-top: 25px;
 
+  // 課服服務和關注我們部分
   .contact {
     background: #fff;
 
     .container {
       padding: 60px 0 40px 25px;
       display: flex;
-    }
 
-    dl {
-      height: 190px;
-      text-align: center;
-      padding: 0 72px;
-      border-right: 1px solid #f2f2f2;
-      color: #999;
-
-
-      &:first-child {
-        padding-left: 0;
-      }
-
-      &:last-child {
-        border-right: none;
-        padding-right: 0;
-      }
-    }
-
-    // 標題
-    dt {
-      line-height: 1;
-      font-size: 22px;
-    }
-
-    // 內容
-    dd {
-      margin: 36px 12px 0 0;
-      float: left;
-      width: 96px;
-      height: 92px;
-      padding-top: 10px;
-      border: 1px solid #ededed;
-      cursor: pointer;
-    }
-
-    .qrcode {
-      width: 100px;
-      height: 92px;
-      border: 1px solid #ededed;
-
-      .qrcodeImg {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
-    }
-
-    .download {
-      padding-top: 5px;
-      font-size: 14px;
-      width: auto;
-      height: auto;
-      border: none;
-
-      span {
-        display: block;
-      }
-
-      .download-btn {
+      // 每一項 ( 右邊 邊框線部分)
+      dl {
+        height: 190px;
         text-align: center;
-        display: block;
-        line-height: 1;
-        margin-top: 15px;
-        color: #fff;
-        border-radius: 2px;
-      }
-    }
+        padding: 0 72px;
+        border-right: 1px solid #f2f2f2;
+        color: $infoColor;
 
-    // 電子郵件部分
-    .gmail {
-      color: #666;
-      border: none;
+        &:first-child {
+          padding-left: 0;
+        }
+
+        &:last-child {
+          border-right: none;
+          padding-right: 0;
+        }
+
+        // 標題
+        dt {
+          line-height: 1;
+          font-size: $thirdFontSize;
+        }
+
+        // 內容
+        dd {
+          margin: 36px 12px 0 0;
+          float: left;
+          width: 96px;
+          height: 92px;
+          padding-top: 10px;
+          border: 1px solid #ededed;
+          cursor: pointer;
+        }
+        
+        // 下載APP區域
+        .qrcode {
+          width: 102px;
+          height: 102px;
+          border: 1px solid #ededed;
+          padding: 0;
+
+          .qrcodeImg {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
+        }
+
+        .download {
+          font-size: $miniFontSize - 2px;
+          width: auto;
+          height: auto;
+          border: none;
+
+          span {
+            display: block;
+          }
+
+          .download-btn {
+            text-align: center;
+            display: block;
+            line-height: 1;
+            margin-top: 15px;
+            color: #fff;
+            border-radius: 2px;
+          }
+        }
+
+        // 電子郵件部分
+        .gmail {
+          color: #666;
+          border: none;
+        }
+      }
     }
   }
 
@@ -219,16 +222,16 @@ const copyrightData = ref([
         height: 58px;
         line-height: 58px;
         color: #fff;
-        font-size: 28px;
+        font-size: $thirdFontSize + 4px;
         transition: all 0.2s linear;
-
+        
         &:hover {
-          transform: scale(1.4);
+          transform: scale(1.2);
           color: $mainColor;
         }
 
         i {
-          font-size: 50px;
+          font-size: $bigFontSize;
           vertical-align: middle;
           margin-right: 10px;
           font-weight: 100;
@@ -247,7 +250,7 @@ const copyrightData = ref([
       padding-top: 40px;
       text-align: center;
       color: #fff;
-      font-size: 15px;
+      font-size: $miniFontSize;
 
       .copyrightData {
         line-height: 1;
@@ -261,7 +264,7 @@ const copyrightData = ref([
           line-height: 1;
           padding: 0 10px;
           transition: all 0.2s ease;
-          font-size: 16px;
+          font-size: $miniFontSize;
           font-style: normal;
 
           &:hover {
