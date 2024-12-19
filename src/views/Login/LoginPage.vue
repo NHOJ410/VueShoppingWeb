@@ -10,6 +10,7 @@ const userStore = useUserInfoStore() // 定義user倉庫
 // 導入 hooks
 import { useFormRules } from './composables/useFormRules.js' // 表單驗證
 import { useWowPlugin } from '@/composables/useWowPlugin.js' // wow.js插件
+import { useThrottleFn } from '@vueuse/core'  // 修改這行引入
 
 // wow.js插件效果
 useWowPlugin()
@@ -46,6 +47,28 @@ const onLogin = async () => {
 
 }
 
+// 提示帳號部分
+const hintAccount = useThrottleFn(() => {
+  ElNotification({
+    title: '提示',
+    message: '帳號為 : heima288',
+    type: 'success',
+    duration: 5000,
+    customClass: 'hint-Item'
+  })
+}, 5000)  // 5秒內最多執行一次
+
+// 提示密碼部分
+const hintPassword = useThrottleFn(() => {
+  ElNotification({
+    title: '提示',
+    message: '密碼為 : hm#qd@23!',
+    type: 'success',
+    duration: 5000,
+    customClass: 'hint-Item'
+  })
+}, 5000)  // 5秒內最多執行一次
+
 // 底部服務相關超連結部分
 const footerHerfData = ref([
   { name: '關於我們', href: '#' },
@@ -59,7 +82,12 @@ const footerHerfData = ref([
 
 
 // 服務條款部分
-const isShowService = ref(false) // 控制服務條款部分的顯示隱藏
+const termsofServiceRef = ref(null) // 服務條款組件實例對象
+
+// 顯示服務條款
+const onShowTermsofService = () => {
+  termsofServiceRef.value.onShow()
+}
 
 
 </script>
@@ -100,17 +128,17 @@ const isShowService = ref(false) // 控制服務條款部分的顯示隱藏
             <el-form :hide-required-asterisk="true" label-position="right" label-width="40px" status-icon
               :model="loginForm" :rules="loginRules" ref="loginRef">
               <el-form-item label="帳號" prop="account">
-                <el-input v-model="loginForm.account" placeholder="請輸入帳號" value="heima288" />
+                <el-input v-model="loginForm.account" placeholder="請輸入帳號" @focus="hintAccount"/>
               </el-form-item>
               <el-form-item label="密碼" prop="password">
-                <el-input show-password v-model="loginForm.password" placeholder="請輸入密碼" value="hm#qd@23!" />
+                <el-input show-password v-model="loginForm.password" placeholder="請輸入密碼" @focus="hintPassword" />
               </el-form-item>
               <!-- 同意條款區域 -->
               <el-form-item label-width="40px" prop="agree">
                 <el-checkbox size="large" v-model="loginForm.agree">
                   我已同意 服務條款
                 </el-checkbox>
-                <div class="service" :isShowService="isShowService" @click="isShowService = true">點擊查看服務條款</div>
+                <div class="service" @click="onShowTermsofService">點擊查看服務條款</div>
               </el-form-item>
               <!-- 點擊登入按鈕 -->
               <el-button size="large" class="subBtn" @click="onLogin">登入</el-button>
@@ -131,7 +159,7 @@ const isShowService = ref(false) // 控制服務條款部分的顯示隱藏
     </footer>
 
     <!-- 服務條款組件部分 -->
-    <TermsofService v-model:isShowService="isShowService"></TermsofService>
+    <TermsofService ref="termsofServiceRef"></TermsofService>
 
   </div>
 </template>
@@ -143,6 +171,7 @@ const isShowService = ref(false) // 控制服務條款部分的顯示隱藏
   transform: translateY(-30px);
   overflow: hidden;
   background-color: #fff;
+
 
   // 頂部LOGO部分和進入網站首頁部分
   .login-header {
@@ -267,7 +296,7 @@ const isShowService = ref(false) // 控制服務條款部分的顯示隱藏
 
   }
 
-
+ 
   // 底部版權部分
   .login-footer {
     margin-top: 20px;
@@ -304,6 +333,16 @@ const isShowService = ref(false) // 控制服務條款部分的顯示隱藏
       color: #999;
       margin-top: 40px;
     }
+  }
+}
+</style>
+
+<style lang="scss">
+// 表單輸入時的提示框樣式
+.hint-Item.el-notification{
+  .el-notification__content {
+    font-size: $miniFontSize;
+    letter-spacing: 1px;
   }
 }
 </style>
