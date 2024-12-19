@@ -57,7 +57,7 @@ const categoryStore = useCategoryStore() // 定義商品分類倉庫
       line-height: 55px;
 
       &:hover {
-        background: $xtxColor;
+        background: $mainColor;
         cursor: pointer;
       }
 

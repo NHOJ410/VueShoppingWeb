@@ -83,7 +83,7 @@ defineProps({
           .dt {
             font-size: 16px;
             width: 120px;
-            color: $xtxColor;
+            color: $mainColor;
             font-weight: 650;
           }
 

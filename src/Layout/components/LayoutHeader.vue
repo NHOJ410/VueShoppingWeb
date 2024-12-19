@@ -78,7 +78,7 @@ const onLoginOut = () => {
 
         transition: all 0.3s ease;
         &:hover {
-          color: $xtxColor;
+          color: $mainColor;
           transform: scale(1.2);
         }
 

@@ -66,11 +66,11 @@
 
           &:hover {
             transform: scale(1.3);
-            color: $xtxColor;
+            color: $mainColor;
             transition: all 0.3s ease;
           }
           &.router-link-exact-active {
-            color: $xtxColor;
+            color: $mainColor;
           }
         }
       }

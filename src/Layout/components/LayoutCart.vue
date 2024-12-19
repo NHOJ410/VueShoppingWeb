@@ -156,7 +156,7 @@ watch(() => cartStore.cartList.length, () => {
         position: relative;
      
         &:hover {
-          background: lighten($xtxColor, 50%);
+          background: lighten($mainColor, 50%);
         }
 
         // 商品主體內容

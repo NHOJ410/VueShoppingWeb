@@ -105,13 +105,13 @@ defineProps({
 
             &::before {
               content: " • ";
-              color: $xtxColor;
+              color: $mainColor;
               margin-right: 2px;
             }
           }
 
           a {
-            color: $xtxColor;
+            color: $mainColor;
           }
         }
       }

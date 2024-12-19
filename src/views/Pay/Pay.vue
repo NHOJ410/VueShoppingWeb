@@ -206,7 +206,7 @@ const activeIndex = async (title , index) => {
     // 選中效果
     &.active,
     &:hover {
-      border-color: $xtxColor;
+      border-color: $mainColor;
     }
 
   }

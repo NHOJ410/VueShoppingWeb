@@ -224,7 +224,7 @@ watchEffect(() => {
   
   // 商品規格選取狀態
   &.selected {
-    border-color: $xtxColor;
+    border-color: $mainColor;
   }
   
   // 禁用狀態

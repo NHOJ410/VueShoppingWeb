@@ -224,7 +224,7 @@ const copyrightData = ref([
 
         &:hover {
           transform: scale(1.4);
-          color: $xtxColor;
+          color: $mainColor;
         }
 
         i {
@@ -266,7 +266,7 @@ const copyrightData = ref([
 
           &:hover {
             transform: scale(1.4);
-            color: $xtxColor;
+            color: $mainColor;
           }
 
           &:last-child {

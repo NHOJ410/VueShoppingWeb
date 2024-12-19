@@ -104,8 +104,8 @@ const focusInp = async () => {
 
 
         &:hover {
-          color: $xtxColor;
-          border-bottom: 1px solid $xtxColor;
+          color: $mainColor;
+          border-bottom: 1px solid $mainColor;
           transform: scale(1.2);
         }
       }
@@ -113,8 +113,8 @@ const focusInp = async () => {
       // active激活時觸發的顏色
       .active {
         transform: scale(1.2);
-        color: $xtxColor;
-        border-bottom: 1px solid $xtxColor;
+        color: $mainColor;
+        border-bottom: 1px solid $mainColor;
       }
     }
   }

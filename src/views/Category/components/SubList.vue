@@ -66,7 +66,7 @@ defineProps({
           }
 
           &:hover {
-            color: $xtxColor;
+            color: $mainColor;
           }
         }
 

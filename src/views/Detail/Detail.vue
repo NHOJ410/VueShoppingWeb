@@ -303,13 +303,13 @@ watch(() => route.path, () => {
           margin-top: 10px;
 
           i {
-            color: $xtxColor;
+            color: $mainColor;
             font-size: 14px;
             margin-right: 2px;
           }
 
           &:hover {
-            color: $xtxColor;
+            color: $mainColor;
             cursor: pointer;
           }
         }

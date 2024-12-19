@@ -93,16 +93,16 @@ const { y } = useScroll(window)
       display: inline-block;
 
       &:hover {
-          color: $xtxColor;
-          border-bottom: 1px solid $xtxColor;
+          color: $mainColor;
+          border-bottom: 1px solid $mainColor;
           font-size: 1.3em;
           transition: 0.5s all ease;
       }
     }
 
     .active {
-      color: $xtxColor;
-      border-bottom: 1px solid $xtxColor;
+      color: $mainColor;
+      border-bottom: 1px solid $mainColor;
     }
   }
  }

@@ -7,6 +7,8 @@ defineProps({
   }
 })
 
+
+
 // 點擊確認按鈕後 回傳給父組件 通知關閉
 
 // 創建 emit事件
@@ -16,6 +18,7 @@ const emit = defineEmits(['update:isShowService'])
 const close = () => {
   emit('update:isShowService', false)
 }
+
 
 
 </script>
@@ -89,7 +92,7 @@ const close = () => {
     // 每項條款的標題
     dt {
       font-size: 20px;
-      color : $xtxColor;
+      color : $mainColor;
       margin: 20px 0;
     }
 

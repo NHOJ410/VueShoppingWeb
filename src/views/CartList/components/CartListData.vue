@@ -153,7 +153,7 @@ const onCheckAll = (checked) => {
       transition: all 0.5s ease;
 
       &:hover {
-        background: lighten($xtxColor, 30%);
+        background: lighten($mainColor, 30%);
         color : #000;
       }
 
@@ -209,7 +209,7 @@ const onCheckAll = (checked) => {
 
       // 刪除按鈕
       a {
-        color: $xtxColor;
+        color: $mainColor;
         font-size: 24px;
 
         &:hover {

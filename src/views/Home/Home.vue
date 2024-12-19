@@ -21,10 +21,10 @@ useWowPlugin()
       <HomeCategory></HomeCategory>
       <HomeBanner></HomeBanner>
     </div>
-    <!-- 新鮮好物區域 -->
-    <HomeNews></HomeNews>
     <!-- 熱門品牌區域 -->
     <HomeHot></HomeHot>
+    <!-- 新鮮好物區域 -->
+    <HomeNews></HomeNews>
     <!-- 商品列表區域 -->
     <HomeProduct></HomeProduct>
   </div>

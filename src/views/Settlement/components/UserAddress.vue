@@ -134,8 +134,8 @@ const { defaultAddress, addressList, toggleFlag, activeAddress } = storeToRefs(p
       &.active,
       &:hover {
         transform: scale(1.05);
-        border-color: $xtxColor;
-        background: lighten($xtxColor, 50%);
+        border-color:$mainColor;
+        background: lighten($mainColor, 50%);
 
       }
     }

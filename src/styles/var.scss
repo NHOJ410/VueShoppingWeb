@@ -1,9 +1,16 @@
 // 顏色變量
-$xtxColor: #27ba9b;
+$mainColor: #27ba9b;
 $helpColor: #e26237;
 $sucColor: #1dc779;
 $warnColor: #ffb302;
 $priceColor: #cf4444;
+
+// 字體大小
+$mainFontSize: 40px;
+$secFontSize : 32px;
+$thirdFontSize : 24px;
+$smallFontSize : 20px;
+$miniFontSize : 16px;
 
 // 麵包屑導航樣式
 @mixin bread-item {

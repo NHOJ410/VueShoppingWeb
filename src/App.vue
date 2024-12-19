@@ -90,7 +90,7 @@ onMounted(() => {
   height: 80px;
   font-size: 3rem;
   border-radius: 10px;
-  color: $xtxColor;
+  color: $mainColor;
   background-color: var(--el-bg-color-overlay);
   box-shadow: 0 0 10px rgba(39, 186, 155, 0.8); 
   text-align: center;
